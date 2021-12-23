@@ -1,12 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Ad from './Ad';
 import Header from './Header';
+import swal from 'sweetalert2'
+import Postmodel from './Postmodel';
+import { connect } from 'react-redux';
 
 
 const User = (props) => {
 
-    const redirectUser = () => {
+    const [showModel, setShowModel] = useState("close");
+
+    const redirectUser = (e) => {
+        e.preventDefault();
+        if(props.user){
+
+            switch(showModel){
+            case "open":
+                setShowModel("close");
+                break;
+
+            case "close":
+                setShowModel("open");
+            break;
+
+            default:
+                setShowModel("close");
+                break;
+        };
+  }else
+      swal.fire(
+                 {text:'Pls sign in to upload your products ',
+                 icon:'warning'})
 
     }
 
@@ -25,8 +50,8 @@ const User = (props) => {
                                 </UserNameDisplay>
                             </UserInfo>
 
-                            <Sharebox  onClick={redirectUser}>
-                                Add a post Section
+                            <Sharebox  onClick={(e) => {redirectUser(e)}}>
+                                What would you like to share ?
                                 <div>
                                 {props.user ?  <img src={props.user.photoURL} alt=""/> : <img src="images/user.svg" alt=""/>}
                                 <button>Start a post</button>
@@ -48,6 +73,7 @@ const User = (props) => {
                 </Signinuserrightsection>
                 
             </Section>
+            <Postmodel showModel={showModel} redirectUser={redirectUser}/>
         </Container>
     )
 }
@@ -237,4 +263,14 @@ const Signinuserrightsection = styled(Signinusersection)`
 
 
 
-export default User;
+const mapStateoProps = (state) =>{
+    return{
+        user:state.userState.user,
+    };
+};
+
+const mapDipatchToProps = (dipatch) => ({
+
+})
+
+export default connect(mapStateoProps,mapDipatchToProps)(User);

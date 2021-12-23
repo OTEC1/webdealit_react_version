@@ -21,7 +21,7 @@ top:55px;
 left: 0;
 padding: 0  24px;
 position:  fixed;
-z-index: 9999;
+z-index: 99;
 `;
 
 
