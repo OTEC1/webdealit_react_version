@@ -51,7 +51,7 @@ const User = (props) => {
                             </UserInfo>
 
                             <Sharebox  onClick={(e) => {redirectUser(e)}}>
-                                What would you like to share ?
+                                 What would you like to share?
                                 <div>
                                 {props.user ?  <img src={props.user.photoURL} alt=""/> : <img src="images/user.svg" alt=""/>}
                                 <button>Start a post</button>

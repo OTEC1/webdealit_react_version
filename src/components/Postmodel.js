@@ -6,7 +6,8 @@ import {useState,useRef} from "react";
 import {connect} from "react-redux";
 import axios from 'axios';
 import swal from 'sweetalert2'
-import { RiCamera2Line, RiPictureInPicture2Line, RiVideoAddLine, RiYoutubeLine } from 'react-icons/ri';
+import ReactPlayer from 'react-player'
+import { RiAlbumLine, RiCamera2Line, RiGalleryFill, RiGalleryLine, RiPictureInPicture2Line, RiVideoAddLine, RiVideoUploadLine, RiYoutubeFill, RiYoutubeLine } from 'react-icons/ri';
 
 
 
@@ -37,20 +38,23 @@ const Postmodel = (props) => {
     const [editorText2, setEditorText2] = useState("");
     const [shareImage, setShareImage] = useState('');
     const [videofile, setVideofile] = useState('');
+    const [youtube, setYoutube] = useState('');
     const [progress , setProgress] = useState(0);
     const [space, setSpace] = useState('Pic');
+    const [respones, setRespones] = useState('');
     const videoElem = useRef();
+    let img_format,vid_format;
 
 
     const  handle = (e) => {
  
-                const file = e.target.files[0];
-                setProgress(0);
-                if(file === '' || file === undefined){
-                    alert('The file is  a  ${typeof image}');
-                    return;
-                }
-                if(file.type === "image/png" || file.type === "image/jpeg" || file.type === "image/jpg"  || file.type === "image/webp"){
+          const file = e.target.files[0];
+           setProgress(0);
+           if(file === '' || file === undefined){
+           alert('The file is  a  ${typeof image}');
+            return;
+            }
+                 if(file.type === "image/png" || file.type === "image/jpeg" || file.type === "image/jpg"  || file.type === "image/webp"){
                     console.log("Piture");
                     setShareImage(file);
                 }else if(file.type === "video/mp4"){
@@ -74,14 +78,16 @@ const Postmodel = (props) => {
         let filestoupload = [];
         let m1,m2;
         var ts=Math.floor(Date.now()/1000);
-        let img_format,vid_format;
+        
         
         const file1 = shareImage;
         const file2 = videofile;
         const file3 = editorText1;
         const file4 = editorText2;
+        const file5 = youtube;
 
             if(file1 !== ''){    
+
               m1 = new Map();
               m1.set("id",file1.name);
               m1.set("ext",".png");
@@ -92,11 +98,10 @@ const Postmodel = (props) => {
                 img_format = addextension(m1.get("id"),ts,m1.get("ext"));
                 img_format = img_format.replace(/ /g, '')
                 SEND_TO_S3(img_format,m1.get("data"),1);
-                sendDB(img_format,vid_format,file3,file4);
               }
-     
-        }else if(file2 !== ''){
-
+         }
+         
+         if(file2 !== ''){
               m2 = new Map();
               m2.set("id",file2.name);
               m2.set("ext",".mp4");
@@ -107,41 +112,55 @@ const Postmodel = (props) => {
                 vid_format = addextension(m2.get("id"),ts,m2.get("ext"));
                 vid_format = vid_format.replace(/ /g, '')
                 SEND_THUMBNAIL(vid_format,m2.get("data"),2);
-                sendDB(img_format,vid_format,file3,file4);
             }
-        }else 
-             swal.fire({text:'Pls select a media file',icon:'warning'})
-        
-
-     
-           
-
+        }
+        sendDB(file3,file4,file5); 
     }
 
 
 
-    const sendDB = (img_format,vid_format,file4,file5) => {
+
+    const sendDB = (file3,file4,file5) => {
+
+        
         const payload = {
+            User:{
+                username: props.user.displayName,
+                user_img:props.user.photoURL,
+                useremail: props.user.email
+            },
+            UserPost:{
             image: img_format ? img_format: '',
             video: vid_format ? vid_format : '',
-            user: props.user,
-            title: file4 ? file4 : '',
-            description: file5 ? file5 : '',
-            timestamp: new Date().getDate,
-
+            title: file3 ? file3 : '',
+            writeup: file4 ? file4 : '',
+            youtubeLink: file5 ? file5 : '',
+            timestamp: new Date().getDate(),
+            views: 0,
+            likes:0,
+            approved: false,
+            }
         };
 
-       axios.post("",payload)
-       .then(res => {
-           console.log(res)
+       axios.post("https://us-central1-grelot-c7a70.cloudfunctions.net/webdealitAddPost",payload)
+       .then(res => { 
+           if(res.data.message == "Ok 200") {
+            myFunction();
+            setRespones("Write up uploaded...")    
+           }
        }).catch(err => {
-           console.log(err)
+           console.log(err); 
        })
        
 
      }
 
-    
+
+     function myFunction() {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      }
 
 
      const SEND_TO_S3 = (args,data, section) => {
@@ -252,6 +271,7 @@ const Postmodel = (props) => {
         setSpace(e);
         setVideofile('');
         setShareImage('');
+        setProgress(0)
     } 
 
 
@@ -276,28 +296,34 @@ const Postmodel = (props) => {
 
                                 <Editor>
                                 <input type="text" placeholder="Post  title (Optional)"  value={editorText1}  onChange={(e) => setEditorText1(e.target.value)}  autoFocus={true}/>
-                           
                                 <textarea  placeholder="Write up (Optional)" value={editorText2}  onChange={(e) => setEditorText2(e.target.value)} />
-                                    {space === "Pic" ?
+                                    {space === "Pic" &&
                                         (
                                         <UploadImage>
-                                        <input type="file"   name="image" id="file" style={{display: "none"}}  onChange={handle}/>
+                                        <input type="file"   name="image" id="file" style={{display: "none"}}  onChange={handle}  accept="image/png, image/gif, image/jpeg, image/jpg" />
                                         <p><label  htmlFor="file">{"Choose  image + "}</label></p>
                                         {shareImage && <img src={URL.createObjectURL(shareImage)}/>}
                                         </UploadImage>
-                                       ):(
+                                       )}
+                                       {space === "Vid" && (
                                         <UploadImage>
-                                            <input  type="file"   name="image" id="file-input" style={{display: "none"}}  onChange={handle}/>
+                                            <input  type="file"   name="image" id="file-input" style={{display: "none"}}  onChange={handle}  accept="video/mp4,video/x-m4v,video/*"/>
                                             <p><label  htmlFor="file-input">Choose Video + </label></p>
                                             <video 
                                             id="video"
                                             ref={videoElem}
-                                            src={videofile && editorText1 && editorText2 && !progress ? URL.createObjectURL(videofile):''}
+                                            src={videofile &&  !progress ? URL.createObjectURL(videofile):''}
                                             type="video/mp4"
                                             width="100%"
                                             height="100%"
                                             controls
                                             />
+                                        </UploadImage>
+                                    )}
+                                    {space === "You" && (
+                                        <UploadImage>
+                                            <input  type="text"   value={youtube} placeholder='Youtube link' onChange={(e) => setYoutube(e.target.value)}/>
+                                             <ReactPlayer id="reactP"  url={youtube} width="100%"/>
                                         </UploadImage>
                                     )}
                                     
@@ -307,14 +333,15 @@ const Postmodel = (props) => {
 
                             <ShareCreation>
                                 <Attach>
-                                  <RiCamera2Line size={20} id='pic'  onClick={(e) => Value("Pic")}/>
-                                  <RiYoutubeLine size={20} id='vid' onClick={(e) => Value("Vid")}/>
+                                  <RiCamera2Line size={20} id='pic'  onClick={(e) => Value("Pic")} />
+                                  <RiVideoUploadLine size={20} id='vid' onClick={(e) => Value("Vid")}/>
+                                  <RiYoutubeFill size={20} id='vid' onClick={(e) => Value("You")}/>
                                 </Attach>
                             <PostButton  disabled={!editorText1 && !editorText2  ? true : false}  onClick={PostData}>
                                 Post: {progress}%
                             </PostButton>
                         </ShareCreation>
-
+                        <div id="snackbar">{respones}</div>
                 </Content>
         </Container>
         )}
@@ -336,6 +363,51 @@ color:black;
 width:100%;
 z-index:999;
 background-color: rgba(0,0,0,0.8);
+
+
+
+#snackbar {
+
+  visibility: hidden; 
+  min-width: 250px;
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 9999; 
+  border-radius:10px;
+  left: 50%;  
+  margin-top: 20px;
+}
+#snackbar.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {top: 30px; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {top: 30px; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}
+
 `;
 
 
@@ -503,7 +575,7 @@ line-height: 30px;
 img{
 width:100%;
 max-height: 50%;
-top:10px;
+padding-top:20px;
 }
 label{
 padding: 10px;
@@ -512,7 +584,12 @@ background: #f5f5f5;
 box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 video{
-padding-top:10px;
+padding-top:20px;
+}
+
+
+#reactP{
+padding-top:20px;
 }
 `;
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components'
-import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine, RiArrowLeftRightLine, RiArrowRightCircleLine, RiMusic2Line, RiSearch2Line, RiShoppingBag3Line, RiUser2Line, RiVideoLine} from 'react-icons/ri'
+import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine, RiArrowLeftRightLine, RiArrowRightCircleLine, RiMovie2Line, RiMusic2Line, RiSearch2Line, RiShoppingBag3Line, RiUser2Line, RiVideoLine} from 'react-icons/ri'
 import { useNavigate }  from 'react-router-dom'
 import { connect } from 'react-redux';
 
@@ -69,10 +69,10 @@ const  Header = (props) => {
 
                         <Navchild>
                             <a>
-                                <RiVideoLine
+                                <RiMovie2Line
                                 size={20}
                                 color="#000"/>
-                                <span>Stream</span>
+                                <span>Download</span>
                             </a>
                         </Navchild>
 

@@ -2,16 +2,38 @@ import styled  from "styled-components";
 import Top from './Top'
 import Bottom from "./Bottom";
 import Ad from "./Ad";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 
 const Home = (props) => {
-        return(<Container>
+
+
+
+const [list, setList] = useState([]);
+
+
+useEffect(() => {
+  axios.get('https://us-central1-grelot-c7a70.cloudfunctions.net/webdealitGetAllPost')
+  .then(res => {
+     // console.log(res.data.message);
+      setList(res.data.message);
+  }).catch(err => {
+     console.log(err.message)
+  });
+  
+},[])
+
+
+        return(
+        <Container>
              <Ad/>  
-            <Contain>
-                <Top/>
+              <Contain>
+                <Top  post={list.length > 0 ? list : []}/>
                 <Bottom/>
-            </Contain>
+              </Contain>
             </Container>
+            
         )
 }
  
