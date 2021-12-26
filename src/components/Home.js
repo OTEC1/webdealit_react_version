@@ -4,6 +4,7 @@ import Bottom from "./Bottom";
 import Ad from "./Ad";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Loader from 'react-loader-spinner';
 
 
 const Home = (props) => {
@@ -16,7 +17,6 @@ const [list, setList] = useState([]);
 useEffect(() => {
   axios.get('https://us-central1-grelot-c7a70.cloudfunctions.net/webdealitGetAllPost')
   .then(res => {
-     // console.log(res.data.message);
       setList(res.data.message);
   }).catch(err => {
      console.log(err.message)
@@ -27,11 +27,23 @@ useEffect(() => {
 
         return(
         <Container>
+             <Contain>
+             {list.length > 0 ?(
+              <Top  post={list.length > 0 ? list : []}/>
+              ):
+              (
+                <div  id="loader">
+                 <Loader
+                  type="Oval"
+                  color="#FF5D16"
+                  height={100}
+                  width={100} 
+                 />
+                </div>
+              )}
+              <Bottom/>
+             </Contain>
              <Ad/>  
-              <Contain>
-                <Top  post={list.length > 0 ? list : []}/>
-                <Bottom/>
-              </Contain>
             </Container>
             
         )
@@ -42,6 +54,17 @@ useEffect(() => {
 const Container = styled.div`
 width: 100%;
 height: 100vh;
+
+
+
+#loader{
+margin-right: auto;
+margin-left:auto;
+height: 200px;
+margin-top:25%;
+width: 200px;
+text-align:center;
+}
 `;
 
 const Contain = styled.div`

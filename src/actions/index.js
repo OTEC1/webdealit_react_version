@@ -29,6 +29,17 @@ export function signInAPIGoogle(){
 
 
 
+export function signOutApi(){
+    return (dispatch) => {
+        auth.signOut().then(() => {
+            dispatch(setUser(null));
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+    };
+}
+
 
 
 export function getUserAuth(){
@@ -36,10 +47,6 @@ export function getUserAuth(){
         auth.onAuthStateChanged(async (use) => {
             if(use)
                 dispatch(setUser(use));
-            else
-                alert("Credentials request failed ! ")
-            
-
         });
     };
 };

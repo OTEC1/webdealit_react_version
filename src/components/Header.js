@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine, RiArrowLeftRightLine, RiArrowRightCircleLine, RiMovie2Line, RiMusic2Line, RiSearch2Line, RiShoppingBag3Line, RiUser2Line, RiVideoLine} from 'react-icons/ri'
 import { useNavigate }  from 'react-router-dom'
 import { connect } from 'react-redux';
+import {signOutApi}  from  '../actions'
 
 
 const  Header = (props) => {
@@ -24,8 +25,11 @@ const  Header = (props) => {
        var data = document.getElementById('authstate');
         if(data.value === "Login")
             history("/auth")
-            else
-          console.log("No")
+            else{
+                history("/auth")
+                props.logout()
+            }
+         
     }
 
     return (
@@ -129,6 +133,11 @@ height: 60px;
 `;
 
 
+
+
+
+
+
 const Content = styled.div`
 display: flex;
 align-items: center;
@@ -148,6 +157,12 @@ font-weight:700;
 font-family: "Poppins", sans-serif;
 margin: 10px;
 cursor: pointer;
+
+
+@media(max-width:768px){
+margin: 0px;
+margin-left:-10px;
+}
 
 `;
 
@@ -301,6 +316,7 @@ color:rgba(0,0,0,0.9);
 }
 }
 
+
 }
 
 
@@ -313,7 +329,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
- 
+    logout : () => dispatch(signOutApi()),
 });
 
 

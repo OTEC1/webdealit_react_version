@@ -30,11 +30,11 @@ const Top = (props) => {
                                 <h2>{value.UserPost.date_time}</h2>
 
                                 <div  id="Like">
-                                 <RiThumbUpFill size={20}/>&nbsp; 20
+                                 <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
                                 </div>
 
                                 <div id="Views">
-                                 <RiEyeFill   size={20}/>&nbsp;20
+                                 <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
                                 </div>
                                 
                               </div>
@@ -54,11 +54,11 @@ const Top = (props) => {
                                 <h2>{value.UserPost.date_time}</h2>
 
                                 <div  id="Like">
-                                 <RiThumbUpFill size={20} />&nbsp;20
+                                 <RiThumbUpFill size={20} />&nbsp;{value.UserPost.likes}
                                 </div>
 
                                 <div id="Views">
-                                 <RiEyeFill   size={20}/>&nbsp;20
+                                 <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
                                 </div>
 
                               </div>
@@ -78,11 +78,11 @@ const Top = (props) => {
                                 <h2>{value.UserPost.date_time}</h2>
 
                                <div  id="Like">
-                                 <RiThumbUpFill size={20}/> 20
+                                 <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
                                 </div>
 
                                 <div id="Views">
-                                 <RiEyeFill   size={20}/> 20
+                                 <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
                                 </div>
                              </div>
                             :
@@ -106,11 +106,11 @@ const Top = (props) => {
 
                     <div  id="React">
                        <div  id="Like">
-                        <RiThumbUpFill size={20}/> 20
+                        <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
                        </div>
 
                        <div id="Views">
-                        <RiEyeFill   size={20}/> 20
+                        <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
                        </div>
                     </div>
 
@@ -133,11 +133,11 @@ const Top = (props) => {
                       
                       <div  id="React">
                        <div  id="Like">
-                        <RiThumbUpFill size={20}/> 20
+                        <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
                        </div>
 
                         <div id="Views">
-                        <RiEyeFill   size={20}/> 20
+                        <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
                         </div>
                       </div>
                       
@@ -154,11 +154,11 @@ const Top = (props) => {
 
                       <div  id="React">
                       <div  id="Like">
-                        <RiThumbUpFill size={20}/> 20
+                        <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
                        </div>
 
                       <div id="Views">
-                        <RiEyeFill   size={20}/> 20
+                        <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
                        </div>
                       </div>
                     </div>
@@ -182,11 +182,11 @@ const Top = (props) => {
 
                     <div  id="React">
                       <div  id="Like">
-                        <RiThumbUpFill size={20}/> 20
+                        <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
                       </div>
 
                       <div id="Views">
-                        <RiEyeFill   size={20}/> 20
+                        <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
                       </div>
                     </div>
                    </div>
@@ -214,11 +214,11 @@ const Top = (props) => {
 
                        <div  id="React">
                          <div  id="Like">
-                        <RiThumbUpFill size={20}/> 20
+                        <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
                          </div>
 
                         <div id="Views">
-                          <RiEyeFill   size={20}/> 20
+                          <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
                          </div>
                       </div>
                       </BottomChild>                           
@@ -347,6 +347,12 @@ font-size:15pt;
 width: 100%;
 
 }
+
+
+
+@media(max-width:768px){
+height: 50vh;
+}
 `;
 
 
@@ -358,6 +364,7 @@ margin-top:0px;
 
 @media(max-width:768px){
 width: 100%;
+margin-top:10px;
 }
 
 `;
@@ -392,7 +399,7 @@ float: right;
 margin-right:15px;
 align-items:left;
 bottom: 0;
-color:#f5f5f5;
+color:#fff;
 
 }
 
@@ -478,6 +485,12 @@ color: #fff;
 }
 
 
+@media(max-width:768px){
+#YO{
+position: relative;
+margin-top: -70px;
+}
+}
 
 
 `;
@@ -589,6 +602,10 @@ justify-content: flex-start;
 
 @media(max-width:768px){
 width: 45%;
+
+#YO{
+font-size:8pt;
+}
 }
 
 
