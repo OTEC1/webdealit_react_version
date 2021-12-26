@@ -135,7 +135,8 @@ const Postmodel = (props) => {
             title: file3 ? file3 : '',
             writeup: file4 ? file4 : '',
             youtubeLink: file5 ? file5 : '',
-            timestamp: new Date().getDate(),
+            timestamp: new Date().getTime(),
+            date_time: new Date().toLocaleString(),
             views: 0,
             likes:0,
             approved: false,
@@ -322,7 +323,7 @@ const Postmodel = (props) => {
                                     )}
                                     {space === "You" && (
                                         <UploadImage>
-                                            <input  type="text"   value={youtube} placeholder='Youtube link' onChange={(e) => setYoutube(e.target.value)}/>
+                                            <input  type="text"   value={youtube} placeholder='Youtube video link' onChange={(e) => setYoutube(e.target.value)}/>
                                              <ReactPlayer id="reactP"  url={youtube} width="100%"/>
                                         </UploadImage>
                                     )}

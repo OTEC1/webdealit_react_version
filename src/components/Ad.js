@@ -12,7 +12,7 @@ const Ad = (props) => {
 
 
 const Container = styled.div`
-height: 15vh;
+height: 12vh;
 width: 100%;
 background-color: white;
 border-bottom: 1px solid rgba(0,0,0, 0.08);
