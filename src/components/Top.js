@@ -201,8 +201,9 @@ const Top = (props) => {
                 </RightMain>
            
 
-             <RightBottom>
                 <MobileAds/>
+
+             <RightBottom>
                     {props.post.map((value, index) =>  value.UserPost.image ? 
                       <BottomChild>
                         <img id="BottomUserImage" src={value.User.user_img}/>
@@ -574,7 +575,7 @@ object-fit:cover;
 
 
 @media(max-width:768px){
-height: 90%;
+height: 50%;
 }
 `;
 
