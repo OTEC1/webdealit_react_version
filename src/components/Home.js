@@ -35,7 +35,7 @@ useEffect(() => {
                 <div  id="loader">
                  <Loader
                   type="Oval"
-                  color="#FF5D16"
+                  color="#4180FF"
                   height={100}
                   width={100} 
                  />

@@ -94,25 +94,26 @@ const Top = (props) => {
 
 
             <Rightside>
+              <MobileAds/>
                <RightMain>
                 {props.post.map((value, index) => 
                  value.UserPost.image ? 
-                    <div>
+                    <div  id="RightHouse">
                        <div  id="Usercontainer">  
-                         <img id="Img" src={value.User.user_img}/>
+                         <img id="Img" src={value.User.user_img}  alt=""/>
                           <h5 id="userName">{value.User.username}</h5>
                        </div>   
-                    <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""/>  
+                       <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""/>  
 
-                    <div  id="React">
-                       <div  id="Like">
-                        <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
-                       </div>
+                       <div  id="React">
+                         <div  id="Like">
+                          <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
+                         </div>
 
-                       <div id="Views">
-                        <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
-                       </div>
-                    </div>
+                         <div id="Views">
+                         <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
+                         </div>
+                      </div>
 
                        <div  id="YO">
                            {
@@ -124,12 +125,12 @@ const Top = (props) => {
                         </div>
                     </div>                         
                      : value.UserPost.video ?
-                     <div>
-                       <div  id="Usercontainer">  
+                      <div>
+                        <div  id="Usercontainer">  
                          <img id="Img" src={value.User.user_img}/>
                           <h5 id="userName">{value.User.username}</h5>
-                       </div>                      
-                      <img src={process.env.REACT_APP_APP_S3_THUMB_NAIL_BUCKET+value.UserPost.video.toString().replace(".mp4",".png")} alt=""/>  
+                        </div>                      
+                        <img src={process.env.REACT_APP_APP_S3_THUMB_NAIL_BUCKET+value.UserPost.video.toString().replace(".mp4",".png")} alt=""/>  
                       
                       <div  id="React">
                        <div  id="Like">
@@ -139,7 +140,7 @@ const Top = (props) => {
                         <div id="Views">
                         <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
                         </div>
-                      </div>
+                       </div>
                       
                       <div  id="YO">
                           {
@@ -148,27 +149,32 @@ const Top = (props) => {
                           :
                           <div>{value.UserPost.writeup}</div>
                           }
-
                       </div>
 
 
                       <div  id="React">
-                      <div  id="Like">
+                       <div  id="Like">
                         <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
                        </div>
 
-                      <div id="Views">
-                        <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
-                       </div>
+                         <div id="Views">
+                          <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
+                         </div>
                       </div>
+
                     </div>
                      : value.UserPost.youtubeLink ?
                    <div>
-                      <div  id="Usercontainer">  
+
+                       <div  id="Usercontainer">  
                         <img id="Img" src={value.User.user_img}/>
                          <h5 id="userName">{value.User.username}</h5>
                       </div>    
-                     <ReactPlayer style={{marginLeft:"5px"}} width="97%"  height={300}  url={value.UserPost.youtubeLink} alt=""/>  
+                     <div  id="ReactPayer">
+                        <ReactPlayer  style={{marginLeft:"5px"}} width="100%"  height="100%"  url={value.UserPost.youtubeLink} alt=""/>  
+                     </div>
+                     
+                     
                      <div  id="YO">
                        {
                        value.UserPost.writeup.length > a ?
@@ -176,7 +182,6 @@ const Top = (props) => {
                        :
                        <div>{value.UserPost.writeup}</div>
                       }
-
                      </div>
 
 
@@ -189,6 +194,7 @@ const Top = (props) => {
                         <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
                       </div>
                     </div>
+
                    </div>
                    : <div></div>           
                   )}
@@ -196,7 +202,7 @@ const Top = (props) => {
            
 
              <RightBottom>
-                 
+                <MobileAds/>
                     {props.post.map((value, index) =>  value.UserPost.image ? 
                       <BottomChild>
                         <img id="BottomUserImage" src={value.User.user_img}/>
@@ -345,13 +351,13 @@ font-size:15pt;
 }
 @media(max-width:768px){
 width: 100%;
+height: 50vh;
 
+#userName{
+left: 14%;
+top: 6.5%;
 }
 
-
-
-@media(max-width:768px){
-height: 50vh;
 }
 `;
 
@@ -375,6 +381,7 @@ overflow-x:scroll;
 height: 50%;
 width: 100%;
 position: relative;
+
 
 ::-webkit-scrollbar {
   width: 7px;
@@ -476,6 +483,10 @@ object-fit:cover;
 
 
 
+#ReactPayer{
+height: 300px;
+width: 97%;
+}
 
 #userName{
 position: absolute;
@@ -486,15 +497,53 @@ color: #fff;
 
 
 @media(max-width:768px){
+margin-top:20px;
+display: flex;
+overflow: auto;
+height: 60%;
+
+
+::-webkit-scrollbar {
+display: none;
+}
+#RightHouse{
+flex-wrap: nowrap;  
+margin-left:15px;
+}
+
+img{
+width: 300px;
+height: 300px;
+}
+
+
+#ReactPayer{
+height: 300px;
+width: 300px !important;
+}
+
 #YO{
 position: relative;
-margin-top: -70px;
+margin-top: -80px;
 }
 }
-
-
 `;
 
+
+
+
+const MobileAds = styled.div`
+display: none;
+height: 200px;
+width: 100%;
+margin-top:10px;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+@media(max-width:768px){
+display: block;
+}
+
+`;
 
 
 
@@ -503,8 +552,9 @@ const RightBottom = styled.div`
 height: 50%;
 width: 100%;
 overflow-x:scroll;
-top:7px;
-text-align:left;
+display: flex;
+flex-wrap:wrap;
+align-items:center;
 
 
 ::-webkit-scrollbar {
@@ -521,33 +571,38 @@ width: 100%;
 height: 100%;
 object-fit:cover;
 }
+
+
+@media(max-width:768px){
+height: 90%;
+}
 `;
 
 
 
 const BottomChild = styled.div`
-width: 250px;
+width: 47%;
 height: 150px;
-display: inline-block;
-margin: 7px;
+margin: 6px;
 position: relative;
+text-align:left;
 
 
 
 #BottomUserImage{
 position: absolute;
-width: 24px;
-height: 24px;
+width: 20px;
+height: 20px;
 border-radius:50%;
 margin-top: 10px;
-margin-left:10px;
+margin-left:8px;
 }
 
 
 label{
 position: absolute;
-margin-left:40px;
-margin-top:15px;
+margin-left:35px;
+margin-top:12px;
 font-size:9pt;
 color: #fff;
 }
@@ -574,8 +629,6 @@ bottom: 0px;
 right: 0px;
 font-size:10pt;
 color: #fff;
-
-
 }
 
 
@@ -599,9 +652,9 @@ text-align:center;
 justify-content: flex-start;
 }
 
-
 @media(max-width:768px){
-width: 45%;
+width:44%;
+margin: 10px;
 
 #YO{
 font-size:8pt;

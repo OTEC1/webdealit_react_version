@@ -76,7 +76,7 @@ const  Header = (props) => {
                                 <RiMovie2Line
                                 size={20}
                                 color="#000"/>
-                                <span>Download</span>
+                                <span>Stream</span>
                             </a>
                         </Navchild>
 
