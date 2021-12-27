@@ -8,6 +8,9 @@ import Home from './components/Home';
 import Signin from './components/Signin';
 import Register from './components/Register';
 import { connect } from 'react-redux';
+import Videoui from './components/Videosui';
+import Music from './components/Music'
+import Dropshipping from './components/Dropshipping';
 
 function App(props) {
 
@@ -39,6 +42,22 @@ props.getUserAuth();
           <Routes>
            <Route  path="/register" element={<Register/>}/>
           </Routes>
+
+
+          <Routes>
+           <Route  path="/Streaming" element={<Videoui/>}/>
+          </Routes>
+
+
+
+          <Routes>
+           <Route  path="/Music" element={<Music/>}/>
+          </Routes>
+
+          <Routes>
+           <Route  path="/dropshipping" element={<Dropshipping/>}/>
+          </Routes>
+
       </Router>
     </div>
   );

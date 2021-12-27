@@ -11,13 +11,28 @@ const  Header = (props) => {
     const [query, setQuery] = useState('');
     const history = useNavigate();
 
+
+    const homeNav = () => {
+        history("/");
+    }
+
     const userNav = () => {
         history("/user");
     }
 
 
-    const homeNav = () => {
-        history("/");
+    const Streaming = () => {
+        history("/Streaming");
+    }
+
+
+    const Music = () => {
+        history("/Music");
+    }
+
+   
+    const dropshipping = () => {
+        history("/dropshipping");
     }
 
 
@@ -71,7 +86,7 @@ const  Header = (props) => {
                         </Navchild>
 
 
-                        <Navchild>
+                        <Navchild  onClick={Streaming}>
                             <a>
                                 <RiMovie2Line
                                 size={20}
@@ -81,7 +96,7 @@ const  Header = (props) => {
                         </Navchild>
 
 
-                        <Navchild>
+                        <Navchild   onClick={Music}>
                             <a>
                                 <RiMusic2Line
                                 size={20}
@@ -91,7 +106,7 @@ const  Header = (props) => {
                         </Navchild>
 
 
-                        <Navchild>
+                        <Navchild  onClick={dropshipping}>
                             <a>
                                 <RiShoppingBag3Line
                                 size={20}
