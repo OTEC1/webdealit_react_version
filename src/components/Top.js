@@ -501,7 +501,7 @@ color: #fff;
 margin-top:20px;
 display: flex;
 overflow: auto;
-height: 60%;
+height: 65%;
 
 
 ::-webkit-scrollbar {

@@ -161,7 +161,7 @@ cursor: pointer;
 
 @media(max-width:768px){
 margin: 0px;
-margin-left:-10px;
+margin-left:-20px;
 }
 
 `;
