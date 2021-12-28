@@ -20,7 +20,7 @@ background: green;
 
 
 @media(max-width:768px){
-margin-top:550px;
+margin-top:570px;
 }
 `;
 

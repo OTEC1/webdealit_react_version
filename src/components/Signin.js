@@ -49,7 +49,7 @@ const Signin = (props) => {
 
 
     return(
-                <Container>
+               <Container>
                     
                     {props.user && <Navigate to="/"/>}
                         <Section class="screen">
@@ -141,6 +141,9 @@ h3{
 margin-bottom:10px;
 }
 
+@media(max-width:768px){
+overflow: hidden;
+}
 `;
 
 

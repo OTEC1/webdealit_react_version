@@ -143,6 +143,11 @@ h3{
 margin-bottom:10px;
 }
 
+
+@media(max-width:768px){
+overflow: hidden;
+}
+
 `;
 
 

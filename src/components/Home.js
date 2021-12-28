@@ -65,6 +65,13 @@ margin-top:25%;
 width: 200px;
 text-align:center;
 }
+
+@media(max-width:768px){
+#loader{
+margin-top:90%;
+height: auto;
+} 
+}
 `;
 
 const Contain = styled.div`

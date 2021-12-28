@@ -2,7 +2,7 @@ import styled  from "styled-components";
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 import ReactPlayer from "react-player";
-import  {RiEyeFill, RiEyeLine, RiThumbUpFill, RiThumbUpLine, RiYoutubeLine } from 'react-icons/ri';
+import  {RiEyeFill, RiEyeLine, RiThumbUpFill, RiThumbUpLine, RiLiveFill } from 'react-icons/ri';
 
 const Top = (props) => {
     
@@ -12,6 +12,7 @@ const Top = (props) => {
 
         
             <Leftside>
+              <RiLiveFill id="live"  size={20}  color="red"/> <h4>News 24+</h4>
                     <Slider autoplay={1} previousButton="" nextButton="">
                        
                           {props.post.map((value, index) => 
@@ -27,8 +28,7 @@ const Top = (props) => {
                                      <div>{value.UserPost.writeup}</div>
                                      }
                                  </label>
-                                <h2>{value.UserPost.date_time}</h2>
-
+                            
                                 <div  id="Like">
                                  <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
                                 </div>
@@ -75,7 +75,7 @@ const Top = (props) => {
                                  <div>{value.UserPost.writeup}</div>
                                  }
                                </label>
-                                <h2>{value.UserPost.date_time}</h2>
+                                
 
                                <div  id="Like">
                                  <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
@@ -95,6 +95,7 @@ const Top = (props) => {
 
             <Rightside>
               <MobileAds/>
+              <h4>Trends</h4>
                <RightMain>
                 {props.post.map((value, index) => 
                  value.UserPost.image ? 
@@ -202,7 +203,7 @@ const Top = (props) => {
            
 
                 <MobileAds/>
-
+                <h4>Week line up</h4>
              <RightBottom>
                     {props.post.map((value, index) =>  value.UserPost.image ? 
                       <BottomChild>
@@ -250,14 +251,26 @@ display: flex;
 flex-wrap: wrap;
 text-shadow: 2px 2px #4180FF;
 
+h4{
+float: left;
+margin: 5px;
+font-weight:600;
+
+}
+
+#live{
+margin:5px;
+float: left;
+}
 `;
 
 
 
 const Leftside = styled.div`
 width: 50%;
-height: 70vh;
+height: 74vh;
 margin-top:0px;
+
 
 #userName{
 position: absolute;
@@ -289,14 +302,6 @@ text-align:left;
 }
 
 
-h2{
-position: absolute;
-bottom: 50px;
-font-size:9pt;
-color: #fff;
-left: 2%;
-text-shadow: 2px 2px #4180FF;
-}
 
 #Like{
 position: absolute;
@@ -352,7 +357,8 @@ font-size:15pt;
 }
 @media(max-width:768px){
 width: 100%;
-height: 50vh;
+height: 40vh;
+margin-bottom:20px;
 
 #userName{
 left: 14%;
@@ -537,7 +543,7 @@ const MobileAds = styled.div`
 display: none;
 height: 200px;
 width: 100%;
-margin-top:10px;
+margin-top:15px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
 @media(max-width:768px){
