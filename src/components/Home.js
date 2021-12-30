@@ -28,7 +28,7 @@ useEffect(() => {
         return(
         <Container>
              <Contain>
-             {list.length > 0 ?(
+             {list.length > 0 ? (
               <Top  post={list.length > 0 ? list : []}/>
               ):
               (

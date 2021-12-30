@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import Videoui from './components/Videosui';
 import Music from './components/Music'
 import Dropshipping from './components/Dropshipping';
+import Explorecontent from './components/Explorecontent'
 
 function App(props) {
 
@@ -58,6 +59,9 @@ props.getUserAuth();
            <Route  path="/dropshipping" element={<Dropshipping/>}/>
           </Routes>
 
+          <Routes>
+            <Route  path='/explorecontent/:val/:em/:doc'  element={<Explorecontent/>}/>
+          </Routes>
       </Router>
     </div>
   );
