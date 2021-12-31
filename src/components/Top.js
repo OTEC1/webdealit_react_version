@@ -3,28 +3,66 @@ import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
-import  {RiEyeFill, RiEyeLine, RiThumbUpFill, RiThumbUpLine, RiLiveFill } from 'react-icons/ri';
+import  {RiEyeFill, RiEyeLine, RiThumbUpFill, RiThumbUpLine, RiLiveFill, RiArrowLeftCircleLine, RiArrowRightCircleLine } from 'react-icons/ri';
+import { useEffect, useRef, useState } from "react";
 
 const Top = (props) => {
     
     var a  = 55; 
 
     const history = useNavigate();
+    const [scrollPostion, setScrollPosition] = useState(0);
+    const myref = useRef(null);
+    
 
     const navigates = (val,em,doc) =>{
-      history('/explorecontent/'+val+"/"+em+"/"+doc)
+      history('/explorecontent/'+val+"/"+em+"/"+doc);
     }
+
+
+    const  onScroll  = () => {
+      const scrollY = window.scrollY 
+      const scrollTop = myref.current.scrollTop
+      console.log(`onScroll, window.scrollY: ${scrollY} myRef.scrollTop: ${scrollTop}`)
+    }
+
+
+    const UserPage = () => {
+     alert("OK")
+    }
+
+    useEffect(() => {
+      handelScrollPosition();
+      console.log("Call")
+    },[])
+
+
+  const handelScrollPosition = () => {
+      const scroll = sessionStorage.getItem("scrollPoint");
+      if(scroll){
+        console.log(scroll,"SCR")
+        window.scrollTo(0,parseInt(scroll));
+        sessionStorage.removeItem("scrollPoint");
+      }
+    };
+  
+
+    const handleClick = e => {
+      console.log(window.pageYOffset ,"SCP")
+      sessionStorage.setItem("scrollPoint", window.pageYOffset);
+    }
+
     return(<Container>
             <Leftside>
               <RiLiveFill id="live"  size={20}  color="red"/> <h4>Video feeds</h4>
-                    <Slider autoplay={1} previousButton="" nextButton="">
+                    <Slider autoplay={1} previousButton={<RiArrowLeftCircleLine  color="red"/>} nextButton={<RiArrowRightCircleLine color="red"/>}>
                           {props.post.map((value, index) => 
                             value.UserPost.image ?
-                             <div onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_b)}>
-                               <img id="userImg" src={value.User.user_img} />
+                             <div>
+                               <img id="userImg" src={value.User.user_img} onClick={UserPage}/>
                                <h5 id="userName">{value.User.username}</h5>
                                <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""/>
-                                 <label>{
+                                 <label onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_b)}>{
                                     value.UserPost.writeup.length > a ?
                                     <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                                         :
@@ -44,11 +82,11 @@ const Top = (props) => {
                               </div>
                               :
                               value.UserPost.video ?
-                              <div onClick={(e) => navigates("Videoframe",value.User.useremail, value.UserPost.doc_id_b)}>
-                                <img id="userImg" src={value.User.user_img}/>
+                              <div>
+                                <img id="userImg" src={value.User.user_img} onClick={UserPage}/>
                                 <h5 id="userName">{value.User.username}</h5>
                                  <img src={process.env.REACT_APP_APP_S3_THUMB_NAIL_BUCKET+value.UserPost.video.toString().replace(".mp4",".png")} alt=""  />
-                                 <label>{
+                                 <label   onClick={(e) => navigates("Videoframe",value.User.useremail, value.UserPost.doc_id_b)}>{
                                    value.UserPost.writeup.length > a ?
                                     <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                                      :
@@ -68,11 +106,11 @@ const Top = (props) => {
                               </div>
                             :
                             value.UserPost.youtubeLink ?
-                            <div onClick={(e) => navigates("Playerframe",value.User.useremail, value.UserPost.doc_id_b)}>
-                               <img id="userImg" src={value.User.user_img}/>
+                            <div>
+                               <img id="userImg" src={value.User.user_img}  onClick={UserPage}/>
                                <h5 id="userName">{value.User.username}</h5>
                                <ReactPlayer  width="100%"  height="100%" url={value.UserPost.youtubeLink}  controls  />
-                               <label>{
+                               <label  onClick={(e) => navigates("Playerframe",value.User.useremail, value.UserPost.doc_id_b)}>{
                                 value.UserPost.writeup.length > a ?
                                 <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                                  :
@@ -97,18 +135,20 @@ const Top = (props) => {
             </Leftside>
 
 
-            <Rightside>
+            <Rightside >
               <MobileAds/>
               <h4>Gist feed</h4>
-               <RightMain>
+               <RightMain    ref={myref}  onScroll={onScroll}>
                 {props.post.map((value, index) => 
                  value.UserPost.image ? 
                     <div  id="RightHouse">
+
                        <div  id="Usercontainer">  
-                         <img id="Img" src={value.User.user_img}  alt=""/>
+                         <img id="Img" src={value.User.user_img}  alt=""  onClick={UserPage} />
                           <h5 id="userName">{value.User.username}</h5>
-                       </div>   
-                       <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""/>  
+                       </div>  
+
+                       <img className="imgID" src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""/>  
 
                        <div  id="React">
                          <div  id="Like">
@@ -120,7 +160,7 @@ const Top = (props) => {
                          </div>
                       </div>
 
-                       <div  id="YO">
+                       <div  id="YO"   onClick={(e)=>navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_b)}>
                            {
                            value.UserPost.writeup.length > a ?
                            <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -132,10 +172,10 @@ const Top = (props) => {
                      : value.UserPost.video ?
                       <div>
                         <div  id="Usercontainer">  
-                         <img id="Img" src={value.User.user_img}/>
+                          <img id="Img" src={value.User.user_img}  onClick={UserPage}/>
                           <h5 id="userName">{value.User.username}</h5>
                         </div>                      
-                        <img src={process.env.REACT_APP_APP_S3_THUMB_NAIL_BUCKET+value.UserPost.video.toString().replace(".mp4",".png")} alt=""/>  
+                        <img   className="imgID" src={process.env.REACT_APP_APP_S3_THUMB_NAIL_BUCKET+value.UserPost.video.toString().replace(".mp4",".png")} alt=""/>  
                       
                       <div  id="React">
                        <div  id="Like">
@@ -147,7 +187,7 @@ const Top = (props) => {
                         </div>
                        </div>
                       
-                      <div  id="YO">
+                      <div  id="YO"  onClick={(e)=>navigates("Videoframe",value.User.useremail, value.UserPost.doc_id_b)}>
                           {
                           value.UserPost.writeup.length > a ?
                           <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -169,53 +209,52 @@ const Top = (props) => {
 
                     </div>
                      : value.UserPost.youtubeLink ?
-                   <div>
+                        <div>
+                            <div  id="Usercontainer">  
+                              <img id="Img" src={value.User.user_img} onClick={UserPage}/>
+                              <h5 id="userName">{value.User.username}</h5>
+                            </div>    
+                          <div  id="ReactPayer">
+                              <ReactPlayer   width="100%"  height="100%"  url={value.UserPost.youtubeLink} alt=""/>  
+                          </div>
+                          
+                          
+                          <div  id="YO"  onClick={(e)=>navigates("Playerframe",value.User.useremail, value.UserPost.doc_id_b)}>
+                            {
+                            value.UserPost.writeup.length > a ?
+                            <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
+                            :
+                            <div>{value.UserPost.writeup}</div>
+                            }
+                          </div>
 
-                       <div  id="Usercontainer">  
-                        <img id="Img" src={value.User.user_img}/>
-                         <h5 id="userName">{value.User.username}</h5>
-                      </div>    
-                     <div  id="ReactPayer">
-                        <ReactPlayer  style={{marginLeft:"5px"}} width="100%"  height="100%"  url={value.UserPost.youtubeLink} alt=""/>  
-                     </div>
-                     
-                     
-                     <div  id="YO">
-                       {
-                       value.UserPost.writeup.length > a ?
-                       <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
-                       :
-                       <div>{value.UserPost.writeup}</div>
-                      }
-                     </div>
 
+                          <div  id="React">
+                            <div  id="Like">
+                              <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
+                            </div>
 
-                    <div  id="React">
-                      <div  id="Like">
-                        <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
-                      </div>
+                            <div id="Views">
+                              <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
+                            </div>
+                          </div>
 
-                      <div id="Views">
-                        <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
-                      </div>
-                    </div>
-
-                   </div>
+                        </div>
                    : <div></div>           
                   )}
                 </RightMain>
            
 
                 <MobileAds/>
-                <h4>Week line up</h4>
-             <RightBottom>
+                 <h4>Week line up</h4>
+                   <RightBottom onScroll={onScroll}  ref={myref}>
                     {props.post.map((value, index) =>  value.UserPost.image ? 
                       <BottomChild>
-                        <img id="BottomUserImage" src={value.User.user_img}/>
+                        <img id="BottomUserImage" src={value.User.user_img} onClick={UserPage} />
                         <label>{value.User.username}</label>
-                        <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""/>  
+                        <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_b)}/>  
                       
-                        <div  id="YO">{
+                        <div  id="YO"  onClick={handleClick}>{
                            value.UserPost.writeup.length > a ?
                            <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                            :
@@ -261,7 +300,7 @@ float: left;
 
 const Leftside = styled.div`
 width: 50%;
-height: 65vh;
+height: 70.5vh;
 margin-top:0px;
 
 
@@ -300,19 +339,17 @@ text-align:left;
 position: absolute;
 bottom: 20px;
 height: 24px;
-width: 70px;
+width: 100px;
 font-size:9pt;
 color: #828282;
 background: #fff;
-left: 20%;
+left: 0%;
 align-items:center;
 display: flex;
 padding-left: 5px;
 padding-bottom:5px;
 justify-content: flex-start;
 text-shadow:none;
-border-radius:5px 5px 0px 0px;
-
 }
 
 
@@ -324,12 +361,12 @@ height: 24px;
 font-size:9pt;
 color: #828282;
 background: #fff;
-left: 2%;
+left: 15%;
 padding-left: 5px;
 align-items:center;
 display: flex;
 text-shadow:none;
-border-radius:0px 0px 5px 5px;
+border-radius:0px 5px 5px 0px;
 justify-content: flex-start;
 padding-bottom:5px;
 }
@@ -417,11 +454,11 @@ width: 22%;
 height: 24px;
 font-size:10px;
 float: right;
-margin-right:15px;
+margin-right:6px;
 align-items:left;
 bottom: 0;
 background-color:#fff;
-border-radius:5px 0px 5px 0px;
+border-radius:5px 0px 0px 5px;
 
 
 }
@@ -541,8 +578,12 @@ width: 300px;
 height: 300px;
 }
 
+.imgID{
+  margin: 5px;
+}
 
 #ReactPayer{
+margin: 5px;
 height: 300px;
 width: 300px !important;
 }
@@ -584,7 +625,7 @@ display: block;
 
 
 const RightBottom = styled.div`
-height: 37.5%;
+height: 45%;
 width: 100%;
 overflow-x:scroll;
 display: flex;

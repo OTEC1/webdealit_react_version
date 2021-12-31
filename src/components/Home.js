@@ -9,10 +9,7 @@ import Loader from 'react-loader-spinner';
 
 const Home = (props) => {
 
-
-
 const [list, setList] = useState([]);
-
 
 useEffect(() => {
   axios.get('https://us-central1-grelot-c7a70.cloudfunctions.net/webdealitGetAllPost')
@@ -44,9 +41,8 @@ useEffect(() => {
               <Bottom/>
              </Contain>
              <Ad/>  
-            </Container>
-            
-        )
+            </Container>        
+    )
 }
  
 
