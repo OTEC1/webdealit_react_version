@@ -459,8 +459,6 @@ align-items:left;
 bottom: 0;
 background-color:#fff;
 border-radius:5px 0px 0px 5px;
-
-
 }
 
 
@@ -473,6 +471,7 @@ text-align:center;
 justify-content: flex-start;
 padding-bottom:3px;
 padding-left:5px;
+padding-top:2px;
 color: #828282;
 text-shadow:none;
 width: 52px;
@@ -490,6 +489,7 @@ color: #828282;
 width: 50px;
 text-shadow:none;
 padding-bottom:3px;
+padding-top:2px;
 }
 
 #YO{
@@ -590,9 +590,12 @@ width: 300px !important;
 
 
 #React{
-width: 40.3%;
+width: 41%;
 background: #fff;
+margin-right:4px;
+margin-top: -35px;
 }
+
 
 #Like{
 width: 55.5px;
