@@ -12,7 +12,7 @@ const Home = (props) => {
 const [list, setList] = useState([]);
 
 useEffect(() => {
-  axios.get('https://us-central1-grelot-c7a70.cloudfunctions.net/webdealitGetAllPost')
+  axios.get(process.env.REACT_APP_GET_ALL_POST)
   .then(res => {
       setList(res.data.message);
   }).catch(err => {

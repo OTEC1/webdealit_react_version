@@ -68,7 +68,7 @@ const Top = (props) => {
                                     value.UserPost.writeup.length > a ?
                                     <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                                         :
-                                     <div>{value.UserPost.writeup}</div>
+                                     <div>{value.UserPost.writeup}  <span>See more &nbsp;</span></div>
                                      }
                                  </label>
                             
@@ -92,7 +92,7 @@ const Top = (props) => {
                                    value.UserPost.writeup.length > a ?
                                     <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                                      :
-                                     <div>{value.UserPost.writeup}</div>
+                                     <div>{value.UserPost.writeup} <span>See more</span></div>
                                    }
                                  </label>
                                 <h2>{value.UserPost.date_time}</h2>
@@ -116,7 +116,7 @@ const Top = (props) => {
                                 value.UserPost.writeup.length > a ?
                                 <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                                  :
-                                 <div>{value.UserPost.writeup}</div>
+                                 <div>{value.UserPost.writeup} <span>See more</span></div>
                                  }
                                </label>
                                 
@@ -167,7 +167,7 @@ const Top = (props) => {
                            value.UserPost.writeup.length > a ?
                            <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                            :
-                           <div>{value.UserPost.writeup}</div>
+                           <div>{value.UserPost.writeup} <span>See more</span></div>
                             }
                         </div>
                     </div>                         
@@ -194,7 +194,7 @@ const Top = (props) => {
                           value.UserPost.writeup.length > a ?
                           <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                           :
-                          <div>{value.UserPost.writeup}</div>
+                          <div>{value.UserPost.writeup} <span>See more</span></div>
                           }
                       </div>
 
@@ -226,7 +226,7 @@ const Top = (props) => {
                             value.UserPost.writeup.length > a ?
                             <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                             :
-                            <div>{value.UserPost.writeup}</div>
+                            <div>{value.UserPost.writeup}<span>See more</span></div>
                             }
                           </div>
 
@@ -260,7 +260,7 @@ const Top = (props) => {
                            value.UserPost.writeup.length > a ?
                            <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                            :
-                           <div>{value.UserPost.writeup}</div>
+                           <div>{value.UserPost.writeup} <span>See more</span></div>
                             }
                         </div>
                       </BottomChild>                           
@@ -391,7 +391,7 @@ text-shadow: 2px 2px #4180FF;
 
 span{
 font-weight:400;
-font-size:15pt;
+font-size:10pt;
 }
 @media(max-width:768px){
 width: 100%;
@@ -434,6 +434,7 @@ overflow-x:scroll;
 height: 50%;
 width: 100%;
 position: relative;
+
 
 
 ::-webkit-scrollbar {
@@ -529,6 +530,11 @@ font-size:20px;
 text-shadow: 2px 2px #4180FF;
 }
 
+
+span{
+font-weight:400;
+font-size:7pt;
+}
 
 
 #Img{
@@ -686,6 +692,13 @@ margin-left:35px;
 margin-top:12px;
 font-size:9pt;
 color: #fff;
+}
+
+
+
+span{
+font-weight:400;
+font-size:7pt;
 }
 
 

@@ -150,7 +150,7 @@ const Postmodel = (props) => {
             }
         };
 
-       axios.post("https://us-central1-grelot-c7a70.cloudfunctions.net/webdealitAddPost",payload)
+       axios.post(process.env.REACT_APP_POST_END_POINT,payload)
        .then(res => { 
            if(res.data.message == "Ok 200") {
             myFunction();
