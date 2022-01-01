@@ -103,9 +103,19 @@ margin:5px;
 
 @media(max-width:768px){
  
+text-align:center;
     
 #startPin{
 font-size:15pt;
+}
+
+
+
+tr td{
+max-width:97%;
+width:97%;
+float: none;
+text-align:left;
 }
 }
 `;

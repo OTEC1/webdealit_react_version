@@ -16,9 +16,9 @@ const Top = (props) => {
     const myref = useRef(null);
     
 
-    const navigates = (val,em,doc) =>{
-      updatePostlikes(1,0,1,em,doc,"");
-      history('/explorecontent/'+val+"/"+em+"/"+doc);
+    const navigates = (val,em,doc,docB) =>{
+      updatePostlikes(1,0,1,em,doc,docB);
+      history('/explorecontent/'+val+"/"+em+"/"+docB);
     }
 
 
@@ -64,7 +64,7 @@ const Top = (props) => {
                                <img id="userImg" src={value.User.user_img} onClick={UserPage}/>
                                <h5 id="userName">{value.User.username}</h5>
                                <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""/>
-                                 <label onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_b)}>{
+                                 <label onClick={(e) => navigates("Pictureframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>{
                                     value.UserPost.writeup.length > a ?
                                     <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                                         :
@@ -88,7 +88,7 @@ const Top = (props) => {
                                 <img id="userImg" src={value.User.user_img} onClick={UserPage}/>
                                 <h5 id="userName">{value.User.username}</h5>
                                  <img src={process.env.REACT_APP_APP_S3_THUMB_NAIL_BUCKET+value.UserPost.video.toString().replace(".mp4",".png")} alt=""  />
-                                 <label   onClick={(e) => navigates("Videoframe",value.User.useremail, value.UserPost.doc_id_b)}>{
+                                 <label   onClick={(e)=> navigates("Videoframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>{
                                    value.UserPost.writeup.length > a ?
                                     <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                                      :
@@ -112,7 +112,7 @@ const Top = (props) => {
                                <img id="userImg" src={value.User.user_img}  onClick={UserPage}/>
                                <h5 id="userName">{value.User.username}</h5>
                                <ReactPlayer  width="100%"  height="100%" url={value.UserPost.youtubeLink}  controls  />
-                               <label  onClick={(e) => navigates("Playerframe",value.User.useremail, value.UserPost.doc_id_b)}>{
+                               <label  onClick={(e)=> navigates("Playerframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>{
                                 value.UserPost.writeup.length > a ?
                                 <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
                                  :
@@ -162,7 +162,7 @@ const Top = (props) => {
                          </div>
                       </div>
 
-                       <div  id="YO"   onClick={(e)=>navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_b)}>
+                       <div  id="YO"   onClick={(e)=>navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
                            {
                            value.UserPost.writeup.length > a ?
                            <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -189,7 +189,7 @@ const Top = (props) => {
                         </div>
                        </div>
                       
-                      <div  id="YO"  onClick={(e)=>navigates("Videoframe",value.User.useremail, value.UserPost.doc_id_b)}>
+                      <div  id="YO"  onClick={(e)=>navigates("Videoframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
                           {
                           value.UserPost.writeup.length > a ?
                           <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -221,7 +221,7 @@ const Top = (props) => {
                           </div>
                           
                           
-                          <div  id="YO"  onClick={(e)=>navigates("Playerframe",value.User.useremail, value.UserPost.doc_id_b)}>
+                          <div  id="YO"  onClick={(e)=>navigates("Playerframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
                             {
                             value.UserPost.writeup.length > a ?
                             <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -254,7 +254,7 @@ const Top = (props) => {
                       <BottomChild>
                         <img id="BottomUserImage" src={value.User.user_img} onClick={UserPage} />
                         <label>{value.User.username}</label>
-                        <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_b)}/>  
+                        <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}/>  
                       
                         <div  id="YO"  onClick={handleClick}>{
                            value.UserPost.writeup.length > a ?
@@ -320,6 +320,7 @@ border-radius:50%;
 height: 24px;
 width:24px;
 margin:20px;
+cursor: pointer;
 }
 
 
@@ -542,6 +543,7 @@ border-radius:50%;
 height: 24px;
 width:24px;
 margin: 10px;
+cursor: pointer;
 }
 
 
@@ -683,6 +685,7 @@ height: 20px;
 border-radius:50%;
 margin-top: 10px;
 margin-left:8px;
+cursor: pointer;
 }
 
 

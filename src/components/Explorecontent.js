@@ -9,16 +9,17 @@ import Explore  from './Explore'
 
 
 
+
  const Explorecontent = (props) => {
 
     let {val, em, doc} = useParams();
     const [datas, setDatas] = useState([]);
 
 
-
+   
     useEffect(() => {
         window.scrollTo(0,0);
-        axios.post(process.env.REACT_APP_GET_SINGEL_USE_POST,{User:{useremail:em},UserPost:{doc_id_b:doc}})
+        axios.post(process.env.REACT_APP_GET_SINGLE_USE_POST,{User:{useremail:em},UserPost:{doc_id_b:doc}})
         .then(res => {
            setDatas(res.data.message);
         }).catch(err => {

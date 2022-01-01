@@ -6,7 +6,7 @@ import WriteUp from './WriteUps';
 import { RiThumbUpFill, RiThumbUpLine } from 'react-icons/ri';
 import { useState } from 'react';
 import Load from './Load';
-import {updatePostlikes} from '../actions'
+import {updatePostlikes,format} from '../actions'
 
 
 
@@ -15,16 +15,16 @@ const Explore  =  (props) => {
 
 
     const [react, setReact] = useState(false);
+    const [update, setUpdate] = useState(false);
     
 
 
     const reset =  (email, docA, docB) =>  {
         
-        if(react)
-            setReact(false);
-        else{
-            setReact(true);
-            updatePostlikes(1,1,0,email,docA,docB);
+        if(react){
+            setReact(false);  setUpdate(false);
+        }else{
+            setReact(true); updatePostlikes(1,1,0,email,docA,docB); setUpdate(true);
         }
     } 
 
@@ -52,7 +52,7 @@ const Explore  =  (props) => {
 
                                                <tr>
                                                    <td>
-                                                   <span>24K</span>
+                                                   <span>{update ?  parseInt(format(v.UserPost.likes))+1 : format(v.UserPost.likes)}</span>
                                                    </td>
                                                </tr>
                                            </table>
@@ -160,6 +160,13 @@ img{
 height:500px;
 width: 80%;
 object-fit:cover;
+}
+
+span{
+display: flex;
+text-align:center;
+justify-content:center;
+align-items:center;
 }
 
 

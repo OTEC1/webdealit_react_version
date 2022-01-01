@@ -81,6 +81,11 @@ import {FaSearchengin} from 'react-icons/fa'
                         </Slider>
                 </TopSection>
 
+                
+                <br/>
+                <br/>
+                <br/>
+                <br/>
                 <span id='Span'>Trending</span>
                 <BottomSection>
                     {list2.map((v,i)=>
@@ -90,8 +95,6 @@ import {FaSearchengin} from 'react-icons/fa'
                     </div>
 
                     )}
-                    
-
                 </BottomSection>
             </MovieSection>
         </Container>
@@ -347,15 +350,15 @@ font-size:30px;
 
 const BottomSection= styled.div`
 width: 100%;
-margin-top:5px;
-height: 24vh;
+padding-top:5px;
+height: 35vh;
 overflow: auto;
 white-space: nowrap;
 
 #videos{
 display: inline-block;
 width: 200px;
-height: 85.5%;
+height: 75%;
 background: red;
 margin: 10px;
 }
@@ -365,7 +368,7 @@ display: none;
 }
 
 @media(max-width:768px){
-  margin-top:20px;
+  margin-top:10px;
 }
 
 
