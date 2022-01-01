@@ -5,6 +5,7 @@ import Header from './Header';
 import swal from 'sweetalert2'
 import Postmodel from './Postmodel';
 import { connect } from 'react-redux';
+import { useEffect } from 'react';
 
 
 const User = (props) => {
@@ -35,6 +36,7 @@ const User = (props) => {
 
     }
 
+    useEffect(() => window.scrollTo(0,0))
 
     return(
         <Container>

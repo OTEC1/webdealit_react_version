@@ -17,6 +17,7 @@ import Explore  from './Explore'
 
 
     useEffect(() => {
+        window.scrollTo(0,0);
         axios.post("https://us-central1-grelot-c7a70.cloudfunctions.net/webdealitGetSinglePost",{User:{useremail:em},UserPost:{doc_id_b:doc}})
         .then(res => {
            setDatas(res.data.message);

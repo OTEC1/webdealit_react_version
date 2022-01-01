@@ -12,6 +12,7 @@ import Videoui from './components/Videosui';
 import Music from './components/Music'
 import Dropshipping from './components/Dropshipping';
 import Explorecontent from './components/Explorecontent'
+import Usercontentpage from './components/UsercontentPage'
 
 function App(props) {
 
@@ -61,6 +62,10 @@ props.getUserAuth();
 
           <Routes>
             <Route  path='/explorecontent/:val/:em/:doc'  element={<Explorecontent/>}/>
+          </Routes>
+
+          <Routes>
+            <Route  path='/UserPage'  element={<Usercontentpage/>}></Route>
           </Routes>
       </Router>
     </div>

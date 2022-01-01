@@ -5,6 +5,7 @@ import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import  {RiEyeFill, RiEyeLine, RiThumbUpFill, RiThumbUpLine, RiLiveFill, RiArrowLeftCircleLine, RiArrowRightCircleLine } from 'react-icons/ri';
 import { useEffect, useRef, useState } from "react";
+import { updatePostlikes } from "../actions";
 
 const Top = (props) => {
     
@@ -16,6 +17,7 @@ const Top = (props) => {
     
 
     const navigates = (val,em,doc) =>{
+      updatePostlikes(1,0,1,em,doc,"");
       history('/explorecontent/'+val+"/"+em+"/"+doc);
     }
 
@@ -28,7 +30,7 @@ const Top = (props) => {
 
 
     const UserPage = () => {
-     alert("OK")
+       history("/UserPage")
     }
 
     useEffect(() => {
@@ -54,7 +56,7 @@ const Top = (props) => {
 
     return(<Container>
             <Leftside>
-              <RiLiveFill id="live"  size={20}  color="red"/> <h4>Video feeds</h4>
+              <RiLiveFill id="live"  size={20}  color="red"/> <h4>Explore feeds</h4>
                     <Slider autoplay={1} previousButton={<RiArrowLeftCircleLine  color="red"/>} nextButton={<RiArrowRightCircleLine color="red"/>}>
                           {props.post.map((value, index) => 
                             value.UserPost.image ?
@@ -246,7 +248,7 @@ const Top = (props) => {
            
 
                 <MobileAds/>
-                 <h4>Week line up</h4>
+                 <h4>Weekly lineup</h4>
                    <RightBottom onScroll={onScroll}  ref={myref}>
                     {props.post.map((value, index) =>  value.UserPost.image ? 
                       <BottomChild>

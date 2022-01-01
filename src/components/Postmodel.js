@@ -47,20 +47,27 @@ const Postmodel = (props) => {
 
 
     const  handle = (e) => {
- 
+          var count = 0;
           const file = e.target.files[0];
+          const size = e.target.files[0].size;
+           /** make this env variable */    count = size/1048576;
            setProgress(0);
            if(file === '' || file === undefined){
            alert('The file is  a  ${typeof image}');
             return;
-            }
+            }else if(Math.round(count) > 150){
+               swal.fire({title:"File too large ", text:`Sorry file is ${Math.round(count)}mb.. allowed size is below 150mb`, icon:'warning'})
+        
+            }else{
+
                  if(file.type === "image/png" || file.type === "image/jpeg" || file.type === "image/jpg"  || file.type === "image/webp"){
                     console.log("Piture");
                     setShareImage(file);
                 }else if(file.type === "video/mp4"){
                         console.log("Video");
                         setVideofile(file);
-                }     
+                }  
+            }   
          
     }
 
@@ -550,6 +557,10 @@ min-height:150px;
 resize: none;
 padding:5px;
 margin-bottom:10px;
+border: 3px solid #ccc;
+:focus{
+border: 3px solid #ccc;
+}
 }
 
 input{
@@ -558,7 +569,10 @@ height: 35px;
 font-size:16px;
 margin-bottom: 10px;
 padding:5px;
-
+border: 3px solid #ccc;
+:focus{
+    border: 3px solid #ccc;
+}
 }
 
 `;

@@ -139,7 +139,6 @@ margin-top:150px;
 margin-bottom:30px;
 box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 
-
 `;
 
 
@@ -181,7 +180,12 @@ margin-top:5px;
 
 @media(max-width:768px){
 position: relative;
-margin: auto;
+width: 300px;
+border:2px solid #f5f5f5;
+left:25%;
+z-index:500;
+
+
 }
 
 `;
@@ -358,6 +362,10 @@ margin: 10px;
 
 ::-webkit-scrollbar {
 display: none;
+}
+
+@media(max-width:768px){
+  margin-top:20px;
 }
 
 

@@ -49,7 +49,9 @@ width:80%;
 margin:auto;
 margin-top:20px;
 
-`}
+`;
+
+
  export default UserContentpage;
 
 
