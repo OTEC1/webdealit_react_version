@@ -98,11 +98,11 @@ const Top = (props) => {
                                 <h2>{value.UserPost.date_time}</h2>
 
                                 <div  id="Like">
-                                 <RiThumbUpFill size={20} />&nbsp;{format(value.UserPost.likes)}
+                                 <RiThumbUpFill size={20} />&nbsp;{format(value.UserPost.likes,0)}
                                 </div>
 
                                 <div id="Views">
-                                 <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
+                                 <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views,0)}
                                 </div>
 
                               </div>
@@ -122,11 +122,11 @@ const Top = (props) => {
                                 
 
                                <div  id="Like">
-                                 <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
+                                 <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes,0)}
                                 </div>
 
                                 <div id="Views">
-                                 <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
+                                 <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views,0)}
                                 </div>
                              </div>
                             :
@@ -181,11 +181,11 @@ const Top = (props) => {
                       
                       <div  id="React">
                        <div  id="Like">
-                        <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
+                        <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes,0)}
                        </div>
 
                         <div id="Views">
-                        <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
+                        <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views,0)}
                         </div>
                        </div>
                       

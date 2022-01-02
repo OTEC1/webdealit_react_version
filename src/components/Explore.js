@@ -69,28 +69,27 @@ const Explore  =  (props) => {
                                 ):props.val === "Videoframe" ? (
                                     <div className='frame'> 
                                     {v.UserPost !== undefined ? (
-                                    <div>
+                                     <div>
 
-                                    <div  id='soap'>
-                                           <table>
-                                               <tr>
-                                                   <td   onClick={() => reset(v.User.useremail,v.UserPost.doc_id_a, v.UserPost.doc_id_b)}>
-                                                    {!react ?  <RiThumbUpLine  id='thumb'/> :  <RiThumbUpFill color='#4180FF'  id='thumb'/>}
-                                                   </td>
-                                               </tr>
+                                        <div  id='soap'>
+                                            <table>
+                                                <tr>
+                                                    <td   onClick={() => reset(v.User.useremail,v.UserPost.doc_id_a, v.UserPost.doc_id_b)}>
+                                                        {!react ?  <RiThumbUpLine  id='thumb'/> :  <RiThumbUpFill color='#4180FF'  id='thumb'/>}
+                                                    </td>
+                                                </tr>
 
-                                               <tr>
-                                                   <td>
-                                                   <span>{update ?  parseInt(format(v.UserPost.likes))+1 : format(v.UserPost.likes)}</span>
-                                                   </td>
-                                               </tr>
-                                           </table>
-                                       </div>
+                                                <tr>
+                                                    <td>
+                                                    <span>{update ?  parseInt(v.UserPost.likes)+1 : format(v.UserPost.likes)}</span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
 
-                                         <ReactPlayer  width="100%"  height="400px"  controls url={process.env.REACT_APP_APP_S3_VIDEO_BUCKET+v.UserPost.video}   />
-                                         <WriteUp val={v.UserPost}/>
-                                    </div>
-                                     
+                                            <ReactPlayer  width="85%"  height="400px"  controls url={process.env.REACT_APP_APP_S3_VIDEO_BUCKET+v.UserPost.video}   />
+                                            <WriteUp val={v.UserPost}/>
+                                     </div>
                                     ):( 
                                      <Load/>
                                     )}
@@ -99,23 +98,23 @@ const Explore  =  (props) => {
                                     <div className='frame'>  
                                      {v.UserPost !== undefined ? (
                                       <div>
-                                      <div  id='soap'>
-                                           <table>
-                                               <tr>
-                                                   <td   onClick={() => reset(v.User.useremail,v.UserPost.doc_id_a, v.UserPost.doc_id_b)}>
-                                                    {!react ?  <RiThumbUpLine  id='thumb'/> :  <RiThumbUpFill color='#4180FF'  id='thumb'/>}
-                                                   </td>
-                                               </tr>
+                                        <div  id='soap'>
+                                            <table>
+                                                <tr>
+                                                    <td   onClick={() => reset(v.User.useremail,v.UserPost.doc_id_a, v.UserPost.doc_id_b)}>
+                                                        {!react ?  <RiThumbUpLine  id='thumb'/> :  <RiThumbUpFill color='#4180FF'  id='thumb'/>}
+                                                    </td>
+                                                </tr>
 
-                                               <tr>
-                                                   <td>
-                                                   <span>{update ?  parseInt(format(v.UserPost.likes))+1 : format(v.UserPost.likes)}</span>
-                                                   </td>
-                                               </tr>
-                                           </table>
-                                       </div>
+                                                <tr>
+                                                    <td>
+                                                    <span>{update ?  parseInt(format(v.UserPost.likes))+1 : format(v.UserPost.likes)}</span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                         </div>
 
-                                        <ReactPlayer   width="100%"  height="400px" controls url={v.UserPost.youtubeLink} />
+                                        <ReactPlayer   width="85%"  height="400px" controls url={v.UserPost.youtubeLink} />
                                         <WriteUp val={v.UserPost}/>
                                       </div>
                                      ):( 
