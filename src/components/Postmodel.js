@@ -240,7 +240,7 @@ const Postmodel = (props) => {
 
       bucket.putObject(params)
               .on('httpUploadProgress', (e) => {
-                      setProgress(Math.round((e.loaded / e.total) * 100));
+                      //setProgress(Math.round((e.loaded / e.total) * 100));
               })
               .on('httpDone', (e) => {
                     SEND_TO_S3(args,dataVideo,section);

@@ -370,8 +370,6 @@ display: none;
 @media(max-width:768px){
   margin-top:10px;
 }
-
-
 `;
 
 
