@@ -87,7 +87,7 @@ const Explore  =  (props) => {
                                             </table>
                                         </div>
 
-                                            <ReactPlayer  width="85%"  height="400px"  controls url={process.env.REACT_APP_APP_S3_VIDEO_BUCKET+v.UserPost.video}   />
+                                            <ReactPlayer  width="100%"  height="400px"  controls url={process.env.REACT_APP_APP_S3_VIDEO_BUCKET+v.UserPost.video}   />
                                             <WriteUp val={v.UserPost}/>
                                      </div>
                                     ):( 
@@ -114,7 +114,7 @@ const Explore  =  (props) => {
                                             </table>
                                          </div>
 
-                                        <ReactPlayer   width="85%"  height="400px" controls url={v.UserPost.youtubeLink} />
+                                        <ReactPlayer   width="100%"  height="400px" controls url={v.UserPost.youtubeLink} />
                                         <WriteUp val={v.UserPost}/>
                                       </div>
                                      ):( 
@@ -160,7 +160,7 @@ margin-top:40px;
 
 
 .frame{
-width: 70%;
+width: 60%;
 height: auto;
 margin-bottom:10px;
 position: relative;
