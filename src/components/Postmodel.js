@@ -190,9 +190,9 @@ const Postmodel = (props) => {
                 })
                 .send((err) => {
                     if(err) {
-                        alert("Snap error occurred");
                         setProgress(0);
-                        console.log(err);
+                        alert("Snap error occurred",err);
+                        
                     }
                 });  
      }
@@ -247,9 +247,9 @@ const Postmodel = (props) => {
               })
               .send((err) => {
                   if(err) {
-                      alert("Snap error occurred");
-                      setProgress(0);
-                      console.log(err);
+                    setProgress(0);
+                      alert("Snap error occurred", err);
+                      
                   }
               });  
    }  

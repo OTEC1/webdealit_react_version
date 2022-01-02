@@ -66,7 +66,36 @@ export  function updatePostlikes(count,likes,views,email,doc_id_a,doc_id_b){
 
 
 export function  format(count){
-    let m = count + 0;
+
+    let m;
+
+        if(count < 1000)
+            m=count;
+        else if(count >= 1)
+            m="1k+"
+        else if(count >= 2000)
+              m="2k+"
+        else if(count >= 3000)
+              m="3k+"
+       else if(count >= 4000)
+              m="4k+"
+       else if(count >= 5000)
+              m="5k+"
+       else if(count >= 6000)
+              m="6k+"
+       else if(count >= 7000)
+              m="7k+"
+       else if(count >= 8000)
+              m="8k+"
+       else if(count >= 9000)
+              m="9k+"
+       else if(count > 10000)
+              m="🔥🔥"
+
+
+
+
+    
     return m
 }
 
