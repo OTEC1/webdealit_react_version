@@ -5,7 +5,7 @@ import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import  {RiEyeFill, RiEyeLine, RiThumbUpFill, RiThumbUpLine, RiLiveFill, RiArrowLeftCircleLine, RiArrowRightCircleLine } from 'react-icons/ri';
 import { useEffect, useRef, useState } from "react";
-import { updatePostlikes } from "../actions";
+import { updatePostlikes, format } from "../actions";
 
 const Top = (props) => {
     
@@ -74,11 +74,11 @@ const Top = (props) => {
                             
                             
                                 <div  id="Like">
-                                 <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
+                                 <RiThumbUpFill size={20}/>&nbsp; {format(value.UserPost.likes)}
                                 </div>
 
                                 <div id="Views">
-                                 <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
+                                 <RiEyeFill   size={20}/>&nbsp; {format(value.UserPost.views)}
                                 </div>
                                 
                               </div>
@@ -98,11 +98,11 @@ const Top = (props) => {
                                 <h2>{value.UserPost.date_time}</h2>
 
                                 <div  id="Like">
-                                 <RiThumbUpFill size={20} />&nbsp;{value.UserPost.likes}
+                                 <RiThumbUpFill size={20} />&nbsp;{format(value.UserPost.likes)}
                                 </div>
 
                                 <div id="Views">
-                                 <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
+                                 <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
                                 </div>
 
                               </div>
@@ -122,11 +122,11 @@ const Top = (props) => {
                                 
 
                                <div  id="Like">
-                                 <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
+                                 <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
                                 </div>
 
                                 <div id="Views">
-                                 <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
+                                 <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
                                 </div>
                              </div>
                             :
@@ -154,11 +154,11 @@ const Top = (props) => {
 
                        <div  id="React">
                          <div  id="Like">
-                          <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
+                          <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
                          </div>
 
                          <div id="Views">
-                         <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
+                         <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
                          </div>
                       </div>
 
@@ -181,11 +181,11 @@ const Top = (props) => {
                       
                       <div  id="React">
                        <div  id="Like">
-                        <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
+                        <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
                        </div>
 
                         <div id="Views">
-                        <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
+                        <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
                         </div>
                        </div>
                       
@@ -201,11 +201,11 @@ const Top = (props) => {
 
                       <div  id="React">
                        <div  id="Like">
-                        <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
+                        <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
                        </div>
 
                          <div id="Views">
-                          <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
+                          <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
                          </div>
                       </div>
 
@@ -233,11 +233,11 @@ const Top = (props) => {
 
                           <div  id="React">
                             <div  id="Like">
-                              <RiThumbUpFill size={20}/>&nbsp;{value.UserPost.likes}
+                              <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
                             </div>
 
                             <div id="Views">
-                              <RiEyeFill   size={20}/>&nbsp;{value.UserPost.views}
+                              <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
                             </div>
                           </div>
 
