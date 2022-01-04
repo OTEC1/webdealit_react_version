@@ -31,8 +31,7 @@ const User = (props) => {
         };
   }else
       swal.fire(
-                 {text:'Pls sign in to upload your products ',
-                 icon:'warning'})
+                 {text:'Pls sign in to upload your products ', icon:'warning'})
 
     }
 
@@ -48,16 +47,24 @@ const User = (props) => {
                     <CardBackground/>
                            <UserInfo>
                                 <UserNameDisplay>
-                                Welcome {props.user ? props.user.displayName : "user" }  
+                                Welcome {props.user ? props.user.displayName ?  props.user.displayName : props.user.User.email.substring(0,props.user.User.email.indexOf('@')) : "user" }  
                                 </UserNameDisplay>
                             </UserInfo>
 
                             <Sharebox  onClick={(e) => {redirectUser(e)}}>
                                  What would you like to share?
+                            
                                 <div>
-                                {props.user ?  <img src={props.user.photoURL} alt=""/> : <img src="images/user.svg" alt=""/>}
+                                {props.user ? 
+                                <>
+                                <img src={props.user.photoURL ? props.user.photoURL : "images/customSignInbackground.png" } alt=""/>
+                                <h5>{props.user.User !== undefined ? props.user.User.email.substring(0,1).toUpperCase(): ""}</h5>
+                                </>
+                                : <img src="/images/user.svg" alt=""/>
+                                }
                                 <button>Start a post</button>
-                              </div>
+                                </div>
+                                
                             </Sharebox>
                     </User_Page>
 
@@ -214,6 +221,16 @@ const Sharebox = styled(CommonCard)`
                 background:#fff;
                 text-align:left;
             }
+
+            h5{
+            position: absolute;
+            margin-left: 20px;
+            font-weight:700;
+            font-size:20pt;
+            color:#fff;
+            font-family: "Poppins", sans-serif;
+             }
+
         }
 
 
@@ -225,6 +242,9 @@ const Sharebox = styled(CommonCard)`
                 }
                 button{
                 min-height:38px;
+               }
+               h5{
+                margin-left: 12px;
                }
             }
         }

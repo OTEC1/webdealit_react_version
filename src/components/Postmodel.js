@@ -284,7 +284,7 @@ const Postmodel = (props) => {
 
 
 
-    
+
     return(
         <>  
         {props.showModel === "open" &&(
@@ -298,12 +298,13 @@ const Postmodel = (props) => {
 
                         <SharedContent>
                                 <UserInfo>
-                                    {props.user ?  <img src={props.user.photoURL} alt=""/> : <img src="/images/user.svg" alt=""/> }
-                                    <span>{props.user ? props.user.displayName : "Name"}</span>
+                                    <h5>{props.user.User ? props.user.User.email.substring(0,1).toUpperCase(): ""}</h5>
+                                    {props.user ?  <img src={props.user.photoURL ? props.user.photoURL : "images/customSignInbackground.png" } alt=""/> : <img src="/images/user.svg" alt=""/>}
+                                    <span>{props.user ? props.user.displayName ? props.user.displayName : props.user.User.email.substring(0,props.user.User.email.indexOf('@')) : "Name"}</span>
                                 </UserInfo>
 
                                 <Editor>
-                                <input type="text" placeholder="Post  title (Optional)"  value={editorText1}  onChange={(e) => setEditorText1(e.target.value)}  autoFocus={true}/>
+                                <input type="text" placeholder="Post  title"  value={editorText1}  onChange={(e) => setEditorText1(e.target.value)}  autoFocus={true}/>
                                 <textarea  placeholder="Write up (Optional)" value={editorText2}  onChange={(e) => setEditorText2(e.target.value)} />
                                     {space === "Pic" &&
                                         (
@@ -495,6 +496,15 @@ span{
 font-weight:600;
 font-size:16px;
 line-height:1.5px;
+}
+
+h5{
+position: absolute;
+margin-left: 22px;
+font-weight:700;
+font-size:20pt;
+color:#fff;
+font-family: "Poppins", sans-serif;
 }
 `;
 

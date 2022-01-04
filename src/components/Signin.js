@@ -1,29 +1,22 @@
 import { RiArrowRightFill, RiArrowRightSLine, RiEye2Line, RiFacebookBoxLine, RiGoogleFill, RiInstagramLine, RiLockPasswordLine, RiMailLine, RiTwitterLine } from 'react-icons/ri';
 import {connect} from 'react-redux'
-import { signInAPIGoogle } from '../actions';
+import { CustomSignIn, signInAPIGoogle} from '../actions';
 import styled from 'styled-components'
 import { useState } from 'react';
 import swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom';
-import {Navigate} from "react-router"
+import {Navigate, Redirect} from "react-router"
+import  axios  from 'axios';
+import Loader from 'react-loader-spinner';
 
 
 
 const Signin = (props) => {
 
-    const [email, setEmail] = useState('');
+    
     const history = useNavigate();
-  
 
-    console.log("Sign ",props.user)
-
-    const authdata = () => {
-         if(email && document.querySelector('#password').value.length > 0){
-             swal.fire("OK")
-         }else
-             swal.fire({text:"Pls fill out all fields! ", icon:'warning'})
-    }
-
+ 
 
     const Viewpass = () => {
         const pass2 = document.querySelector('#password');
@@ -47,18 +40,17 @@ const Signin = (props) => {
     }
 
 
-
     return(
                <Container>
                     
-                    {props.user && <Navigate to="/"/>}
+                    {props.user  && <Navigate to="/"/> }
                         <Section class="screen">
                             <Content>
                               <Screencontent>
                                     <Login>
                                         <Loginfield>
                                             <RiMailLine id='mail' size={20}  color='#6A679E'/>
-                                            <input type="text" class="login__input" placeholder="Username / Email"   value={email}  onChange={(e) => setEmail(e.target.value)}/>
+                                            <input type="text" class="login__input" placeholder="Username / Email"   id='email'/>
                                         </Loginfield>
 
 
@@ -68,9 +60,10 @@ const Signin = (props) => {
                                             <RiEye2Line  id='Eye'  onClick={Viewpass} size={20}  color='#000' />
                                         </Loginfield>
 
-
-                                        <button  onClick={authdata}>
-                                            <span id="button__text">Log In</span>
+                                            
+                                        <button  onClick={(e) => props.Login(1)}>
+                                            
+                                            <span id="button__text">{props.promise ?  <Loader  type="Oval" color="#6A679E" height={20}  width={20}/> : "login" }</span>
                                             <RiArrowRightSLine size={20}  color='#6A679E'/>
                                         </button>		
 
@@ -88,7 +81,7 @@ const Signin = (props) => {
                                             <RiFacebookBoxLine size={20} color='#fff'/>
                                             <RiInstagramLine  size={20} color='#fff'/>
                                             <RiTwitterLine  size={20} color='#fff'/>
-                                            <RiGoogleFill  onClick={() => props.Login()} size={20} color='#fff'/>
+                                            <RiGoogleFill  onClick={() => props.Login(2)} size={20} color='#fff'/>
                                         </Socialicons>
                                     </Sociallogin>
                             </Screencontent>
@@ -333,12 +326,14 @@ cursor: pointer;
 const mapStateToProps = (state) => {
     return{
         user: state.userState.user,
+        promise: state.promiseState.promise,
     };
 }
 
 
 const mapDispatchToprops = dispatch => ({
-    Login: () => dispatch(signInAPIGoogle()),
+    
+    Login: (e) => e === 1 ? dispatch(CustomSignIn()) : dispatch(signInAPIGoogle()),
 });
 export default connect(mapStateToProps,mapDispatchToprops)(Signin);
 

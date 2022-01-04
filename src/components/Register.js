@@ -2,22 +2,63 @@ import { RiArrowRightFill, RiArrowRightSLine, RiEye2Line, RiFacebookBoxLine, RiG
 import styled from 'styled-components'
 import { useState } from 'react';
 import swal from 'sweetalert2'
+import axois from 'axios'
+import Loader from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
+var validator = require("email-validator");
+
 
 
 const Register = () => {
 
     const [email, setEmail] = useState('');
+    const [promise, setPromise] = useState('');
+    const [login, setLogin] = useState(false);
+
+
+    let history = useNavigate();
+
+
+    const LoginUI = () => {
+        history("/auth");
+    }
+
+    async function  HASH(data){
+        const bcrypt = require('bcryptjs');
+        const salt = await bcrypt.genSalt(parseInt(process.env.REACT_APP_BYCRPT_TIME));
+        return (await bcrypt.hash(data.toString(), salt));
+    }
   
 
     const authdata = () => {
-        if(email.length <=0 || document.querySelector('#password').value.length <= 0 || !document.querySelector('#password2').value.length <= 0 )
-            swal.fire({text:"Pls fill out all fields! ", icon:'warning'})
-         else
+        if(email.length <=0 || !document.querySelector('#password').value || !document.querySelector('#password2').value)
+            swal.fire({text:"Pls fill out all fields ! ", icon:'warning'})
+        else
+           if(!validator.validate(email))
+              swal.fire({text:"Invalid email !", icon:'error'})
+        else
           if(document.querySelector('#password').value !== document.querySelector('#password2').value)
-            swal.fire({text:"Pls fill out all fields! ", icon:'warning'})
+            swal.fire({text:"Password dosen't match ! ", icon:'warning'})
          else
-          if(email && document.querySelector('#password').value.length > 0)
-             swal.fire("OK")
+            if(email && document.querySelector('#password').value.length > 0){
+                setPromise(true);  setLogin(false);
+                HASH(document.querySelector('#password').value)
+                  .then(res => {
+                    axois.post("https://us-central1-grelots-ad690.cloudfunctions.net/webdealit_RegisterUser",{User:{email:email,password:res}})
+                        .then(res => {
+                            swal.fire({text:res.data.message, icon: res.data.message === "New User account Registerd" ? 'success' : 'error'});
+                            if(res.data.message === "New User account Registerd"){
+                                document.querySelector('#password').value=''; document.querySelector('#password2').value=''; setEmail('')
+                                  setLogin(true);
+                            }
+                                  setPromise(false);
+                        }).catch(err => {
+                            alert("Error occurred ", err);
+                            setPromise(false);
+                            setLogin(false);
+                        }) 
+                  })  
+          }
     }
             
 
@@ -76,10 +117,12 @@ const Register = () => {
                                             <RiEye2Line  id='Eye'  onClick={Viewpass2} size={20}  color='#000' />
                                         </Loginfield>
                                         <button  onClick={authdata}>
-                                            <span id="button__text">Register</span>
+                                            <span id="button__text">{promise ?  <Loader  type="Oval" color="#6A679E" height={20}  width={20}/> : "Register" }</span>
                                             <RiArrowRightSLine size={20}  color='#6A679E'/>
+                                            
                                         </button>		
 
+                                        <span id='loginprompt'  onClick={LoginUI}>{login ? "Pls click here to login" : ""}</span>
                                         
                                         
                                     </Login>
@@ -234,6 +277,15 @@ width: 320px;
 padding: 30px;
 padding-top: 90px;
 
+
+#loginprompt{
+ color:#00FF55;
+ text-align:center;
+ justify-content:center;
+ display: flex;
+ margin-top:10px;
+cursor: pointer;
+}
 
 button{
 margin-top:45px;

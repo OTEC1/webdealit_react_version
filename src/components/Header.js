@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState ,useRef} from 'react';
 import styled from 'styled-components'
 import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine, RiArrowLeftRightLine, RiArrowRightCircleLine, RiMovie2Line, RiMusic2Line, RiSearch2Line, RiShoppingBag3Line, RiUser2Line, RiVideoLine} from 'react-icons/ri'
 import { useNavigate }  from 'react-router-dom'
 import { connect } from 'react-redux';
-import {signOutApi}  from  '../actions'
+import {signOutGoogleApi, signOutCustomApi}  from  '../actions'
 
 
 const  Header = (props) => {
@@ -37,12 +37,13 @@ const  Header = (props) => {
 
 
     const auth = () => {
-       var data = document.getElementById('authstate');
-        if(data.value === "Login")
+       var data = document.getElementById("authstate").innerText;
+
+        if(data === "Login")
             history("/auth")
             else{
-                history("/auth")
-                props.logout()
+                history("/")
+                props.user.displayName ? props.logout(2) : props.logout(1)
             }
          
     }
@@ -344,7 +345,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    logout : () => dispatch(signOutApi()),
+    logout :(e) => e === 1 ?  dispatch(signOutCustomApi()) : dispatch(signOutGoogleApi()),
 });
 
 

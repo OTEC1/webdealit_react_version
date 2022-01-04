@@ -1,13 +1,22 @@
 import {auth, provider, signInWithPopup}  from '../firebase';
 import database from '../firebase';
-import { SET_USER, GET_USER_POSTS } from './actionType';
+import { SET_USER, GET_USER_POSTS ,SET_PROMISE} from './actionType';
 import axios from 'axios';
 import { async } from '@firebase/util';
+import swal from 'sweetalert2'
+
+
 
 
 export const setUser = (payload) => ({
     type: SET_USER,
     user:payload,
+});
+
+
+export const setPromise = (payload) => ({
+    type: SET_PROMISE,
+    promise:payload,
 });
 
 
@@ -22,7 +31,6 @@ export function signInAPIGoogle(){
     return(dispatch) => {
         signInWithPopup(auth,provider)
         .then((paid) => {
-            console.log(paid.user)
             dispatch(setUser(paid.user))
         })
         .catch((err) => alert(err.message))
@@ -31,7 +39,8 @@ export function signInAPIGoogle(){
 
 
 
-export function signOutApi(){
+export function signOutGoogleApi(){
+    console.log("Google");
     return (dispatch) => {
         auth.signOut().then(() => {
             dispatch(setUser(null));
@@ -39,6 +48,15 @@ export function signOutApi(){
         .catch((err) => {
             console.log(err.message);
         });
+    };
+}
+
+
+
+export function signOutCustomApi() {
+    console.log("Custom");
+    return (dispatch) => {
+        dispatch(setUser(null));
     };
 }
 
@@ -52,6 +70,51 @@ export function getUserAuth(){
         });
     };
 };
+
+
+var CryptoJS = require("crypto-js");
+export function CustomSignIn(){
+    return (dispatch)  => {    
+      if(document.querySelector('#email').value.length <= 0 )
+         swal.fire({text:"Pls fill out all fields ", icon:'warning'})
+        else if (document.querySelector('#password').value.length <= 0)
+        swal.fire({text:"Pls fill out all fields ", icon:'warning'})
+         else{ 
+             dispatch(setPromise(true));
+            axios.post("https://us-central1-grelots-ad690.cloudfunctions.net/webdealitSignInUser",{User:{email:document.querySelector('#email').value,password:CryptoJS.AES.encrypt(document.querySelector('#password').value, process.env.REACT_APP_KEYS).toString()}})
+                .then(res => {
+                    
+
+                    if(res.data.message  === "Email or password combination not correct !"){
+                       swal.fire({text:res.data.message, icon:'error'});
+                       dispatch(setPromise(false));
+                    }
+                    else
+                        if(res.data.message  === "Account not found !"){
+                            swal.fire({text:"Account not found ! ", icon:'error'});
+                            dispatch(setPromise(false));
+                        }
+                     
+                       if(res.data.message.toString()  != "Account not found !" && res.data.message.toString()  != "Email or password combination not correct !"){
+                                dispatch(setUser(res.data.message));
+                                dispatch(setPromise(false));
+                        }
+                     
+                            
+                         
+                        }).catch(err => {
+                        alert("Error occurred "+ err);
+                        dispatch(setPromise(false));
+                    }); 
+        }  
+    }; 
+
+}
+
+
+
+
+
 
 
 export  function updatePostlikes(count,likes,views,email,doc_id_a,doc_id_b){

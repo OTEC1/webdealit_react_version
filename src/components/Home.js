@@ -12,6 +12,8 @@ const Home = (props) => {
 const [list, setList] = useState([]);
 
 useEffect(() => {
+ 
+
   axios.get(process.env.REACT_APP_GET_ALL_POST)
   .then(res => {
       setList(res.data.message);
