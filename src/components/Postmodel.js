@@ -132,9 +132,9 @@ const Postmodel = (props) => {
         
         const payload = {
             User:{
-                username: props.user.displayName,
-                user_img:props.user.photoURL,
-                useremail: props.user.email
+                username: props.user.displayName ? props.user.displayName : props.user.User.email.substring(0,props.user.User.email.indexOf("@")),
+                user_img:props.user.photoURL ? props.user.photoURL : "icons",
+                useremail: props.user.email ? props.user.email :  props.user.User.email
             },
             UserPost:{
             image: img_format ? img_format: '',

@@ -54,6 +54,8 @@ const Top = (props) => {
       sessionStorage.setItem("scrollPoint", window.pageYOffset);
     }
 
+   
+
     return(<Container>
             <Leftside>
               <RiLiveFill id="live"  size={20}  color="red"/> <h4>Explore feeds</h4>
@@ -61,7 +63,8 @@ const Top = (props) => {
                           {props.post.map((value, index) => 
                             value.UserPost.image ?
                              <div>
-                               <img id="userImg" src={value.User.user_img} onClick={UserPage}/>
+                              {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" }
+                               <img id="userImg" src={value.User.user_img !== "icons" ?  value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
                                <h5 id="userName">{value.User.username}</h5>
                                <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""/>
                                  <label onClick={(e) => navigates("Pictureframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>{
@@ -85,7 +88,8 @@ const Top = (props) => {
                               :
                               value.UserPost.video ?
                               <div>
-                                <img id="userImg" src={value.User.user_img} onClick={UserPage}/>
+                                 {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" }
+                                <img id="userImg" src={value.User.user_img !== "icons" ?  value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
                                 <h5 id="userName">{value.User.username}</h5>
                                  <img src={process.env.REACT_APP_APP_S3_THUMB_NAIL_BUCKET+value.UserPost.video.toString().replace(".mp4",".png")} alt=""  />
                                  <label   onClick={(e)=> navigates("Videoframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>{
@@ -109,7 +113,8 @@ const Top = (props) => {
                             :
                             value.UserPost.youtubeLink ?
                             <div>
-                               <img id="userImg" src={value.User.user_img}  onClick={UserPage}/>
+                                {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" }
+                               <img id="userImg" src={value.User.user_img !== "icons" ?  value.User.user_img: "images/customSignInbackground.png"}  onClick={UserPage}/>
                                <h5 id="userName">{value.User.username}</h5>
                                <ReactPlayer  width="100%"  height="100%" url={value.UserPost.youtubeLink}  controls  />
                                <label  onClick={(e)=> navigates("Playerframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>{
@@ -146,7 +151,8 @@ const Top = (props) => {
                     <div  id="RightHouse">
 
                        <div  id="Usercontainer">  
-                         <img id="Img" src={value.User.user_img}  alt=""  onClick={UserPage} />
+                          {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" }
+                          <img id="Img" src={value.User.user_img !== "icons" ?  value.User.user_img : "images/customSignInbackground.png"}  alt=""  onClick={UserPage} />  
                           <h5 id="userName">{value.User.username}</h5>
                        </div>  
 
@@ -173,8 +179,9 @@ const Top = (props) => {
                     </div>                         
                      : value.UserPost.video ?
                       <div>
-                        <div  id="Usercontainer">  
-                          <img id="Img" src={value.User.user_img}  onClick={UserPage}/>
+                        <div  id="Usercontainer"> 
+                          {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" } 
+                          <img id="Img" src={value.User.user_img !== "icons" ?  value.User.user_img : "images/customSignInbackground.png"}  onClick={UserPage}/>
                           <h5 id="userName">{value.User.username}</h5>
                         </div>                      
                         <img   className="imgID" src={process.env.REACT_APP_APP_S3_THUMB_NAIL_BUCKET+value.UserPost.video.toString().replace(".mp4",".png")} alt=""/>  
@@ -213,7 +220,8 @@ const Top = (props) => {
                      : value.UserPost.youtubeLink ?
                         <div>
                             <div  id="Usercontainer">  
-                              <img id="Img" src={value.User.user_img} onClick={UserPage}/>
+                            {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" }
+                              <img id="Img" src={value.User.user_img !== "icons" ?  value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
                               <h5 id="userName">{value.User.username}</h5>
                             </div>    
                           <div  id="ReactPayer">
@@ -252,7 +260,11 @@ const Top = (props) => {
                    <RightBottom onScroll={onScroll}  ref={myref}>
                     {props.post.map((value, index) =>  value.UserPost.image ? 
                       <BottomChild>
-                        <img id="BottomUserImage" src={value.User.user_img} onClick={UserPage} />
+
+                        <img id="BottomUserImage" src={value.User.user_img !== "icons" ? value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage} />
+                        {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" }
+
+
                         <label>{value.User.username}</label>
                         <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}/>  
                       
@@ -394,6 +406,18 @@ span{
 font-weight:400;
 font-size:10pt;
 }
+
+h1{
+position: absolute;
+margin-left: 28.5px;
+margin-top:22px;
+font-weight:700;
+font-size:10pt;
+color:#fff;
+font-family: "Poppins", sans-serif;
+z-index:200;
+}
+
 @media(max-width:768px){
 width: 100%;
 height: 40vh;
@@ -567,6 +591,15 @@ top: 27%;
 color: #fff;
 }
 
+h1{
+position: absolute;
+margin-left: 18.5px;
+margin-top:12px;
+font-weight:700;
+font-size:10pt;
+color:#fff;
+font-family: "Poppins", sans-serif;
+}
 
 @media(max-width:768px){
 margin-top:20px;
@@ -717,6 +750,15 @@ color: #fff;
 }
 
 
+h1{
+position: absolute;
+margin-left: 14px;
+margin-top:10px;
+font-weight:700;
+font-size:10pt;
+color:#fff;
+font-family: "Poppins", sans-serif;
+}
 
 
 

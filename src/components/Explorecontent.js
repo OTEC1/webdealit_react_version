@@ -21,6 +21,7 @@ import Explore  from './Explore'
         window.scrollTo(0,0);
         axios.post(process.env.REACT_APP_GET_SINGLE_USE_POST,{User:{useremail:em},UserPost:{doc_id_b:doc}})
         .then(res => {
+            console.log(res.data.message);
            setDatas(res.data.message);
         }).catch(err => {
             console.log(err);
