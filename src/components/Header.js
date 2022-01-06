@@ -51,7 +51,7 @@ const  Header = (props) => {
     return (
         <Container>
             <Content>
-                <Webdealit onClick={homeNav}>Webdealit</Webdealit>
+                <Webdealit onClick={homeNav}>Webdealz</Webdealit>
 
                 <Search>
                     <div>

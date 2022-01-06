@@ -128,7 +128,7 @@ export  function updatePostlikes(count,likes,views,email,doc_id_a,doc_id_b){
 }
 
 
-export function  format(count,n){
+export function  format(count){
 
     let m;
 
