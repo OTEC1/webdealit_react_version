@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player';
 import Loader from 'react-loader-spinner';
 import WriteUp from './WriteUps';
 import { RiThumbUpFill, RiThumbUpLine } from 'react-icons/ri';
-import { useState } from 'react';
+import { useState, useRef} from 'react';
 import Load from './Load';
 import {updatePostlikes,format} from '../actions'
 
@@ -16,7 +16,7 @@ const Explore  =  (props) => {
 
     const [react, setReact] = useState(false);
     const [update, setUpdate] = useState(false);
-    
+    const imgRef = useRef();
 
 
     const reset =  (email, docA, docB) =>  {
@@ -30,6 +30,24 @@ const Explore  =  (props) => {
 
     let lists = [];
     lists.push(props.post);
+
+
+
+    function imageOrientation(src) {
+
+        var orientation,
+        img = new Image();
+        img.src = src;
+        if (img.naturalWidth > img.naturalHeight) {
+          imgRef.current.style.transform = "rotate(270deg)";
+            console.log("Called !!! ")
+        } else if (img.naturalWidth < img.naturalHeight) {
+            orientation = 'portrait';
+        }
+
+    return orientation;
+}
+
     return(
       <Container>
      
@@ -59,7 +77,8 @@ const Explore  =  (props) => {
                                        </div>
 
 
-                                        <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.image}/>
+                                        <img
+                                        ref={imgRef} src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.image}/>
                                         <WriteUp val={v.UserPost}/>
                                     </div>
                                      ):( 
@@ -213,6 +232,7 @@ margin: none;
 }
 
 img{
+height: 250px;
 width: 100%;
 }
 

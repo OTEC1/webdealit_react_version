@@ -6,6 +6,12 @@ import { useNavigate } from "react-router-dom";
 import  {RiEyeFill, RiEyeLine, RiThumbUpFill, RiThumbUpLine, RiLiveFill, RiArrowLeftCircleLine, RiArrowRightCircleLine } from 'react-icons/ri';
 import { useEffect, useRef, useState } from "react";
 import { updatePostlikes, format } from "../actions";
+import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
+
+
+
+
+
 
 const Top = (props) => {
     
@@ -14,6 +20,7 @@ const Top = (props) => {
     const history = useNavigate();
     const [scrollPostion, setScrollPosition] = useState(0);
     const myref = useRef(null);
+    const imgRef = useRef();
     
 
     const navigates = (val,em,doc,docB) =>{
@@ -25,7 +32,7 @@ const Top = (props) => {
     const  onScroll  = () => {
       const scrollY = window.scrollY 
       const scrollTop = myref.current.scrollTop
-      console.log(`onScroll, window.scrollY: ${scrollY} myRef.scrollTop: ${scrollTop}`)
+      console.log(`onScrollY, ${scrollY} myRef: ${scrollTop}`)
     }
 
 
@@ -54,7 +61,7 @@ const Top = (props) => {
       sessionStorage.setItem("scrollPoint", window.pageYOffset);
     }
 
-   
+
 
     return(<Container>
             <Leftside>
@@ -66,7 +73,17 @@ const Top = (props) => {
                               {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" }
                                <img id="userImg" src={value.User.user_img !== "icons" ?  value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
                                <h5 id="userName">{value.User.username}</h5>
-                               <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""/>
+                              
+                                 <CloudinaryContext cloudName="otecdealings">
+                                    <div>
+                                      <Image publicId={value.UserPost.cloudinaryPub} width="100%">
+                                        <Transformation  angle={value.UserPost.orientations === "portrait" ? "0" : "270"} />
+                                      </Image>
+                                    </div>
+                                  </CloudinaryContext>
+                                
+
+
                                  <label onClick={(e) => navigates("Pictureframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>{
                                     value.UserPost.writeup.length > a ?
                                     <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -91,7 +108,17 @@ const Top = (props) => {
                                  {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" }
                                 <img id="userImg" src={value.User.user_img !== "icons" ?  value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
                                 <h5 id="userName">{value.User.username}</h5>
-                                 <img src={process.env.REACT_APP_APP_S3_THUMB_NAIL_BUCKET+value.UserPost.video.toString().replace(".mp4",".png")} alt=""  />
+                                 
+                                
+                                 <CloudinaryContext cloudName="otecdealings">
+                                    <div>
+                                      <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%">
+                                        <Transformation  angle={value.UserPost.orientations === "portrait" ? "0" : "270"} />
+                                      </Image>
+                                    </div>
+                                  </CloudinaryContext>
+
+                                 
                                  <label   onClick={(e)=> navigates("Videoframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>{
                                    value.UserPost.writeup.length > a ?
                                     <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -99,6 +126,8 @@ const Top = (props) => {
                                      <div>{value.UserPost.writeup} <span>See more</span></div>
                                    }
                                  </label>
+
+
                                 <h2>{value.UserPost.date_time}</h2>
 
                                 <div  id="Like">
@@ -142,7 +171,7 @@ const Top = (props) => {
             </Leftside>
 
 
-            <Rightside >
+            <Rightside>
               <MobileAds/>
               <h4>Gist feed</h4>
                <RightMain    ref={myref}  onScroll={onScroll}>
@@ -156,7 +185,14 @@ const Top = (props) => {
                           <h5 id="userName">{value.User.username}</h5>
                        </div>  
 
-                       <img className="imgID" src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""/>  
+                       <CloudinaryContext cloudName="otecdealings">
+                                    <div>
+                                      <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%">
+                                         <Transformation  angle={value.UserPost.orientations === "portrait" ? "0" : "270"} />
+                                      </Image>
+                                    </div>
+                       </CloudinaryContext> 
+                       
 
                        <div  id="React">
                          <div  id="Like">
@@ -179,13 +215,22 @@ const Top = (props) => {
                     </div>                         
                      : value.UserPost.video ?
                       <div>
+
                         <div  id="Usercontainer"> 
                           {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" } 
                           <img id="Img" src={value.User.user_img !== "icons" ?  value.User.user_img : "images/customSignInbackground.png"}  onClick={UserPage}/>
                           <h5 id="userName">{value.User.username}</h5>
-                        </div>                      
-                        <img   className="imgID" src={process.env.REACT_APP_APP_S3_THUMB_NAIL_BUCKET+value.UserPost.video.toString().replace(".mp4",".png")} alt=""/>  
-                      
+                        </div>   
+
+                        <CloudinaryContext cloudName="otecdealings">
+                                    <div>
+                                      <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%">
+                                         <Transformation  angle={value.UserPost.orientations === "portrait" ? "0" : "270"} />
+                                      </Image>
+                                    </div>
+                        </CloudinaryContext>
+
+
                       <div  id="React">
                        <div  id="Like">
                         <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
@@ -223,10 +268,11 @@ const Top = (props) => {
                             {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" }
                               <img id="Img" src={value.User.user_img !== "icons" ?  value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
                               <h5 id="userName">{value.User.username}</h5>
-                            </div>    
-                          <div  id="ReactPayer">
-                              <ReactPlayer   width="100%"  height="100%"  url={value.UserPost.youtubeLink} alt=""/>  
-                          </div>
+                            </div>  
+
+                            <div  id="ReactPayer">
+                                <ReactPlayer   width="100%"  height="100%"  url={value.UserPost.youtubeLink} alt=""/>  
+                            </div>
                           
                           
                           <div  id="YO"  onClick={(e)=>navigates("Playerframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
@@ -256,7 +302,7 @@ const Top = (props) => {
            
 
                 <MobileAds/>
-                 <h4>Weekly lineup</h4>
+                  <h4 id="Week">Weekly lineup</h4>
                    <RightBottom onScroll={onScroll}  ref={myref}>
                     {props.post.map((value, index) =>  value.UserPost.image ? 
                       <BottomChild>
@@ -266,13 +312,18 @@ const Top = (props) => {
 
 
                         <label>{value.User.username}</label>
-                        <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+value.UserPost.image} alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}/>  
-                      
-                        <div  id="YO"  onClick={handleClick}>{
-                           value.UserPost.writeup.length > a ?
-                           <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
-                           :
-                           <div>{value.UserPost.writeup} <span>See more</span></div>
+
+                              <CloudinaryContext cloudName="otecdealings">
+                                <Image  width="200" height="270" publicId={value.UserPost.cloudinaryPub}  alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
+                                   <Transformation  angle={value.UserPost.orientations === "portrait" ? "0" : "270"} />
+                                </Image>
+                            </CloudinaryContext>
+
+                          <div  id="YO"  onClick={handleClick}>{
+                            value.UserPost.writeup.length > a ?
+                            <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
+                             :
+                            <div>{value.UserPost.writeup} <span>See more</span></div>
                             }
                         </div>
                       </BottomChild>                           
@@ -314,7 +365,7 @@ float: left;
 
 const Leftside = styled.div`
 width: 50%;
-height: 70.5vh;
+height: 78vh;
 margin-top:0px;
 
 
@@ -336,11 +387,7 @@ cursor: pointer;
 }
 
 
-img{
-width: 100%;
-height: 100%;
-object-fit: cover;
-}
+
 
 div{
 width: 100%;
@@ -456,9 +503,10 @@ margin-top:10px;
 
 const RightMain = styled.div`
 overflow-x:scroll;
-height: 50%;
+height: 55%;
 width: 100%;
 position: relative;
+margin-bottom:27px;
 
 
 
@@ -606,6 +654,7 @@ margin-top:20px;
 display: flex;
 overflow: auto;
 height: 65%;
+margin-bottom:0px;
 
 
 ::-webkit-scrollbar {
@@ -673,11 +722,14 @@ display: block;
 const RightBottom = styled.div`
 height: 45%;
 width: 100%;
-overflow-x:scroll;
+overflow-y:scroll;
 display: flex;
-flex-wrap:wrap;
+flex-wrap:nowrap;
 align-items:center;
 
+#Week{
+top:70px;
+}
 
 ::-webkit-scrollbar {
   display: none;
@@ -688,26 +740,22 @@ align-items:center;
 }
 
 
-img{
-width: 100%;
-height: 100%;
-object-fit:cover;
-}
 
 
 @media(max-width:768px){
 height: 50%;
+margin-top:0px;
 }
 `;
 
 
 
 const BottomChild = styled.div`
-width: 47%;
-height: 170px;
-margin: 6px;
+width: auto;
+height: auto;
 position: relative;
 text-align:left;
+margin:10px;
 
 
 
@@ -720,7 +768,6 @@ margin-top: 10px;
 margin-left:8px;
 cursor: pointer;
 }
-
 
 label{
 position: absolute;

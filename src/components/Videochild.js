@@ -9,6 +9,7 @@ import {FaSearchengin} from 'react-icons/fa'
 import { useState , useEffect} from 'react';
 import { format } from '../actions';
 import axios from 'axios';
+import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
 
 
 const Videochild = (props) => {
@@ -106,6 +107,14 @@ return(
 
                               <img src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"}/>
 
+                              <CloudinaryContext cloudName="otecdealings">
+                                    <div>
+                                      <Image publicId={v.fileName} width="100%"  height="100%">
+                                        <Transformation  angle={v.orientations === "portrait" ? "0" : "270"} />
+                                      </Image>
+                                    </div>
+                                </CloudinaryContext>
+
                               <div id='contain'>
                                     <div  id='Top_teaser' onClick={() => thanks()}>
                                      {update ? <RiThumbUpFill  id="icons"  color='#4180FF'  />  : <RiThumbUpLine  id="icons"  color='#000'  /> }{update ?  parseInt(v.likes)+1 : format(v.likes)}
@@ -153,16 +162,13 @@ return(
                 <BottomSection>
                     {list2.map((v,i)=>
                     <div id='videos'>
-                        <div id='frame'>
-                          <img  src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
-                          
-                          <div  id='downComponent'>
-                            <label  id='caving'><RiPlayLine /></label>  <label  id='caving'>{v.Mtitle}</label>
-                          </div>
 
-                      </div>
-                      
-                      
+                           <img  src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
+                          
+                           <div  id='downComponent'>
+                            <label  id='caving'><RiPlayLine /></label>  <label  id='caving'>{v.Mtitle}</label>
+                           </div>
+ 
                     </div>
                     )}
                 </BottomSection>
@@ -347,11 +353,13 @@ padding-bottom:0px;
 
 
 img{
+max-width:70%;
 width: 70%;
+min-width:70%;
+max-height:100%;
 height: 100%;
+min-height:100%;
 object-fit:cover;
-display: inline-block;
-margin: 0 auto;
 }
 
 #icons{
@@ -405,9 +413,16 @@ cursor: pointer;
 height: 70vh;
 
 img{
+max-width:100%;
 width: 100%;
-height: 60%;
+min-width:100%;
+max-height:70%;
+height: 70%;
+min-height:70%;
+object-fit:cover;
 }
+
+
 #contain{
 max-width: 100%;
 text-align:left;
@@ -467,22 +482,6 @@ white-space: nowrap;
 display: inline-block;
 margin: 10px;
 
-}
-
-#frame{  
-width: 200px;
-height: 60%;
-vertical-align: middle;
-text-align: center;
-display: table-cell;
-}  
-
-img{
-object-fit:cover;
-width: 210px;
-height: 200px;
-display: block;
-margin: 0 auto;
 }
 
 

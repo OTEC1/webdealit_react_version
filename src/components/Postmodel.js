@@ -7,7 +7,11 @@ import {connect} from "react-redux";
 import axios from 'axios';
 import swal from 'sweetalert2'
 import ReactPlayer from 'react-player'
-import { RiAlbumLine, RiCamera2Line, RiGalleryFill, RiGalleryLine, RiPictureInPicture2Line, RiVideoAddLine, RiVideoUploadLine, RiYoutubeFill, RiYoutubeLine } from 'react-icons/ri';
+import { RiAlbumLine, RiCamera2Line, RiGalleryFill, RiGalleryLine, RiPictureInPicture2Line, RiRefreshLine, RiVideoAddLine, RiVideoUploadLine, RiYoutubeFill, RiYoutubeLine } from 'react-icons/ri';
+import Resizer from 'react-image-file-resizer';
+import {v4 as uuid4}  from 'uuid';
+import EXIF from 'exif-js'
+
 
 
 
@@ -42,99 +46,115 @@ const Postmodel = (props) => {
     const [progress , setProgress] = useState(0);
     const [space, setSpace] = useState('Pic');
     const [respones, setRespones] = useState('');
+    const [degree, setdegree] = useState(90);
+    const [orin, setOrin] = useState('');
     const videoElem = useRef();
+    const imgRef = useRef();
     let img_format,vid_format;
+    
 
 
-    const  handle = (e) => {
+
+
+
+   
+
+
+    const  handle = async (e) => {
           var count = 0;
           const file = e.target.files[0];
           const size = e.target.files[0].size;
-           /** make this env variable */    count = size/1048576;
+           count = size/1048576;
            setProgress(0);
            if(file === '' || file === undefined){
            alert('The file is  a  ${typeof image}');
-            return;
-            }else if(Math.round(count) > 150){
+               return;
+            }else if(Math.round(count) > 150)
                swal.fire({title:"File too large ", text:`Sorry file is ${Math.round(count)}mb.. allowed size is below 150mb`, icon:'warning'})
-        
-            }else{
-
+             else{
                  if(file.type === "image/png" || file.type === "image/jpeg" || file.type === "image/jpg"  || file.type === "image/webp"){
-                    console.log("Piture");
-                    setShareImage(file);
-                }else if(file.type === "video/mp4"){
-                        console.log("Video");
+                    const image = await resizeFile(file,300,300);
+                   
+                
+                    EXIF.getData(file, function() {
+                        var exifData = EXIF.pretty(this);
+                        if (exifData) {
+                            setShareImage(image);
+                           console.log(EXIF.getTag(this, "Orientation"));
+                        } else {
+                          swal.fire({ text:"No EXIF data found Pls try uploading from initial device ", icon:'error'});
+                        }
+                      
+                      });
+                    
+                
+  
+                }else if(file.type === "video/mp4")
                         setVideofile(file);
-                }  
             }   
          
     }
 
 
+  
+   
+
+
 
 
     const PostData = (e) => {
-
-        e.preventDefault();
-        if(e.target !== e.currentTarget){
-            return;
-        }
-
+        // let cloud = uuid4()+"_"+Math.floor(Date.now()*1000)+"_"+Date.now();
+        // e.preventDefault();
+        // if(e.target !== e.currentTarget){return;}
         
-        let filestoupload = [];
-        let m1,m2;
-        var ts=Math.floor(Date.now()/1000);
+        // let filestoupload = [];
+        // let m1,m2;
+        // var ts=Math.floor(Date.now()/1000);
         
         
-        const file1 = shareImage;
-        const file2 = videofile;
-        const file3 = editorText1;
-        const file4 = editorText2;
-        const file5 = youtube;
+        // const file1 = shareImage;
+        // const file2 = videofile;
+        // const file3 = editorText1;
+        // const file4 = editorText2;
+        // const file5 = youtube;
 
-            if(file1 !== ''){    
-
-              m1 = new Map();
-              m1.set("id",file1.name);
-              m1.set("ext",".png");
-              m1.set("data",file1);
-              filestoupload.push(m1);
-              for(var x= 0; x < filestoupload.length; x++){
-                m1 = filestoupload[x];
-                img_format = addextension(m1.get("id"),ts,m1.get("ext"));
-                img_format = img_format.replace(/ /g, '')
-                SEND_TO_S3(img_format,m1.get("data"),1);
-              }
-         }
+        //     if(file1 !== ''){    
+        //         img_format = ts*1000+ts+".png";
+        //         img_format = img_format.replace(/ /g, '')
+        //         SEND_TO_S3(img_format,datatoBlob(file1),1,cloud); 
+        //      }
          
-         if(file2 !== ''){
-              m2 = new Map();
-              m2.set("id",file2.name);
-              m2.set("ext",".mp4");
-              m2.set("data",file2);
-              filestoupload.push(m2);
-            for(var x= 0; x < filestoupload.length; x++){
-                m2 = filestoupload[x];
-                vid_format = addextension(m2.get("id"),ts,m2.get("ext"));
-                vid_format = vid_format.replace(/ /g, '')
-                SEND_THUMBNAIL(vid_format,m2.get("data"),2);
-            }
-        }
-        sendDB(file3,file4,file5); 
+        //     if(file2 !== ''){
+        //       m2 = new Map();
+        //       m2.set("id",file2.name);
+        //       m2.set("ext",".mp4");
+        //       m2.set("data",file2);
+        //       filestoupload.push(m2);
+        //     for(var x= 0; x < filestoupload.length; x++){
+        //         m2 = filestoupload[x];
+        //         vid_format = addextension(m2.get("id"),ts,m2.get("ext"));
+        //         vid_format = vid_format.replace(/ /g, '')
+        //         SEND_THUMBNAIL(vid_format,m2.get("data"),2,cloud); 
+        //     }
+        // }
+        // sendDB(file3,file4,file5,cloud);
+     
     }
 
 
 
+     
 
-    const sendDB = (file3,file4,file5) => {
+    
 
+
+    const sendDB = (file3,file4,file5,cloud) => {
         
         const payload = {
             User:{
                 username: props.user.displayName ? props.user.displayName : props.user.User.email.substring(0,props.user.User.email.indexOf("@")),
                 user_img:props.user.photoURL ? props.user.photoURL : "icons",
-                useremail: props.user.email ? props.user.email :  props.user.User.email
+                useremail: props.user.email ? props.user.email : props.user.User.email,
             },
             UserPost:{
             image: img_format ? img_format: '',
@@ -144,36 +164,34 @@ const Postmodel = (props) => {
             youtubeLink: file5 ? file5 : '',
             timestamp: new Date().getTime(),
             date_time: new Date().toLocaleString(),
+            cloudinaryPub: cloud,
+            orientations: orin,
             views: 0,
             likes:0,
             approved: false,
             }
         };
 
-       axios.post(process.env.REACT_APP_POST_END_POINT,payload)
-       .then(res => { 
-           if(res.data.message == "Ok 200") {
-            myFunction();
-            setRespones("Write up uploaded...")    
-           }
-       }).catch(err => {
-           console.log(err); 
-       })
+        axios.post(process.env.REACT_APP_POST_END_POINT,payload)
+            .then(res => { 
+                if(res.data.message == "Ok 200") {
+                    myFunction();
+                    setRespones("Write up uploaded...")    
+                }
+            }).catch(err => {
+                console.log(err); 
+            })
        
 
      }
 
 
-     function myFunction() {
-        var x = document.getElementById("snackbar");
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-      }
+     
+    
 
 
-     const SEND_TO_S3 = (args,data, section) => {
-      
-          const   params = {
+     const SEND_TO_S3 = (args,data, section,cloud) => {
+            const params = {
                 ACL: process.env.REACT_APP_READ_RULE,
                 Body: data,
                 Bucket: process.env.REACT_APP_S3_BUCKET,
@@ -181,12 +199,15 @@ const Postmodel = (props) => {
             };
     
 
-        bucket.putObject(params)
+            bucket.putObject(params)
                 .on('httpUploadProgress', (e) => {
                         setProgress(Math.round((e.loaded / e.total) * 100));
                 })
                 .on('httpDone',(e)=>{
                     swal.fire({text:"Posted", icon: 'success'})
+                     if(section === 1)
+                        CLOUDINARY({url:process.env.REACT_APP_BASE_URL+params.Key,publicface:cloud});
+
                 })
                 .send((err) => {
                     if(err) {
@@ -198,23 +219,8 @@ const Postmodel = (props) => {
      }
 
 
-     function datatoBlob(dataurl){
-         let array, binary,i,len;
-         binary = atob(dataurl.split(',')[1]);
-         array =  [];
-         i = 0;
-         len = binary.length;
-         while(i < len){
-             array.push(binary.charCodeAt(i));
-             i++;
-         }
-         return new Blob([new Uint8Array(array)], {
-             type: "image/png"
-         });
-     };
 
-
-     const SEND_THUMBNAIL =  (args,data, section)  => {
+     const SEND_THUMBNAIL =  (args,data, section,cloud)  => {
        
         if(args.length > 0){
          let file = args.toString().replace(".mp4",".png");
@@ -222,13 +228,13 @@ const Postmodel = (props) => {
              canvas.width = videoElem.current.videoWidth;
              canvas.height = videoElem.current.videoHeight;
              canvas.getContext("2d").drawImage(videoElem.current,0,0,videoElem.current.videoWidth,videoElem.current.videoHeight);
-             SEND_TO_S3_THUMBNAIL(file,datatoBlob(canvas.toDataURL()),data,section);
+             SEND_TO_S3_THUMBNAIL(file,datatoBlob(canvas.toDataURL()),data,section,cloud);
         }
       }
 
 
 
-     const SEND_TO_S3_THUMBNAIL = (args,data,dataVideo,section) => {
+     const SEND_TO_S3_THUMBNAIL = (args,data,dataVideo,section,cloud) => {
       
         const   params = {
               ACL: process.env.REACT_APP_READ_RULE,
@@ -238,12 +244,15 @@ const Postmodel = (props) => {
           };
   
 
-      bucket.putObject(params)
+              bucket.putObject(params)
               .on('httpUploadProgress', (e) => {
-                      //setProgress(Math.round((e.loaded / e.total) * 100));
+                     
               })
               .on('httpDone', (e) => {
-                    SEND_TO_S3(args,dataVideo,section);
+                    SEND_TO_S3(args,dataVideo,section,cloud);
+                    CLOUDINARY({url:process.env.REACT_APP_BASE_URL+params.Key,publicface:cloud});
+
+
               })
               .send((err) => {
                   if(err) {
@@ -252,8 +261,45 @@ const Postmodel = (props) => {
                       
                   }
               });  
-   }  
+       }  
 
+
+
+
+
+     const CLOUDINARY = (datas) => {
+            axios.post("https://us-central1-grelots-ad690.cloudfunctions.net/ImgResize",datas)
+                   .then(res => {
+                        //console.log(res);
+                    }).catch(err =>{
+                     console.log(err);
+                   })
+             }
+
+
+
+   function myFunction() {
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  }
+
+
+
+ function datatoBlob(dataurl){
+     let array, binary,i,len;
+     binary = atob(dataurl.split(',')[1]);
+     array =  [];
+     i = 0;
+     len = binary.length;
+     while(i < len){
+         array.push(binary.charCodeAt(i));
+         i++;
+     }
+     return new Blob([new Uint8Array(array)], {
+         type: "image/png"
+     });
+ };
 
 
     const addextension = (data,stamp,extension) => {
@@ -283,6 +329,41 @@ const Postmodel = (props) => {
     } 
 
 
+    const resizeFile = (file,width,height) => new Promise((resolver) => {
+        Resizer.imageFileResizer(file,width,height,"JPEG",100,0,(uri) => {resolver(uri);},"base64");
+    });
+
+
+    const  imageOrientation = (src) =>{
+
+        setdegree(o =>  o + 90);
+         if(degree == 360)
+            setdegree(0);
+
+        
+        if(src !== undefined || src !== ''){
+            var orientation,
+            img = new Image();
+            img.src = src;
+            
+    
+            if (img.naturalWidth > img.naturalHeight) {
+                orientation = 'landscape';
+                setOrin('landscape');
+               
+
+            } else if (img.naturalWidth < img.naturalHeight) {
+                orientation = 'portrait';
+                setOrin('portrait');
+                
+            } 
+    }
+    }
+
+
+
+   
+
 
 
     return(
@@ -290,7 +371,6 @@ const Postmodel = (props) => {
         {props.showModel === "open" &&(
             <Container>
                 <Content>
-
                     <Header>
                     <h2>Create a Post</h2>
                     <button  onClick={(event) => reset(event)}>X</button>
@@ -306,14 +386,21 @@ const Postmodel = (props) => {
                                 <Editor>
                                 <input type="text" placeholder="Post  title"  value={editorText1}  onChange={(e) => setEditorText1(e.target.value)}  autoFocus={true}/>
                                 <textarea  placeholder="Write up (Optional)" value={editorText2}  onChange={(e) => setEditorText2(e.target.value)} />
-                                    {space === "Pic" &&
-                                        (
-                                        <UploadImage>
-                                        <input type="file"   name="image" id="file" style={{display: "none"}}  onChange={handle}  accept="image/png, image/gif, image/jpeg, image/jpg" />
-                                        <p><label  htmlFor="file">{"Choose  image + "}</label></p>
-                                        {shareImage && <img src={URL.createObjectURL(shareImage)}/>}
-                                        </UploadImage>
-                                       )}
+                                     {space === "Pic" &&
+                                            (
+                                                <UploadImage>
+                                                    <div id='ImgRator'  onClick={() =>imageOrientation(shareImage)}>
+                                                        <RiRefreshLine  />
+                                                        <h5 id='notify'>Rotate image</h5>
+                                                    </div>
+
+                                            
+                                                <input type="file"   name="image" id="file" style={{display: "none"}}  onChange={handle}  accept="image/png, image/gif, image/jpeg, image/jpg" />
+                                                <p><label  htmlFor="file">{"Choose  image + "}</label></p>
+                                                {shareImage && <img ref={imgRef}  src={shareImage}  />}
+                                                </UploadImage>
+                                           )
+                                       }
                                        {space === "Vid" && (
                                         <UploadImage>
                                             <input  type="file"   name="image" id="file-input" style={{display: "none"}}  onChange={handle}  accept="video/mp4,video/x-m4v,video/*"/>
@@ -374,6 +461,14 @@ z-index:999;
 background-color: rgba(0,0,0,0.8);
 
 
+#ImgRator{
+font-size:25pt;
+margin: 10px;
+}
+
+#notify{
+font-size:12pt;
+}
 
 #snackbar {
 

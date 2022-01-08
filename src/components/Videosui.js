@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 import axios from 'axios';
-import { useEffect,useState} from 'react';
+import { useEffect,useState,useRef} from 'react';
 import Videochild from './Videochild';
 import Loader from 'react-loader-spinner'
 import Swal from 'sweetalert2';
+import {CloudinaryContext, Image, cloudinary} from 'cloudinary-react'
+
 
 
 
@@ -13,6 +15,7 @@ import Swal from 'sweetalert2';
  
 
     const [list3, setList3] = useState([]); 
+    const myref = useRef();
 
 
     useEffect(() => {
@@ -26,29 +29,12 @@ import Swal from 'sweetalert2';
 
     },[])
    
- 
-    function imageOrientation(src) {
 
-      var orientation,
-      img = new Image();
-      img.src = src;
 
-      if (img.naturalWidth > img.naturalHeight) {
-          orientation = 'landscape';
-      } else if (img.naturalWidth < img.naturalHeight) {
-          orientation = 'portrait';
-      } 
-
-      Swal.fire(orientation);
-    
-
-  }
+  
     return (
-        <Container>
-          {imageOrientation('https://webdealit.s3.eu-west-3.amazonaws.com/Stream_Thumbnails/two_1641476913685270263421544927.png')}
-          <img  src='https://webdealit.s3.eu-west-3.amazonaws.com/Stream_Thumbnails/two_1641476913685270263421544927.png'/>
-
-           {/* {list3.length > 0 ? (
+     <Container>
+            {list3.length > 0 ? (
               <Videochild  post={list3.length > 0 ? list3 : []}/>
                 ):
                 (
@@ -60,8 +46,8 @@ import Swal from 'sweetalert2';
                     width={100} 
                   />
                   </div>
-                )} 
-           */}
+                )}  
+          
         </Container>
       
     )
