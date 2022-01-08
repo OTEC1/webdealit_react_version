@@ -67,7 +67,7 @@ const Explore  =  (props) => {
 
                                       
                                     <CloudinaryContext cloudName="otecdealings">
-                                        <Image id="imgs"  width="80%"  height="500"  publicId={v.UserPost.cloudinaryPub}  alt="">
+                                        <Image  width="85%"  height="500"  publicId={v.UserPost.cloudinaryPub}  alt="">
                                         <Transformation  angle={v.UserPost.orientations === "portrait" ? "0" : "270"} />
                                     
                                         </Image>
@@ -107,7 +107,7 @@ const Explore  =  (props) => {
                                      <Load/>
                                     )}
                                     </div>
-                                ):props.val === "Playerframe" ? (
+                                  ):props.val === "Playerframe" ? (
                                     <div className='frame'>  
                                      {v.UserPost !== undefined ? (
                                       <div>

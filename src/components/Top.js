@@ -329,9 +329,7 @@ const Top = (props) => {
                       </BottomChild>                           
                      :
                     <div></div>      
-                     )}
-                  
-                    
+                     )}   
                 </RightBottom>
             </Rightside>
         </Container>
@@ -365,7 +363,7 @@ float: left;
 
 const Leftside = styled.div`
 width: 50%;
-height: 78vh;
+height: 87.5vh;
 margin-top:0px;
 
 
@@ -720,7 +718,7 @@ display: block;
 
 
 const RightBottom = styled.div`
-height: 45%;
+height: 60%;
 width: 100%;
 overflow-y:scroll;
 display: flex;
@@ -743,7 +741,6 @@ top:70px;
 
 
 @media(max-width:768px){
-height: 50%;
 margin-top:0px;
 }
 `;
@@ -810,8 +807,7 @@ font-family: "Poppins", sans-serif;
 
 
 @media(max-width:768px){
-width:44%;
-margin: 10px;
+margin-left: 20px;
 
 #YO{
 font-size:8pt;
