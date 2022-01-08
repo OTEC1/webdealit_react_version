@@ -48,6 +48,7 @@ const Postmodel = (props) => {
     const [respones, setRespones] = useState('');
     const [degree, setdegree] = useState(90);
     const [orin, setOrin] = useState('');
+    const [exifR, setexifR] = useState('');
     const videoElem = useRef();
     const imgRef = useRef();
     let img_format,vid_format;
@@ -65,7 +66,7 @@ const Postmodel = (props) => {
           const file = e.target.files[0];
           const size = e.target.files[0].size;
            count = size/1048576;
-           setProgress(0);
+           setProgress(0); setexifR('');
            if(file === '' || file === undefined){
            alert('The file is  a  ${typeof image}');
                return;
@@ -77,10 +78,9 @@ const Postmodel = (props) => {
                     EXIF.getData(file, function() {
                         var exifData = EXIF.pretty(this);
                         if (exifData) {
-                            setShareImage(file);
-                            //setOrin(EXIF.getTag(this, "Orientation"));
-                           console.log(EXIF.getTag(this, "Orientation"));
+                            setexifR(EXIF.getTag(this, "Orientation"));
                         }
+                        
                         setShareImage(file);
                       });
                     
@@ -378,8 +378,7 @@ if(width > height)
                                             (
                                                 <UploadImage>
                                                     <div id='ImgRator'>
-                                                        <RiRefreshLine  />
-                                                        <h5 id='notify'>Rotate image</h5>
+                                                        {exifR}
                                                     </div>
 
                                             
