@@ -7,6 +7,7 @@ import { RiThumbUpFill, RiThumbUpLine } from 'react-icons/ri';
 import { useState, useRef} from 'react';
 import Load from './Load';
 import {updatePostlikes,format} from '../actions'
+import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
 
 
 
@@ -33,20 +34,7 @@ const Explore  =  (props) => {
 
 
 
-    function imageOrientation(src) {
 
-        var orientation,
-        img = new Image();
-        img.src = src;
-        if (img.naturalWidth > img.naturalHeight) {
-          imgRef.current.style.transform = "rotate(270deg)";
-            console.log("Called !!! ")
-        } else if (img.naturalWidth < img.naturalHeight) {
-            orientation = 'portrait';
-        }
-
-    return orientation;
-}
 
     return(
       <Container>
@@ -77,8 +65,14 @@ const Explore  =  (props) => {
                                        </div>
 
 
-                                        <img
-                                        ref={imgRef} src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.image}/>
+                                      
+                                    <CloudinaryContext cloudName="otecdealings">
+                                        <Image id="imgs"  width="80%"  height="500"  publicId={v.UserPost.cloudinaryPub}  alt="">
+                                        <Transformation  angle={v.UserPost.orientations === "portrait" ? "0" : "270"} />
+                                    
+                                        </Image>
+                                    </CloudinaryContext>
+
                                         <WriteUp val={v.UserPost}/>
                                     </div>
                                      ):( 
@@ -207,11 +201,7 @@ font-size:25pt;
 cursor: pointer;
 }
 
-img{
-height:500px;
-width: 80%;
-object-fit:cover;
-}
+
 
 span{
 display: flex;

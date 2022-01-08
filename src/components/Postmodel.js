@@ -73,18 +73,15 @@ const Postmodel = (props) => {
                swal.fire({title:"File too large ", text:`Sorry file is ${Math.round(count)}mb.. allowed size is below 150mb`, icon:'warning'})
              else{
                  if(file.type === "image/png" || file.type === "image/jpeg" || file.type === "image/jpg"  || file.type === "image/webp"){
-                    const image = await resizeFile(file,300,300);
-                   
-                
+                    //const image = await resizeFile(file,300,300);
                     EXIF.getData(file, function() {
                         var exifData = EXIF.pretty(this);
                         if (exifData) {
-                            setShareImage(image);
+                            setShareImage(file);
+                            //setOrin(EXIF.getTag(this, "Orientation"));
                            console.log(EXIF.getTag(this, "Orientation"));
-                        } else {
-                          swal.fire({ text:"No EXIF data found Pls try uploading from initial device ", icon:'error'});
                         }
-                      
+                        setShareImage(file);
                       });
                     
                 
@@ -103,41 +100,42 @@ const Postmodel = (props) => {
 
 
     const PostData = (e) => {
-        // let cloud = uuid4()+"_"+Math.floor(Date.now()*1000)+"_"+Date.now();
-        // e.preventDefault();
-        // if(e.target !== e.currentTarget){return;}
+        let cloud = uuid4()+"_"+Math.floor(Date.now()*1000)+"_"+Date.now();
+        e.preventDefault();
+        if(e.target !== e.currentTarget){return;}
         
-        // let filestoupload = [];
-        // let m1,m2;
-        // var ts=Math.floor(Date.now()/1000);
+        let filestoupload = [];
+        let m1,m2;
+        var ts=Math.floor(Date.now()/1000);
         
         
-        // const file1 = shareImage;
-        // const file2 = videofile;
-        // const file3 = editorText1;
-        // const file4 = editorText2;
-        // const file5 = youtube;
+        const file1 = shareImage;
+        const file2 = videofile;
+        const file3 = editorText1;
+        const file4 = editorText2;
+        const file5 = youtube;
 
-        //     if(file1 !== ''){    
-        //         img_format = ts*1000+ts+".png";
-        //         img_format = img_format.replace(/ /g, '')
-        //         SEND_TO_S3(img_format,datatoBlob(file1),1,cloud); 
-        //      }
+            if(file1 !== ''){    
+                img_format = ts*1000+ts+".png";
+                img_format = img_format.replace(/ /g, '')
+                //datatoBlob if resizeImage is called and pass shareImage direct to img src
+                SEND_TO_S3(img_format,file1,1,cloud); 
+             }
          
-        //     if(file2 !== ''){
-        //       m2 = new Map();
-        //       m2.set("id",file2.name);
-        //       m2.set("ext",".mp4");
-        //       m2.set("data",file2);
-        //       filestoupload.push(m2);
-        //     for(var x= 0; x < filestoupload.length; x++){
-        //         m2 = filestoupload[x];
-        //         vid_format = addextension(m2.get("id"),ts,m2.get("ext"));
-        //         vid_format = vid_format.replace(/ /g, '')
-        //         SEND_THUMBNAIL(vid_format,m2.get("data"),2,cloud); 
-        //     }
-        // }
-        // sendDB(file3,file4,file5,cloud);
+            if(file2 !== ''){
+              m2 = new Map();
+              m2.set("id",file2.name);
+              m2.set("ext",".mp4");
+              m2.set("data",file2);
+              filestoupload.push(m2);
+            for(var x= 0; x < filestoupload.length; x++){
+                m2 = filestoupload[x];
+                vid_format = addextension(m2.get("id"),ts,m2.get("ext"));
+                vid_format = vid_format.replace(/ /g, '')
+                SEND_THUMBNAIL(vid_format,m2.get("data"),2,cloud); 
+            }
+        }
+        sendDB(file3,file4,file5,cloud);
      
     }
 
@@ -171,6 +169,7 @@ const Postmodel = (props) => {
             approved: false,
             }
         };
+
 
         axios.post(process.env.REACT_APP_POST_END_POINT,payload)
             .then(res => { 
@@ -334,31 +333,20 @@ const Postmodel = (props) => {
     });
 
 
-    const  imageOrientation = (src) =>{
+function imageOrientation(src) {
+var  img = new Image();
+img.src = src;
+var width = img.width;
+var height = img.height;
+height = height + height 
+var orientation;
 
-        setdegree(o =>  o + 90);
-         if(degree == 360)
-            setdegree(0);
-
-        
-        if(src !== undefined || src !== ''){
-            var orientation,
-            img = new Image();
-            img.src = src;
-            
-    
-            if (img.naturalWidth > img.naturalHeight) {
-                orientation = 'landscape';
-                setOrin('landscape');
-               
-
-            } else if (img.naturalWidth < img.naturalHeight) {
-                orientation = 'portrait';
-                setOrin('portrait');
-                
-            } 
-    }
-    }
+if(width > height) 
+  setOrin("landscape"); 
+ else 
+    setOrin("portrait");
+     
+ }
 
 
 
@@ -389,7 +377,7 @@ const Postmodel = (props) => {
                                      {space === "Pic" &&
                                             (
                                                 <UploadImage>
-                                                    <div id='ImgRator'  onClick={() =>imageOrientation(shareImage)}>
+                                                    <div id='ImgRator'>
                                                         <RiRefreshLine  />
                                                         <h5 id='notify'>Rotate image</h5>
                                                     </div>
@@ -397,7 +385,10 @@ const Postmodel = (props) => {
                                             
                                                 <input type="file"   name="image" id="file" style={{display: "none"}}  onChange={handle}  accept="image/png, image/gif, image/jpeg, image/jpg" />
                                                 <p><label  htmlFor="file">{"Choose  image + "}</label></p>
-                                                {shareImage && <img ref={imgRef}  src={shareImage}  />}
+                                                {shareImage && <img ref={imgRef}  
+                                                src={URL.createObjectURL(shareImage)}
+                                                onLoad={()=> imageOrientation(URL.createObjectURL(shareImage))}  
+                                                />}
                                                 </UploadImage>
                                            )
                                        }
