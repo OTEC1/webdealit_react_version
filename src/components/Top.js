@@ -7,6 +7,7 @@ import  {RiEyeFill, RiEyeLine, RiThumbUpFill, RiThumbUpLine, RiLiveFill, RiArrow
 import { useEffect, useRef, useState } from "react";
 import { updatePostlikes, format } from "../actions";
 import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
+import  {MobileView, BrowserView}  from 'react-device-detect';
 
 
 
@@ -74,13 +75,25 @@ const Top = (props) => {
                                <img id="userImg" src={value.User.user_img !== "icons" ?  value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
                                <h5 id="userName">{value.User.username}</h5>
                               
+                              <MobileView>
                                  <CloudinaryContext cloudName="otecdealings">
                                     <div>
-                                      <Image publicId={value.UserPost.cloudinaryPub} width="100%">
-                                        <Transformation  angle={value.UserPost.orientations === "portrait" ? "0" : "270"} />
+                                      <Image publicId={value.UserPost.cloudinaryPub} width="100%" height="400px">
+                                        <Transformation  angle={value.UserPost.exifData} />
                                       </Image>
                                     </div>
                                   </CloudinaryContext>
+                              </MobileView>
+
+                                <BrowserView>
+                                  <CloudinaryContext cloudName="otecdealings">
+                                        <div>
+                                          <Image publicId={value.UserPost.cloudinaryPub} width="100%" height="570px"/>
+                                        </div>
+                                  </CloudinaryContext>
+                                </BrowserView>
+                                
+
                                 
 
 
@@ -109,14 +122,26 @@ const Top = (props) => {
                                 <img id="userImg" src={value.User.user_img !== "icons" ?  value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
                                 <h5 id="userName">{value.User.username}</h5>
                                  
-                                
-                                 <CloudinaryContext cloudName="otecdealings">
-                                    <div>
-                                      <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%">
-                                        <Transformation  angle={value.UserPost.orientations === "portrait" ? "0" : "270"} />
-                                      </Image>
-                                    </div>
-                                  </CloudinaryContext>
+                                <MobileView>
+                                  <CloudinaryContext cloudName="otecdealings">
+                                      <div>
+                                        <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%">
+                                          <Transformation  angle={value.UserPost.exifData} />
+                                        </Image>
+                                      </div>
+                                    </CloudinaryContext>
+                                  </MobileView>
+
+                                  <BrowserView>
+                                    <CloudinaryContext cloudName="otecdealings">
+                                        <div>
+                                          <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%"/>
+                                        </div>
+                                      </CloudinaryContext>
+                                    </BrowserView>
+
+
+                                  
 
                                  
                                  <label   onClick={(e)=> navigates("Videoframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>{
@@ -145,6 +170,7 @@ const Top = (props) => {
                                 {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" }
                                <img id="userImg" src={value.User.user_img !== "icons" ?  value.User.user_img: "images/customSignInbackground.png"}  onClick={UserPage}/>
                                <h5 id="userName">{value.User.username}</h5>
+
                                <ReactPlayer  width="100%"  height="100%" url={value.UserPost.youtubeLink}  controls  />
                                <label  onClick={(e)=> navigates("Playerframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>{
                                 value.UserPost.writeup.length > a ?
@@ -185,13 +211,26 @@ const Top = (props) => {
                           <h5 id="userName">{value.User.username}</h5>
                        </div>  
 
-                       <CloudinaryContext cloudName="otecdealings">
-                                    <div>
-                                      <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%">
-                                         <Transformation  angle={value.UserPost.orientations === "portrait" ? "0" : "270"} />
-                                      </Image>
-                                    </div>
-                       </CloudinaryContext> 
+
+                      <MobileView>
+                          <CloudinaryContext cloudName="otecdealings">
+                                        <div>
+                                          <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%">
+                                            <Transformation  angle={value.UserPost.exifData} />
+                                          </Image>
+                                        </div>
+                          </CloudinaryContext> 
+                       </MobileView>
+
+                       <BrowserView>
+                         <CloudinaryContext cloudName="otecdealings">
+                                        <div>
+                                          <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%"/>
+                                        </div>
+                          </CloudinaryContext> 
+                        </BrowserView>
+
+                            
                        
 
                        <div  id="React">
@@ -222,13 +261,24 @@ const Top = (props) => {
                           <h5 id="userName">{value.User.username}</h5>
                         </div>   
 
-                        <CloudinaryContext cloudName="otecdealings">
-                                    <div>
-                                      <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%">
-                                         <Transformation  angle={value.UserPost.orientations === "portrait" ? "0" : "270"} />
-                                      </Image>
-                                    </div>
-                        </CloudinaryContext>
+                          <MobileView>
+                            <CloudinaryContext cloudName="otecdealings">
+                                        <div>
+                                          <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%">
+                                            <Transformation  angle={value.UserPost.exifData} />
+                                          </Image>
+                                        </div>
+                            </CloudinaryContext>
+                            </MobileView>
+
+                            <BrowserView>
+                              <CloudinaryContext cloudName="otecdealings">
+                                          <div>
+                                            <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%"/>
+                                          </div>
+                              </CloudinaryContext>
+                            </BrowserView>
+
 
 
                       <div  id="React">
@@ -312,12 +362,22 @@ const Top = (props) => {
 
 
                         <label>{value.User.username}</label>
-
+                          
+                          
+                          <MobileView>
                               <CloudinaryContext cloudName="otecdealings">
-                                <Image  width="200" height="270" publicId={value.UserPost.cloudinaryPub}  alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
-                                   <Transformation  angle={value.UserPost.orientations === "portrait" ? "0" : "270"} />
+                                <Image  width="310" height="270" publicId={value.UserPost.cloudinaryPub}  alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
+                                   <Transformation  angle={value.UserPost.exifData} />
                                 </Image>
-                            </CloudinaryContext>
+                              </CloudinaryContext>
+                           </MobileView>
+                           
+                           <BrowserView>
+                            <CloudinaryContext cloudName="otecdealings">
+                                  <Image  width="250" height="250" publicId={value.UserPost.cloudinaryPub}  alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}/>
+                              </CloudinaryContext>
+                            </BrowserView>
+
 
                           <div  id="YO"  onClick={handleClick}>{
                             value.UserPost.writeup.length > a ?
@@ -722,8 +782,10 @@ height: 60%;
 width: 100%;
 overflow-y:scroll;
 display: flex;
-flex-wrap:nowrap;
+flex-wrap:wrap;
 align-items:center;
+justify-content:center;
+
 
 #Week{
 top:70px;
@@ -807,8 +869,6 @@ font-family: "Poppins", sans-serif;
 
 
 @media(max-width:768px){
-margin-left: 20px;
-
 #YO{
 font-size:8pt;
 }

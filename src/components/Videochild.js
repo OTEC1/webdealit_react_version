@@ -3,14 +3,14 @@ import Header from './Header'
 import Ad from './Ad'
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
-import { RiThumbUpLine, RiPlayCircleLine, RiGroup2Line, RiPlayLine, RiArrowLeftCircleLine,RiArrowRightCircleLine, RiShareBoxLine, RiShareLine, RiDownload2Line, RiThumbUpFill} from 'react-icons/ri'
+import { RiThumbUpLine, RiPlayCircleLine, RiGroup2Line, RiPlayLine, RiArrowLeftCircleLine,RiArrowRightCircleLine, RiShareBoxLine, RiShareLine, RiDownload2Line, RiThumbUpFill, RiRotateLockLine} from 'react-icons/ri'
 import { BiSlideshow, BiSortDown } from 'react-icons/bi';
 import {FaSearchengin} from 'react-icons/fa'
 import { useState , useEffect} from 'react';
 import { format } from '../actions';
 import axios from 'axios';
 import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
-
+import  {MobileView, BrowserView}  from 'react-device-detect';
 
 const Videochild = (props) => {
 
@@ -100,20 +100,15 @@ return(
         </SortDivs>
 
         <MovieSection>
-            <TopSection>
+            <TopSection>   
                 <Slider  id="slider" autoplay={1} previousButton={<RiArrowLeftCircleLine/>} nextButton={<RiArrowRightCircleLine/>}  onSlideChange={(e) => reset(e)}>
                     {list1.map((v,i) =>
                        <div>
 
-                              <img src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"}/>
 
-                              <CloudinaryContext cloudName="otecdealings">
-                                    <div>
-                                      <Image publicId={v.fileName} width="100%"  height="100%">
-                                        <Transformation  angle={v.orientations === "portrait" ? "0" : "270"} />
-                                      </Image>
-                                    </div>
-                                </CloudinaryContext>
+                          <img  style={{transform: [{rotate: `${v.spin_direction}deg`}]}} src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"}/>
+
+                           
 
                               <div id='contain'>
                                     <div  id='Top_teaser' onClick={() => thanks()}>
@@ -162,9 +157,17 @@ return(
                 <BottomSection>
                     {list2.map((v,i)=>
                     <div id='videos'>
+                          <MobileView>
+                          <img  
+                           style={{ transform: `rotate(${v.spin}deg)`}}
+                           src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
+                          </MobileView>
 
-                           <img  src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
-                          
+                           <BrowserView> 
+                            <img  
+                            src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
+                          </BrowserView>
+
                            <div  id='downComponent'>
                             <label  id='caving'><RiPlayLine /></label>  <label  id='caving'>{v.Mtitle}</label>
                            </div>

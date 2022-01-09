@@ -48,7 +48,7 @@ const Postmodel = (props) => {
     const [respones, setRespones] = useState('');
     const [degree, setdegree] = useState(90);
     const [orin, setOrin] = useState('');
-    const [exifR, setexifR] = useState('');
+    const [exifR, setexifR] = useState(0);
     const videoElem = useRef();
     const imgRef = useRef();
     let img_format,vid_format;
@@ -66,7 +66,7 @@ const Postmodel = (props) => {
           const file = e.target.files[0];
           const size = e.target.files[0].size;
            count = size/1048576;
-           setProgress(0); setexifR('');
+           setProgress(0); setexifR(0);
            if(file === '' || file === undefined){
            alert('The file is  a  ${typeof image}');
                return;
@@ -78,9 +78,12 @@ const Postmodel = (props) => {
                     EXIF.getData(file, function() {
                         var exifData = EXIF.pretty(this);
                         if (exifData) {
-                            setexifR(EXIF.getTag(this, "Orientation"));
+                            if(EXIF.getTag(this, "Orientation") == 6)
+                                 setexifR(0)
+                            else if(EXIF.getTag(this, "Orientation") == 8)
+                                setexifR(0); 
                         }
-                        
+                       
                         setShareImage(file);
                       });
                     
@@ -100,7 +103,8 @@ const Postmodel = (props) => {
 
 
     const PostData = (e) => {
-        let cloud = uuid4()+"_"+Math.floor(Date.now()*1000)+"_"+Date.now();
+        let cloud =  props.user.email ? ("Webdealz/"+props.user.email+"/"+uuid4()+"_"+Math.floor(Date.now()*1000)+"_"+Date.now())
+                     : ("Webdealz/"+props.user.User.email+"/"+uuid4()+"_"+Math.floor(Date.now()*1000)+"_"+Date.now());
         e.preventDefault();
         if(e.target !== e.currentTarget){return;}
         
@@ -164,17 +168,19 @@ const Postmodel = (props) => {
             date_time: new Date().toLocaleString(),
             cloudinaryPub: cloud,
             orientations: orin,
+            exifData:exifR,
             views: 0,
             likes:0,
             approved: false,
             }
         };
 
+   
 
         axios.post(process.env.REACT_APP_POST_END_POINT,payload)
             .then(res => { 
                 if(res.data.message == "Ok 200") {
-                    myFunction();
+                    Snackbar();
                     setRespones("Write up uploaded...")    
                 }
             }).catch(err => {
@@ -269,7 +275,7 @@ const Postmodel = (props) => {
      const CLOUDINARY = (datas) => {
             axios.post("https://us-central1-grelots-ad690.cloudfunctions.net/ImgResize",datas)
                    .then(res => {
-                        //console.log(res);
+                    console.log(res.data.message);
                     }).catch(err =>{
                      console.log(err);
                    })
@@ -277,7 +283,7 @@ const Postmodel = (props) => {
 
 
 
-   function myFunction() {
+   function Snackbar() {
     var x = document.getElementById("snackbar");
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
@@ -333,20 +339,20 @@ const Postmodel = (props) => {
     });
 
 
-function imageOrientation(src) {
-var  img = new Image();
-img.src = src;
-var width = img.width;
-var height = img.height;
-height = height + height 
-var orientation;
+        function imageOrientation(src) {
+                var  img = new Image();
+                img.src = src;
+                var width = img.width;
+                var height = img.height;
+                height = height + height 
+                var orientation;
 
-if(width > height) 
-  setOrin("landscape"); 
- else 
-    setOrin("portrait");
-     
- }
+                if(width > height) 
+                   setOrin("landscape"); 
+                else 
+                    setOrin("portrait");
+            
+        }
 
 
 
@@ -461,7 +467,6 @@ font-size:12pt;
 }
 
 #snackbar {
-
   visibility: hidden; 
   min-width: 250px;
   margin-left: -125px; 
@@ -502,6 +507,12 @@ font-size:12pt;
   to {top: 0; opacity: 0;}
 }
 
+
+@media(max-width:768px){
+#snackbar {
+margin-left: -135px; 
+}
+}
 `;
 
 

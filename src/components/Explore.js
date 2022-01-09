@@ -8,6 +8,7 @@ import { useState, useRef} from 'react';
 import Load from './Load';
 import {updatePostlikes,format} from '../actions'
 import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
+import  {MobileView, BrowserView}  from 'react-device-detect';
 
 
 
@@ -64,14 +65,18 @@ const Explore  =  (props) => {
                                            </table>
                                        </div>
 
+                                       
 
-                                      
-                                    <CloudinaryContext cloudName="otecdealings">
-                                        <Image  width="85%"  height="500"  publicId={v.UserPost.cloudinaryPub}  alt="">
-                                        <Transformation  angle={v.UserPost.orientations === "portrait" ? "0" : "270"} />
-                                    
-                                        </Image>
-                                    </CloudinaryContext>
+                                       <MobileView>
+                                        <img  
+                                        style={{ transform: `rotate(${v.exifData}deg)`}}
+                                        src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.image} />
+                                        </MobileView>
+                                        
+                                        <BrowserView>
+                                            <img  
+                                            src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.image} />
+                                        </BrowserView>
 
                                         <WriteUp val={v.UserPost}/>
                                     </div>
@@ -171,6 +176,11 @@ margin:auto;
 margin-top:40px;
 
 
+img{
+height: 600px;
+width: 600px;
+object-fit:cover;
+}
 
 .frame{
 width: 60%;
@@ -222,7 +232,7 @@ margin: none;
 }
 
 img{
-height: 250px;
+height: 300px;
 width: 100%;
 }
 
