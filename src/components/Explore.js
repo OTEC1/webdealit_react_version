@@ -65,13 +65,18 @@ const Explore  =  (props) => {
                                            </table>
                                        </div>
 
-                                       
+                                    
 
-                                       <MobileView>
-                                        <img  
-                                        style={{ transform: `rotate(${v.exifData}deg)`}}
-                                        src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.image} />
+                                        <MobileView>
+                                            <CloudinaryContext cloudName="otecdealings">
+                                                            <div>
+                                                            <Image publicId={v.UserPost.cloudinaryPub} width="100%"  height="100%">
+                                                                <Transformation  angle={v.UserPost.exifData} />
+                                                            </Image>
+                                                            </div>
+                                            </CloudinaryContext> 
                                         </MobileView>
+
                                         
                                         <BrowserView>
                                             <img  

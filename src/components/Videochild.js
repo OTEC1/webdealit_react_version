@@ -11,6 +11,7 @@ import { format } from '../actions';
 import axios from 'axios';
 import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
 import  {MobileView, BrowserView}  from 'react-device-detect';
+import {useNavigate} from 'react-router-dom';
 
 const Videochild = (props) => {
 
@@ -61,6 +62,11 @@ const Videochild = (props) => {
      setUpdate(false);
      //console.log(e.slideIndex)
    }
+
+   const history = useNavigate();
+   const sendToPlayer = (url) => {
+        history("/player/"+url)
+   }
 return(
     <>
     <Container>
@@ -105,10 +111,8 @@ return(
                     {list1.map((v,i) =>
                        <div>
 
-
-                          <img  style={{transform: [{rotate: `${v.spin_direction}deg`}]}} src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"}/>
-
-                           
+                              <img  style={{transform: [{rotate: `${v.spin}deg`}]}} src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"}/>
+                         
 
                               <div id='contain'>
                                     <div  id='Top_teaser' onClick={() => thanks()}>
@@ -129,13 +133,13 @@ return(
 
                                      <tr>
                                          <td>  
-                                         <label  id='Upcaving'>Stream <RiPlayLine id='Slider_icons' /></label>  <label  id='Upcaving'>Title: {v.Mtitle}</label>
+                                         <label  id='Upcaving' onClick={()=> sendToPlayer(v.fileName+".mp4")}>Stream <RiPlayLine id='Slider_icons' /></label>  <label  id='Upcaving'>Title: {v.Mtitle}</label>
                                          </td>
                                      </tr>
 
                                      <tr>
                                          <td>
-                                         <label  id='Upcaving'>Download <RiDownload2Line id='Slider_icons'/></label>  <label  id='Upcaving'>Year release: {v.year}</label>
+                                         <label  id='Upcaving'>Download  &nbsp;&nbsp;<RiDownload2Line id='Slider_icons'/></label>  <label  id='Upcaving'>Year release: {v.year}</label>
                                          </td>
                                      </tr>
 
@@ -158,13 +162,13 @@ return(
                     {list2.map((v,i)=>
                     <div id='videos'>
                           <MobileView>
-                          <img  
-                           style={{ transform: `rotate(${v.spin}deg)`}}
-                           src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
+                           <img  onClick={()=> sendToPlayer(v.fileName+".mp4")}
+                              style={{ transform: `rotate(${v.spin}deg)`}}
+                              src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
                           </MobileView>
 
                            <BrowserView> 
-                            <img  
+                            <img  onClick={()=> sendToPlayer(v.fileName+".mp4")}
                             src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
                           </BrowserView>
 
@@ -205,10 +209,15 @@ border-radius:5px;
 font-weight:500;
 padding: 3px;
 margin: 10px;
+display: flex;
 justify-content:center;
 align-items:center;
 text-align:center;
 cursor: pointer;
+}
+
+tr td{
+display: flex;
 }
 
 
@@ -219,7 +228,7 @@ width: 100%;
 #player-btn{
 left:2%;
 font-size:25px;
-margin-top: -20%;
+margin-top: -30%;
 }
 
 }
@@ -484,6 +493,7 @@ white-space: nowrap;
 #videos{
 display: inline-block;
 margin: 10px;
+cursor: pointer;
 
 }
 
@@ -513,6 +523,15 @@ display: none;
 
 @media(max-width:768px){
   margin-top:10px;
+
+
+
+#downComponent{
+position: relative;
+margin-top:-50px;
+z-index:900;
+}
+
 }
 `;
 

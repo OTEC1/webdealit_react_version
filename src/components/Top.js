@@ -374,7 +374,7 @@ const Top = (props) => {
                            
                            <BrowserView>
                             <CloudinaryContext cloudName="otecdealings">
-                                  <Image  width="250" height="250" publicId={value.UserPost.cloudinaryPub}  alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}/>
+                                  <Image  width="220" height="250" publicId={value.UserPost.cloudinaryPub}  alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}/>
                               </CloudinaryContext>
                             </BrowserView>
 
@@ -425,7 +425,7 @@ const Leftside = styled.div`
 width: 50%;
 height: 87.5vh;
 margin-top:0px;
-
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
 #userName{
 position: absolute;
@@ -549,6 +549,8 @@ const Rightside = styled.div`
 width: 50%;
 height: 70vh;
 margin-top:0px;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
 
 
 @media(max-width:768px){
@@ -565,6 +567,7 @@ height: 55%;
 width: 100%;
 position: relative;
 margin-bottom:27px;
+
 
 
 
@@ -782,9 +785,9 @@ height: 60%;
 width: 100%;
 overflow-y:scroll;
 display: flex;
-flex-wrap:wrap;
+flex-wrap:nowrap;
 align-items:center;
-justify-content:center;
+
 
 
 #Week{
@@ -815,6 +818,7 @@ height: auto;
 position: relative;
 text-align:left;
 margin:10px;
+
 
 
 

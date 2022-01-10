@@ -13,6 +13,7 @@ import Music from './components/Music'
 import Dropshipping from './components/Dropshipping';
 import Explorecontent from './components/Explorecontent'
 import Usercontentpage from './components/UsercontentPage'
+import Player from './components/Player'
 
 function App(props) {
 
@@ -66,6 +67,11 @@ props.getUserAuth();
 
           <Routes>
             <Route  path='/UserPage'  element={<Usercontentpage/>}></Route>
+          </Routes>
+
+
+          <Routes>
+            <Route  path='/player/:url'  element={<Player/>}></Route>
           </Routes>
       </Router>
     </div>
