@@ -366,7 +366,7 @@ const Top = (props) => {
                           
                           <MobileView>
                               <CloudinaryContext cloudName="otecdealings">
-                                <Image  width="310" height="270" publicId={value.UserPost.cloudinaryPub}  alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
+                                <Image  width="260" height="270" publicId={value.UserPost.cloudinaryPub}  alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
                                    <Transformation  angle={value.UserPost.exifData} />
                                 </Image>
                               </CloudinaryContext>

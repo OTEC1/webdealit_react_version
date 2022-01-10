@@ -384,7 +384,6 @@ const Postmodel = (props) => {
                                             (
                                                 <UploadImage>
                                                     <div id='ImgRator'>
-                                                        {exifR}
                                                     </div>
 
                                             
