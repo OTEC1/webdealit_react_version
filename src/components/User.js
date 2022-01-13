@@ -30,8 +30,7 @@ const User = (props) => {
                 break;
         };
   }else
-      swal.fire(
-                 {text:'Pls sign in to upload your products ', icon:'warning'})
+      swal.fire({text:'Pls sign in to upload your products ', icon:'warning'})
 
     }
 

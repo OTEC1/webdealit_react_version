@@ -422,10 +422,11 @@ float: left;
 
 
 const Leftside = styled.div`
-width: 50%;
+width: 45%;
 height: 87.5vh;
 margin-top:0px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
 
 #userName{
 position: absolute;
@@ -550,6 +551,7 @@ width: 50%;
 height: 70vh;
 margin-top:0px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+padding: 5px;
 
 
 
