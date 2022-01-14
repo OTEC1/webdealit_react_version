@@ -88,7 +88,7 @@ const Top = (props) => {
                                 <BrowserView>
                                   <CloudinaryContext cloudName="otecdealings">
                                         <div>
-                                          <Image publicId={value.UserPost.cloudinaryPub} width="100%" height="570px"/>
+                                          <Image publicId={value.UserPost.cloudinaryPub} width="100%" height="550px"/>
                                         </div>
                                   </CloudinaryContext>
                                 </BrowserView>
@@ -359,8 +359,6 @@ const Top = (props) => {
 
                         <img id="BottomUserImage" src={value.User.user_img !== "icons" ? value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage} />
                         {value.User.user_img === "icons" ? <h1>{value.User.useremail.substring(0,1).toUpperCase()}</h1> : "" }
-
-
                         <label>{value.User.username}</label>
                           
                           
@@ -458,7 +456,7 @@ text-align:left;
 
 #Like{
 position: absolute;
-bottom: 20px;
+bottom: 40px;
 height: 24px;
 width: 100px;
 font-size:9pt;
@@ -476,7 +474,7 @@ text-shadow:none;
 
 #Views{
 position: absolute;
-bottom: 20px;
+bottom: 40px;
 width: 95px;
 height: 24px;
 font-size:9pt;
@@ -496,7 +494,7 @@ padding-bottom:5px;
 label{
 text-align:left;
 position: absolute;
-bottom: 55px;
+bottom: 85px;
 left: 2%;
 max-width: 90%;
 max-height:100px;
@@ -548,7 +546,7 @@ width: 70px;
 
 const Rightside = styled.div`
 width: 50%;
-height: 70vh;
+height: 86vh;
 margin-top:0px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 padding: 5px;
@@ -565,11 +563,10 @@ margin-top:10px;
 
 const RightMain = styled.div`
 overflow-x:scroll;
-height: 55%;
+height: 50%;
 width: 100%;
 position: relative;
 margin-bottom:27px;
-
 
 
 
@@ -783,13 +780,12 @@ display: block;
 
 
 const RightBottom = styled.div`
-height: 60%;
+height: 35%;
 width: 100%;
 overflow-y:scroll;
 display: flex;
 flex-wrap:nowrap;
 align-items:center;
-
 
 
 #Week{
@@ -808,6 +804,7 @@ top:70px;
 
 
 @media(max-width:768px){
+height: 50%;
 margin-top:0px;
 }
 `;
@@ -820,8 +817,6 @@ height: auto;
 position: relative;
 text-align:left;
 margin:10px;
-
-
 
 
 #BottomUserImage{
@@ -875,12 +870,10 @@ font-family: "Poppins", sans-serif;
 
 
 @media(max-width:768px){
+
 #YO{
 font-size:8pt;
 }
-}
-
-
 `;
 
 

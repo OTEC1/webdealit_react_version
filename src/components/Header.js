@@ -51,7 +51,10 @@ const  Header = (props) => {
     return (
         <Container>
             <Content>
-                <Webdealit onClick={homeNav}>Webdealz</Webdealit>
+                <Webdealit onClick={homeNav}>
+                    <img src="/images/webfly_logo.png"/>
+                    Webfly
+                    </Webdealit>
 
                 <Search>
                     <div>
@@ -171,9 +174,14 @@ color: #4180FF;
 font-size:20pt;
 font-weight:700;
 font-family: "Poppins", sans-serif;
-margin: 10px;
+margin: 5px;
+margin-top:-10px;
 cursor: pointer;
 
+img{
+width: 50px;
+height: 50px;
+}
 
 @media(max-width:768px){
 margin: 0px;
@@ -187,6 +195,7 @@ const Search = styled.div`
 opacity:1;
 flex-grow:1;
 position: relative;
+margin-top:10px;
 & > div{
 max-width:280px;
 input{

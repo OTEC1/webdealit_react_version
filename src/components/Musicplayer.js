@@ -4,6 +4,7 @@ import { useState } from "react"
 import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css';
 import Loader from "react-loader-spinner";
+import axios from "axios";
 
 
 
@@ -11,9 +12,37 @@ import Loader from "react-loader-spinner";
 
 const Musicplayer = (props) => {
 
+
+    const [progress1, setProgress1] = useState(false);
+    const [progress2, setProgress2] = useState(false);
+
     const reset =  (e) => {
         props.PopUpPlayer(e);
     };
+
+
+    const DownloadFiles = (dataUrl, filename,index) => {
+        if(index === 1)
+            setProgress1(true);
+        else
+            setProgress2(true)
+        axios({ url: dataUrl,
+            method: 'GET', responseType: 'blob',})
+             .then((response) => { 
+                 const url = window.URL.createObjectURL(new Blob([response.data])); 
+                  const link = document.createElement('a');
+                   link.href = url; link.setAttribute('download', filename);
+                    document.body.appendChild(link); link.click(); 
+                    if(index === 1)
+                       setProgress1(false);
+                    else
+                      setProgress2(false);
+                }).catch(err => {
+                    alert(err);
+                })
+        
+    }
+
 
     return(
             <>
@@ -55,14 +84,14 @@ const Musicplayer = (props) => {
 
                             <DownloadFile>
                                
-                               <div>
-                                    <RiDownloadCloud2Fill/>
-                                    <h5>Download Music</h5>
+                               <div onClick={(e) => DownloadFiles(process.env.REACT_APP_BASE_URL+props.musicData.musicUrl,props.musicData.musicTitle+"_"+props.musicData.musicArtist+".mp3",1)}>
+                                    <RiDownloadCloud2Fill  />
+                                    {!progress1 ? <h5>Download Music</h5> :<div id="loadimg"><Loader  type="Oval" color="#f5f5f5" height={20}width={20}/></div>}
                                </div>
                                   
-                                <div>
+                                <div  onClick={(e) => DownloadFiles(process.env.REACT_APP_BASE_URL+props.musicData.musicVideoUrl,props.musicData.musicTitle+"_"+props.musicData.musicArtist+".mp4",2)}>
                                     <RiVideoDownloadFill/>
-                                    <h5>Download Video</h5>
+                                    {!progress2 ? <h5>Download Video</h5> :<div id="loadimg"><Loader  type="Oval" color="#f5f5f5" height={20}width={20}/></div>}
                                 </div>
 
                             </DownloadFile>
@@ -252,7 +281,10 @@ display:flex;
 width: 40%;
 height: 100%;
 margin-left:35px;
+
+
 div{
+width: 100%;
 cursor: pointer;
 padding-top:15px;    
 text-align:center;    
@@ -263,6 +295,13 @@ div>h5{
 font-size:8pt;    
 }
 
+#loadimg{
+position: relative;
+margin-top:-25px;
+}
+
+
+
 @media(max-width:768px){
 width: 50%;
 margin-left:0px;
@@ -270,6 +309,13 @@ div{
 padding-top:30px;  
 margin-left:10px;  
 }
+
+#loadimg{
+position: relative;
+margin-top:-50px;
+margin-left:-10px;
+}
+
 }
 `;
 

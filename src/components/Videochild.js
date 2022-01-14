@@ -187,7 +187,7 @@ const Container = styled.div`
 margin-left:auto;
 margin-right:auto;
 width: 80%;
-
+height: auto;
  
 
 #player-btn{
@@ -215,6 +215,13 @@ cursor: pointer;
 tr td{
 display: flex;
 }
+
+
+img{
+height: 200px;
+width: 200px;
+}
+
 
 
 

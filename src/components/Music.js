@@ -27,11 +27,6 @@ import Musicplayer from './Musicplayer'
             case "close":
                  setshowPlayermodel("open")
                  break;
-
-            case "close":
-                setshowPlayermodel("close");
-                 break;
-
             default:
                 setshowPlayermodel("close");
                 break;
@@ -56,6 +51,27 @@ import Musicplayer from './Musicplayer'
     },[])
 
   
+
+    const SortDiv = () => {
+
+    } 
+
+    const GetAlbumPlaylist = (e) => {
+
+    }
+
+
+    const SortByGenre = () => {
+
+    }
+
+    const GetDownloadHighCount = (e) => {
+
+    }
+
+
+
+    
 
 
     return (
@@ -90,28 +106,28 @@ import Musicplayer from './Musicplayer'
                                 <tr>
                                     <td>
                                         <SubContainer>
-                                        <RiSortDesc/> Sort By
+                                        <RiSortDesc  onClick={(e)=> SortDiv(e)}/> Sort By
+                                        </SubContainer>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                       <SubContainer>
+                                        <RiDownloadCloudLine  onClick={(e) =>  GetDownloadHighCount(e)}/> Trending
                                         </SubContainer>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                     <SubContainer>
-                                        <RiDownloadCloudLine/> Trending
-                                        </SubContainer>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    <SubContainer>
-                                        <RiAlbumLine/> Album
+                                        <RiAlbumLine   onClick={(e) => GetAlbumPlaylist(e)}/> Album
                                         </SubContainer>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <SubContainer>
-                                        <RiPlayList2Line/> Genre
+                                        <RiPlayList2Line onClick={(e) => SortByGenre(e)}/> Genre
                                         </SubContainer>
                                     </td>
                                 </tr>
@@ -182,12 +198,12 @@ import Musicplayer from './Musicplayer'
                                         
                                          <img 
                                            onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
-                                           <h4>{ v.Music.music_title.length > 15 ? v.Music.music_title.substring(0,15)+"..." : v.Music.music_title}</h4>
+                                           <h4>{ v.Music.music_title.length > 10 ? v.Music.music_title.substring(0,10)+"..." : v.Music.music_title}</h4>
                                            <h5>{v.Music.music_artist}</h5>
             
-                                    </MusicGlide>
-                                )
-                                 ):(
+                                      </MusicGlide>
+                                    )
+                                   ):(
                                     <div  id="loader">
                                         <Loader
                                         type="Oval"
@@ -210,7 +226,8 @@ import Musicplayer from './Musicplayer'
 
  const Container = styled.div`
  display:flex;
- 
+ height: auto;
+
 #loader{
 height:200px;
 width:200px;
@@ -232,7 +249,7 @@ width:100px;
 
 const SideNav = styled.div`
 width:20%;
-height:100vh;
+height: 80vh;
 background:#f2f5fc;
 margin-top:137px;
 padding-left:18px;
@@ -294,9 +311,7 @@ color: #b8b9be;
 
 const MusicBanner = styled.div`
 width:80%;
-height:100vh;
 margin-top:137px;
-
 
 
 @media(max-width:768px){
@@ -320,6 +335,11 @@ font-family: "Poppins", sans-serif;
 }
 
 
+@media(max-width:768px){
+h1{
+font-size:15pt;  
+} 
+}
 `;
 
 
@@ -344,11 +364,10 @@ margin-left:18px;
 const MusicMedias = styled.div`
 height: 100%;
 width: 100%;
-display: flex;
-flex-flow: row wrap;
+display: inline-block;
 
 @media(max-width:768px){
-justify-content:center;
+text-align:center;
 }
 `;
 
@@ -356,9 +375,12 @@ justify-content:center;
 const MusicGlide = styled.div`
 width: 200px;
 height: 200px;
-text-align:center;
-font-family: "Poppins", sans-serif;
 margin:5px;
+text-align:center;
+display: inline-block;
+font-family: "Poppins", sans-serif;
+
+
 
 
 img{
@@ -380,6 +402,8 @@ margin: 0px;
 @media(max-width:768px){  
 width: 100px;
 height: 100px;
+margin:5px;
+margin-top:20px;
 
 img{
 width: 100px;

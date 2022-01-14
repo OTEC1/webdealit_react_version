@@ -35,6 +35,7 @@ import Ad from './Ad'
 
   
     return (
+      <>
      <Container>
         <Header/>
         <Ad/>
@@ -53,15 +54,15 @@ import Ad from './Ad'
                 )}  
           
         </Container>
-      
+        </>
     )
  }
 
 
 
 const Container = styled.div`
-height: 100vh;
 width: 100%;
+background-image: linear-gradient(to top right,#D0DAf9, #f5f5f5);
 
 #loader{
 width: 100px;
@@ -71,23 +72,10 @@ margin-right:auto;
 margin-top:25%;
 }
 
-img{
-height: 200px;
-width: 200px;
-
-}
-
-
 @media(max-width:768px){
 #loader{
 margin-top:55%;
 } 
-
-/* img{
-max-width: none ;
-margin-top: calc((202px - 42px)/2) ;
-transform: rotate(270deg);
-} */
 }
 }
 `;

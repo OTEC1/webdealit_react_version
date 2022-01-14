@@ -30,17 +30,14 @@ import Explore  from './Explore'
  
 
     return (
-       
+       <>
         <Container>
             <Header/>
             <Ad/>
-            <Navs>
-
-            </Navs>
+            <Navs/>
             <Explore  post={datas}   val={val}/>    
         </Container>
-     
-     
+        </>
     )
  }
 
