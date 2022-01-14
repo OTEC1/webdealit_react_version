@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import Header from './Header'
-import Ad from './Ad'
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 import { RiThumbUpLine, RiPlayCircleLine, RiGroup2Line, RiPlayLine, RiArrowLeftCircleLine,RiArrowRightCircleLine, RiShareBoxLine, RiShareLine, RiDownload2Line, RiThumbUpFill, RiRotateLockLine} from 'react-icons/ri'
@@ -70,8 +68,6 @@ const Videochild = (props) => {
 return(
     <>
     <Container>
-        <Header/>
-        <Ad/>
         <SortDivs>
            <Sort>
                <BreakDown>

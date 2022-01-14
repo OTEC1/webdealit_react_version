@@ -1,7 +1,9 @@
-import { RiArrowDownCircleLine, RiArrowDownLine, RiArrowDropDownFill, RiArrowDropDownLine, RiCloseCircleLine, RiPauseCircleLine, RiPlayCircleLine, RiSkipBackFill, RiSkipForwardFill } from "react-icons/ri"
+import { RiArrowDownCircleLine, RiArrowDownLine, RiArrowDropDownFill, RiArrowDropDownLine, RiCloseCircleLine, RiDownloadCloud2Fill, RiDownloadCloudLine, RiDownloadLine, RiPauseCircleLine,RiPlayCircleLine, RiShareLine, RiSkipBackFill, RiSkipForwardFill, RiVideoDownloadFill } from "react-icons/ri"
 import styled from "styled-components"
 import { useState } from "react"
-
+import AudioPlayer from 'react-h5-audio-player'
+import 'react-h5-audio-player/lib/styles.css';
+import Loader from "react-loader-spinner";
 
 
 
@@ -13,9 +15,6 @@ const Musicplayer = (props) => {
         props.PopUpPlayer(e);
     };
 
-    let e = 1;
-    console.log(props.musicData.musicTitle);
-
     return(
             <>
                 {props.showPlayermodel === "open" &&(
@@ -23,11 +22,7 @@ const Musicplayer = (props) => {
                         <WidgetButton>
 
                             <Widget>
-                                <RiSkipBackFill/>
-                                {
-                                  e == 1 ? <RiPlayCircleLine/> :  <RiPauseCircleLine/>
-                                }
-                                <RiSkipForwardFill/>
+                           
 
                             </Widget>
 
@@ -35,28 +30,50 @@ const Musicplayer = (props) => {
                               <img src={process.env.REACT_APP_BASE_URL+props.musicData.musicThumb}/>
                               <tr>
                                   <td>
-                                  <h5>{props.musicData.musicTitle}</h5>
+                                  <h5>{props.musicData.musicTitle.length > 20 ? props.musicData.musicTitle.substring(0,20)+"..." : props.musicData.musicTitle }</h5>
                                   <h4>{props.musicData.musicArtist}</h4>
                                   </td>
                               </tr>
-                              
                             </MusicPicture>
 
                         </WidgetButton>
 
                         <ProgressCount>
-
+                            <AudioPlayer
+                                    layout="horizontal-reverse"
+                                    defaultCurrentTime={<Loader type="Oval" color="#f5f5f5" height={30}width={30}/>}
+                                    defaultDuration={<Loader type="Oval" color="#f5f5f5" height={30}width={30}/>}
+                                    customVolumeControls={[]}
+                                    customAdditionalControls={[]}
+                                    src={process.env.REACT_APP_BASE_URL+props.musicData.musicUrl}
+                                    onPlay={e => console.log("onPlay")}
+                                />
                         </ProgressCount>
 
 
                         <DownloadShare>
 
                             <DownloadFile>
+                               
+                               <div>
+                                    <RiDownloadCloud2Fill/>
+                                    <h5>Download Music</h5>
+                               </div>
+                                  
+                                <div>
+                                    <RiVideoDownloadFill/>
+                                    <h5>Download Video</h5>
+                                </div>
 
                             </DownloadFile>
 
                             <Incentivesection>
-
+                                  
+                                 <div>
+                                    <RiShareLine/>
+                                    <h5>Share Post to win weekly prize</h5>
+                                </div>
+                                
                             </Incentivesection>
 
                             <CloseSection>
@@ -79,13 +96,15 @@ position: fixed;
 left: 0;
 bottom: 0;
 width: 100%;
-background:#4180FF;
+background-image: linear-gradient(to top right,#1f505f, #07091C);
 height:90px;
 z-index:100;
 
 @media(max-width:768px){
+display: flex;
+flex-flow: column nowrap;
 margin-bottom:55px;
-height: 70px;
+height: 50vh;
 }
 
 `;
@@ -96,7 +115,33 @@ height: 70px;
 const ProgressCount = styled.div`
 width: 45%;
 height: 100%;
-background: green;
+
+
+.rhap_container{
+outline:none;
+background:transparent;
+height: 100%;
+box-shadow:none;
+}
+
+
+.rhap_container svg{
+color: #ffffff;
+}
+
+.rhap_time{
+color: #ffffff;   
+}
+
+
+@media(max-width:768px){  
+height: 50%;
+width:100%;
+.rhap_container svg{
+font-size:20pt;
+}  
+ 
+}
 `;
 
 
@@ -105,6 +150,12 @@ const WidgetButton = styled.div`
 display: flex;
 width:25%;
 height: 100%;
+
+@media(max-width:768px){
+width:100%;
+height: 70%;
+text-align:left;
+}
 `;
 
 const Widget = styled.div`
@@ -117,7 +168,8 @@ cursor: pointer;
 justify-content:center;
 
 @media(max-width:768px){
-padding-top: 20px;
+padding-top: 0px;
+width: 0%;
 }
 `;
 
@@ -129,6 +181,7 @@ align-items:center;
 text-align:center;
 width: 65%;
 height: 100%;
+font-family: "Poppins", sans-serif;
 
 
 img{
@@ -142,6 +195,7 @@ object-fit:cover;
 h5{
 font-size:12pt;
 margin: 5px;
+color: rgba(255,255,255,.7);
 }
 
 h4{
@@ -149,29 +203,101 @@ font-size:8pt;
 margin: 5px;
 color: #b8b9be;
 }
+
+
+@media(max-width:768px){
+width:100%;
+img{
+height: 120px;
+width: 120px;
+margin-top: 5px;
+}
+
+h5{
+font-size:8pt;
+margin: 2px;
+}
+
+h4{
+font-size:6pt;
+margin: 2px;
+}
+
+}
 `;
 
 
 
 
 const  DownloadShare = styled.div`
-display: flex;
 width: 30%;
 height: 100%;
-background: yellow;
-cursor: pointer;
+color:#ffffff;
+display: flex;
 
+@media(max-width:768px){
+flex-flow: row nowrap;
+height: 50%;   
+width:100%;
+}
 `;
 
-const Incentivesection = styled.div`
-width: 40%;
-height: 100%;
-`;
+
+
+
 
 
 const DownloadFile = styled.div`
+display:flex;
 width: 40%;
 height: 100%;
+margin-left:35px;
+div{
+cursor: pointer;
+padding-top:15px;    
+text-align:center;    
+font-weight:100;
+font-family: "Poppins", sans-serif;
+}
+div>h5{
+font-size:8pt;    
+}
+
+@media(max-width:768px){
+width: 50%;
+margin-left:0px;
+div{    
+padding-top:30px;  
+margin-left:10px;  
+}
+}
+`;
+
+const Incentivesection = styled.div`
+width: 30%;
+height: 100%;
+display:flex;
+margin-left:15px;
+justify-content:center;
+align-items:center;
+font-size:15pt;
+div{
+cursor: pointer;
+padding-top:2px;    
+text-align:center;    
+font-weight:100;
+font-family: "Poppins", sans-serif;
+}
+div>h5{
+font-size:8pt;    
+}
+
+@media(max-width:768px){
+div{
+padding-top:10px;    
+}
+}
+
 `;
 
 const CloseSection = styled.div`

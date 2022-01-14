@@ -5,6 +5,8 @@ import Videochild from './Videochild';
 import Loader from 'react-loader-spinner'
 import Swal from 'sweetalert2';
 import {CloudinaryContext, Image, cloudinary} from 'cloudinary-react'
+import Header from './Header'
+import Ad from './Ad'
 
 
 
@@ -34,6 +36,8 @@ import {CloudinaryContext, Image, cloudinary} from 'cloudinary-react'
   
     return (
      <Container>
+        <Header/>
+        <Ad/>
             {list3.length > 0 ? (
               <Videochild  post={list3.length > 0 ? list3 : []}/>
                 ):

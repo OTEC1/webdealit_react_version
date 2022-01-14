@@ -139,14 +139,14 @@ import Musicplayer from './Musicplayer'
                                 <tr>
                                     <td>
                                     <SubContainer>
-                                        <RiUpload2Line/> Upload music
+                                        <RiUpload2Line/> Upload Music
                                         </SubContainer>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                     <SubContainer>
-                                        <RiContactsBook2Line/> Contact webdealz
+                                        <RiContactsBook2Line/> Contact Webdealz
                                         </SubContainer>
                                     </td>
                                 </tr>
@@ -181,8 +181,8 @@ import Musicplayer from './Musicplayer'
                                     <MusicGlide>
                                         
                                          <img 
-                                         onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
-                                           <h4>{v.Music.music_title}</h4>
+                                           onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
+                                           <h4>{ v.Music.music_title.length > 15 ? v.Music.music_title.substring(0,15)+"..." : v.Music.music_title}</h4>
                                            <h5>{v.Music.music_artist}</h5>
             
                                     </MusicGlide>
@@ -217,6 +217,15 @@ width:200px;
 margin-left:auto;
 margin-right:auto;
 margin-top:10%;
+}
+
+
+@media(max-width:768px){
+#loader{    
+margin-top:45%;
+height:100px;
+width:100px;
+}
 }
  `;
 
@@ -292,6 +301,7 @@ margin-top:137px;
 
 @media(max-width:768px){
 width: 100%;
+margin-top:150px;
 }
 `;
 
@@ -334,16 +344,22 @@ margin-left:18px;
 const MusicMedias = styled.div`
 height: 100%;
 width: 100%;
+display: flex;
+flex-flow: row wrap;
+
+@media(max-width:768px){
+justify-content:center;
+}
 `;
 
 
 const MusicGlide = styled.div`
-display: inline-block;
-margin: 10px;
 width: 200px;
 height: 200px;
 text-align:center;
 font-family: "Poppins", sans-serif;
+margin:5px;
+
 
 img{
 width: 200px;
@@ -353,14 +369,28 @@ object-fit:cover;
 
 h4{
 color: #000000;
-margin: 0px;
+font-size:12pt;
 }
 
 h5{
 color:#b8b9be;
 margin: 0px;
 }
+
+@media(max-width:768px){  
+width: 100px;
+height: 100px;
+
+img{
+width: 100px;
+height: 100px;
+}  
+}
+
 `;
+
+
+
 
 
  export default Music;

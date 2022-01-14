@@ -112,7 +112,7 @@ const  Header = (props) => {
                                 <RiShoppingBag3Line
                                 size={20}
                                 color="#000"/>
-                                <span>Buy+</span>
+                                <span>Shop+</span>
                             </a>
                         </Navchild>
 
