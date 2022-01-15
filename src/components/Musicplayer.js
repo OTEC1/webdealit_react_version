@@ -133,6 +133,7 @@ z-index:100;
 display: flex;
 flex-flow: column nowrap;
 margin-bottom:55px;
+padding-bottom:30px;
 height: 50vh;
 }
 
