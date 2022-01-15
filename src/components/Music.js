@@ -6,6 +6,7 @@ import Header from './Header'
 import Ad from './Ad'
 import {RiAlbumLine, RiContactsBook2Line, RiDownloadCloudLine, RiHeadphoneLine, RiMenu2Line, RiPlayList2Line, RiSortDesc, RiSpeaker2Line, RiUpload2Line} from 'react-icons/ri'
 import Musicplayer from './Musicplayer'
+import  {MobileView, BrowserView}  from 'react-device-detect';
 
 
 
@@ -195,7 +196,15 @@ import Musicplayer from './Musicplayer'
                                         
                                          <img 
                                            onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
-                                           <h4>{ v.Music.music_title.length > 10 ? v.Music.music_title.substring(0,10)+"..." : v.Music.music_title}</h4>
+                                        
+                                          <BrowserView>
+                                              <h4>{ v.Music.music_title.length > 13 ? v.Music.music_title.substring(0,13)+"..." : v.Music.music_title}</h4>
+                                          </BrowserView>
+
+                                          <MobileView>
+                                              <h4>{ v.Music.music_title.length > 10 ? v.Music.music_title.substring(0,8)+"..." : v.Music.music_title}</h4>
+                                          </MobileView>
+                                           
                                            <h5>{v.Music.music_artist}</h5>
             
                                       </MusicGlide>
@@ -359,11 +368,18 @@ margin-left:18px;
 
 
 const MusicMedias = styled.div`
-height: 100%;
+height: 69%;
 width: 100%;
 display: inline-block;
+overflow-x:scroll;
+
+::-webkit-scrollbar {
+ display:none;
+}
+
 
 @media(max-width:768px){
+height: 100%;
 text-align:center;
 }
 `;
@@ -406,6 +422,10 @@ img{
 width: 100px;
 height: 100px;
 }  
+
+h5{
+font-size:8pt;
+}
 }
 
 `;

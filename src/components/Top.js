@@ -79,7 +79,7 @@ const Top = (props) => {
                                  <CloudinaryContext cloudName="otecdealings">
                                     <div>
                                       <Image publicId={value.UserPost.cloudinaryPub} width="100%" height="400px">
-                                        <Transformation  angle={value.UserPost.exifData} />
+                                        <Transformation    angle={value.UserPost.exifData} />
                                       </Image>
                                     </div>
                                   </CloudinaryContext>
@@ -89,6 +89,7 @@ const Top = (props) => {
                                   <CloudinaryContext cloudName="otecdealings">
                                         <div>
                                           <Image publicId={value.UserPost.cloudinaryPub} width="100%" height="550px"/>
+                                          <Transformation radius="25"/>
                                         </div>
                                   </CloudinaryContext>
                                 </BrowserView>
@@ -224,9 +225,8 @@ const Top = (props) => {
 
                        <BrowserView>
                          <CloudinaryContext cloudName="otecdealings">
-                                        <div>
-                                          <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%"/>
-                                        </div>
+                              <Image publicId={value.UserPost.cloudinaryPub} width="100%"  height="100%">
+                                </Image>
                           </CloudinaryContext> 
                         </BrowserView>
 
@@ -241,6 +241,7 @@ const Top = (props) => {
                          <div id="Views">
                          <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
                          </div>
+                         
                       </div>
 
                        <div  id="YO"   onClick={(e)=>navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
@@ -372,7 +373,9 @@ const Top = (props) => {
                            
                            <BrowserView>
                             <CloudinaryContext cloudName="otecdealings">
-                                  <Image  width="220" height="250" publicId={value.UserPost.cloudinaryPub}  alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}/>
+                                  <Image  width="220" height="250" publicId={value.UserPost.cloudinaryPub}  alt="" 
+                                   onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
+                                   </Image>
                               </CloudinaryContext>
                             </BrowserView>
 
@@ -597,6 +600,7 @@ align-items:left;
 bottom: 0;
 background-color:#fff;
 border-radius:5px 0px 0px 5px;
+display: flex;
 }
 
 
@@ -627,7 +631,7 @@ color: #828282;
 width: 50px;
 text-shadow:none;
 padding-bottom:3px;
-padding-top:2px;
+padding-top:0px;
 }
 
 #YO{
