@@ -10,8 +10,6 @@ import Ad from './Ad'
 
     return (
         <Container>
-            <Header/>
-            <Ad/>
             <Navs>
 
             </Navs>

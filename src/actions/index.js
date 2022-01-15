@@ -1,6 +1,6 @@
 import {auth, provider, signInWithPopup}  from '../firebase';
 import database from '../firebase';
-import { SET_USER, GET_USER_POSTS ,SET_PROMISE} from './actionType';
+import { SET_USER ,SET_PROMISE, SET_CART} from './actionType';
 import axios from 'axios';
 import { async } from '@firebase/util';
 import swal from 'sweetalert2'
@@ -20,9 +20,12 @@ export const setPromise = (payload) => ({
 });
 
 
-export const getAllpost = (payload) => ({
-    type: GET_USER_POSTS,
-    payload:payload,
+
+
+
+export const setCart = (payload) => ({
+    type: SET_CART,
+    cart:payload,
 });
 
 
@@ -61,12 +64,24 @@ export function signOutCustomApi() {
 }
 
 
+export function cartStated(quantity){
+    console.log(quantity);
+    return (dispatch) => {
+        dispatch(setCart(quantity));
+    };
+};
+
+
+
 
 export function getUserAuth(){
     return(dispatch)=> {
         auth.onAuthStateChanged(async (use) => {
-            if(use)
+            if(use){
                 dispatch(setUser(use));
+                localStorage.getItem("cart") ? dispatch(setCart(true)) : dispatch(setCart(false))
+                
+            }
         });
     };
 };
@@ -128,6 +143,14 @@ export  function updatePostlikes(count,likes,views,email,doc_id_a,doc_id_b){
 }
 
 
+
+
+
+
+
+
+
+
 export function  format(count){
 
     let m;
@@ -154,11 +177,6 @@ export function  format(count){
               m="9k+"
        else if(count > 10000)
               m="🔥🔥"
-
-
-
-
-    
     return m
 }
 

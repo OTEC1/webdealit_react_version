@@ -14,6 +14,7 @@ import Dropshipping from './components/Dropshipping';
 import Explorecontent from './components/Explorecontent'
 import Usercontentpage from './components/UsercontentPage'
 import Player from './components/Player'
+import Ad from './components/Ad';
 
 function App(props) {
 
@@ -27,15 +28,24 @@ props.getUserAuth();
         <Routes>
           <Route  path="/"  element={<Header/>}/>
           </Routes>
-
           <Routes>
            <Route  path="/" element={<Home/>}/>
           </Routes>
 
 
+
+          <Routes>
+          <Route  path="/user"  element={<Header/>}/>
+          </Routes>
+          <Routes>
+          <Route  path="/user"  element={<Ad/>}/>
+          </Routes>
           <Routes>
            <Route  path="/user" element={<User/>}/>
           </Routes>
+
+
+
 
 
           <Routes>
@@ -48,23 +58,61 @@ props.getUserAuth();
 
 
           <Routes>
+          <Route  path="/Streaming"  element={<Header/>}/>
+          </Routes>
+          <Routes>
+          <Route  path="/Streaming"  element={<Ad/>}/>
+          </Routes>
+          <Routes>
            <Route  path="/Streaming" element={<Videoui/>}/>
           </Routes>
 
 
 
+
+
+          <Routes>
+          <Route  path="/Music"  element={<Header/>}/>
+          </Routes>
+          <Routes>
+          <Route  path="/Music"  element={<Ad/>}/>
+          </Routes>
           <Routes>
            <Route  path="/Music" element={<Music/>}/>
           </Routes>
 
-          <Routes>
-           <Route  path="/dropshipping" element={<Dropshipping/>}/>
-          </Routes>
 
+
+          <Routes>
+          <Route  path="/dropshipping"  element={<Header/>}/>
+          </Routes>
+           <Routes>
+           <Route  path="/dropshipping"  element={<Ad/>}/>
+           </Routes>
+           <Routes>
+            <Route  path="/dropshipping" element={<Dropshipping/>}/>
+           </Routes>
+
+
+
+          <Routes>
+          <Route  path="//explorecontent/:val/:em/:doc"  element={<Header/>}/>
+          </Routes>
+          <Routes>
+          <Route  path="//explorecontent/:val/:em/:doc"  element={<Ad/>}/>
+          </Routes>
           <Routes>
             <Route  path='/explorecontent/:val/:em/:doc'  element={<Explorecontent/>}/>
           </Routes>
 
+
+
+          <Routes>
+          <Route  path="/UserPage"  element={<Header/>}/>
+          </Routes>
+          <Routes>
+          <Route  path="/UserPage"  element={<Ad/>}/>
+          </Routes>
           <Routes>
             <Route  path='/UserPage'  element={<Usercontentpage/>}></Route>
           </Routes>

@@ -11,23 +11,24 @@ const Player =  (props) => {
     const {url} = useParams();
     return (
             <Container>
-                  <Header/>
-                  <Ad/>
+              <Header/>
+              <Ad/>
                   <div id='upspace'>
 
                   </div>
-                  <br/>  <br/>  <br/>
-
-                   <div className="player-wrapper">
-                        <ReactPlayer
-                        url={process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+url}
-                        className="react-player"
-                        playing
-                        width="100%"
-                        height="100%"
-                        controls={true}
-                        />
-                   </div>
+                   <br/><br/><br/>
+                    <Play>
+                      <div className="player-wrapper">
+                          <ReactPlayer
+                          url={process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+url}
+                          className="react-player"
+                          playing
+                          width="100%"
+                          height="100%"
+                          controls={true}
+                          />
+                    </div>
+                    </Play>
             </Container>
     )
 }
@@ -62,6 +63,16 @@ box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 width: 100%;
 }
 
+`;
+
+
+const Play = styled.div`
+width:70%;
+height: 100vh;
+
+@media(max-width:768px){
+width: 100%;
+}
 `;
 
 

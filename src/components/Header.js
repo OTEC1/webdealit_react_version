@@ -1,6 +1,6 @@
 import { useState ,useRef} from 'react';
 import styled from 'styled-components'
-import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine, RiArrowLeftRightLine, RiArrowRightCircleLine, RiMovie2Line, RiMusic2Line, RiSearch2Line, RiShoppingBag3Line, RiUser2Line, RiVideoLine} from 'react-icons/ri'
+import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine, RiArrowLeftRightLine, RiArrowRightCircleLine, RiMovie2Line, RiMusic2Line, RiNavigationLine, RiSearch2Line, RiShoppingBag2Fill, RiShoppingBag3Line, RiUser2Line, RiVideoLine} from 'react-icons/ri'
 import { useNavigate }  from 'react-router-dom'
 import { connect } from 'react-redux';
 import {signOutGoogleApi, signOutCustomApi}  from  '../actions'
@@ -35,6 +35,7 @@ const  Header = (props) => {
         history("/dropshipping");
     }
 
+   
 
     const auth = () => {
        var data = document.getElementById("authstate").innerText;
@@ -48,13 +49,16 @@ const  Header = (props) => {
          
     }
 
+  
+
     return (
         <Container>
             <Content>
-                <Webdealit onClick={homeNav}>
+                   <Webdealit onClick={homeNav}>
                     <img src="/images/webfly_logo.png"/>
-                    Webfly
+                      Webfly
                     </Webdealit>
+                        
 
                 <Search>
                     <div>
@@ -118,6 +122,7 @@ const  Header = (props) => {
                                 <span>Shop+</span>
                             </a>
                         </Navchild>
+
 
 
                         <Navchild  onClick={auth}>
@@ -184,7 +189,9 @@ height: 50px;
 }
 
 @media(max-width:768px){
+font-size:15pt;
 margin: 0px;
+margin-top:-20px;
 margin-left:-20px;
 }
 
@@ -340,20 +347,20 @@ span{
 color:rgba(0,0,0,0.9);
 }
 }
-
-
 }
-
-
 `;
 
+
+
+
+
 const mapStateToProps = (state) => {
-    return {
+    return{
         user: state.userState.user,
     };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     logout :(e) => e === 1 ?  dispatch(signOutCustomApi()) : dispatch(signOutGoogleApi()),
 });
 

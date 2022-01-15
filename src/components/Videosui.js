@@ -37,8 +37,6 @@ import Ad from './Ad'
     return (
       <>
      <Container>
-        <Header/>
-        <Ad/>
             {list3.length > 0 ? (
               <Videochild  post={list3.length > 0 ? list3 : []}/>
                 ):
@@ -62,6 +60,7 @@ import Ad from './Ad'
 
 const Container = styled.div`
 width: 100%;
+height: 100vh;
 background-image: linear-gradient(to top right,#D0DAf9, #f5f5f5);
 
 #loader{

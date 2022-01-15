@@ -38,8 +38,6 @@ const User = (props) => {
 
     return(
         <Container>
-            <Header/>
-            <Ad/>
             <Section>
                 <Signinusersection>
                     <User_Page>

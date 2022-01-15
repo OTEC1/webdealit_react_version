@@ -364,7 +364,7 @@ const Top = (props) => {
                           
                           <MobileView>
                               <CloudinaryContext cloudName="otecdealings">
-                                <Image  width="260" height="270" publicId={value.UserPost.cloudinaryPub}  alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
+                                <Image   width="260" height="270" publicId={value.UserPost.cloudinaryPub}  alt=""  onClick={(e) => navigates("Pictureframe",value.User.useremail, value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
                                    <Transformation  angle={value.UserPost.exifData} />
                                 </Image>
                               </CloudinaryContext>
@@ -404,6 +404,8 @@ display: flex;
 flex-wrap: wrap;
 text-shadow: 2px 2px #4180FF;
 
+
+
 h4{
 float: left;
 margin: 5px;
@@ -423,7 +425,8 @@ const Leftside = styled.div`
 width: 45%;
 height: 87.5vh;
 margin-top:0px;
-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+
 
 
 #userName{
@@ -548,7 +551,6 @@ const Rightside = styled.div`
 width: 50%;
 height: 86vh;
 margin-top:0px;
-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 padding: 5px;
 
 

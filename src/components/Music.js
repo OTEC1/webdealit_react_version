@@ -77,9 +77,6 @@ import Musicplayer from './Musicplayer'
     return (
         <>
                 <Container>
-                    <Header/>
-                    <Ad/>
-
                     <SideNav>
                             <Grooves>
                                 Groove
