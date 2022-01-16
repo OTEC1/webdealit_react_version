@@ -22,25 +22,8 @@ const Ad = (props) => {
     return(
         <>
           <Container>
-                    <Cart_NavBar>
-                        <Cart>
-                            {props.cart ? (
-                                <Navchild  onClick={cartView}>
-                                    <a>
-                                    <RiShoppingBag2Fill
-                                        color="#3cff00"/>
-                                        <span>{props.cart}</span>
-                                    </a>
-                                </Navchild>
-                                ):(
-                                <p></p>
-                                )}
-                         </Cart>
-
-                         <RiMenu3Line  id="menu" color="#4180FF"/>
-
-                    </Cart_NavBar>
-        </Container>
+                  
+          </Container>
         </>
     )
 }
@@ -59,58 +42,6 @@ padding: 0  24px;
 position:  fixed;
 z-index: 99;
 `;
-
-
-
-const Cart_NavBar = styled.div`
-position: absolute;
-top:0;
-right: 0;
-margin-right:60px;
-width: 100px;
-height: auto;
-display: flex;
-justify-content:space-between;
-font-size:25pt;
-
-#menu{
-display: none;
-}
-@media(max-width:768px){
-margin-right:60px;
-
-#menu{
-display: block;
-}
-}
-
-`;
-
-
-
-const Cart = styled.div`
-
-
-`;
-
-
-
-
-
-const Navchild = styled.div`
-align-items: center;
-cursor: pointer;
-
-
-}
-
-
-@media(max-width:1100px){
-
-}
-`;
-
-
 
 
 const mapStateToProps = (state) => {

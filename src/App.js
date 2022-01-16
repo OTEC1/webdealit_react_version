@@ -10,7 +10,6 @@ import Register from './components/Register';
 import { connect } from 'react-redux';
 import Videoui from './components/Videosui';
 import Music from './components/Music'
-import Dropshipping from './components/Dropshipping';
 import Explorecontent from './components/Explorecontent'
 import Usercontentpage from './components/UsercontentPage'
 import Player from './components/Player'
@@ -83,15 +82,7 @@ props.getUserAuth();
 
 
 
-          <Routes>
-          <Route  path="/dropshipping"  element={<Header/>}/>
-          </Routes>
-           <Routes>
-           <Route  path="/dropshipping"  element={<Ad/>}/>
-           </Routes>
-           <Routes>
-            <Route  path="/dropshipping" element={<Dropshipping/>}/>
-           </Routes>
+        
 
 
 

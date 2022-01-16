@@ -1,6 +1,6 @@
 import { useState ,useRef} from 'react';
 import styled from 'styled-components'
-import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine, RiArrowLeftRightLine, RiArrowRightCircleLine, RiMovie2Line, RiMusic2Line, RiNavigationLine, RiSearch2Line, RiShoppingBag2Fill, RiShoppingBag3Line, RiUser2Line, RiVideoLine} from 'react-icons/ri'
+import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine,RiMenu3Line, RiArrowLeftRightLine, RiArrowRightCircleLine, RiMovie2Line, RiMusic2Line, RiNavigationLine, RiSearch2Line, RiShoppingBag2Fill, RiShoppingBag3Line, RiUser2Line, RiVideoLine} from 'react-icons/ri'
 import { useNavigate }  from 'react-router-dom'
 import { connect } from 'react-redux';
 import {signOutGoogleApi, signOutCustomApi}  from  '../actions'
@@ -58,6 +58,12 @@ const  Header = (props) => {
                     <img src="/images/webfly_logo.png"/>
                       Webfly
                     </Webdealit>
+
+
+                    <NavBar>
+                         <RiMenu3Line  id="menu" color="#4180FF"/>
+                    </NavBar>
+
                         
 
                 <Search>
@@ -114,17 +120,6 @@ const  Header = (props) => {
                         </Navchild>
 
 
-                        <Navchild  onClick={dropshipping}>
-                            <a>
-                                <RiShoppingBag3Line
-                                size={20}
-                                color="#000"/>
-                                <span>Shop+</span>
-                            </a>
-                        </Navchild>
-
-
-
                         <Navchild  onClick={auth}>
                             <a>
                                 <RiArrowRightCircleLine
@@ -155,11 +150,6 @@ z-index: 99;
 height: 60px;
 
 `;
-
-
-
-
-
 
 
 const Content = styled.div`
@@ -238,6 +228,33 @@ display: none;
 &:hover{
 input{
 background-color: #eef3f8;
+}
+
+`;
+
+
+
+
+
+
+const NavBar = styled.div`
+#menu{
+display: none;
+}
+@media(max-width:768px){
+position: absolute;
+top:0;
+right: 0;
+margin:10px;
+width: 100px;
+height: auto;
+display: flex;
+justify-content:space-between;
+font-size:25pt;
+
+#menu{
+display: block;
+}
 }
 
 `;
@@ -328,7 +345,7 @@ align-items: center;
 
 
 @media(max-width:1100px){
-width: 20%;
+width: 25%;
 text-align:left;
 a{
 width: 20%;

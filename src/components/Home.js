@@ -24,6 +24,11 @@ useEffect(() => {
 
         return(
         <Container>
+
+          <AdRunner>
+
+          </AdRunner>
+
              <Contain>
              {list.length > 0 ? (
               <Top  post={list.length > 0 ? list : []}/>
@@ -50,8 +55,6 @@ useEffect(() => {
 const Container = styled.div`
 width: 100%;
 height: 100vh;
-overflow-x:hidden;
-
 
 
 #loader{
@@ -69,12 +72,35 @@ margin-top:90%;
 height: auto;
 } 
 }
+
+
+@media(max-width:768px){
+overflow-y: scroll;
+}
 `;
 
+
+
+const AdRunner = styled.div`
+box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+height: 70px;
+width: 70%;
+margin-top:141px;
+margin-left:auto;
+margin-right:auto;
+
+@media(max-width:768px){
+width: 100%;
+}
+
+`;
+
+
 const Contain = styled.div`
-width: 80%;
+width: 70%;
 margin:auto;
-margin-top:151px;
+margin-top:10px;
+
 
 
 @media(max-width:768px){
