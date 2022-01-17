@@ -12,28 +12,25 @@ import Explore  from './Explore'
 
  const Explorecontent = (props) => {
 
-    let {val, em, doc} = useParams();
-    const [datas, setDatas] = useState([]);
-
 
    
-    useEffect(() => {
-        window.scrollTo(0,0);
-        axios.post(process.env.REACT_APP_GET_SINGLE_USE_POST,{User:{useremail:em},UserPost:{doc_id_b:doc}})
-        .then(res => {
-           setDatas(res.data.message);
-        }).catch(err => {
-            console.log(err);
-        })
-    } ,[])
-    
- 
-
+    let {frame,useremail,doc_id_a,doc_id_b,title,exifData,image,writeup} = useParams();
+      
     return (
        <>
         <Container>
             <Navs/>
-            <Explore  post={datas}   val={val}/>    
+            <Explore  frame={frame} 
+                      useremail={useremail}
+                      doc_id_a={sessionStorage.getItem("doc_id_a")}
+                      doc_id_b={sessionStorage.getItem("doc_id_b")}
+                      title={sessionStorage.getItem("title")}
+                      exifData={sessionStorage.getItem("exifData")}
+                      media={sessionStorage.getItem("media")}
+                      writeup={sessionStorage.getItem("writeup")}
+                      likes={sessionStorage.getItem("likes")}
+                      date_time={sessionStorage.getItem("date_time")}
+                      cloud={sessionStorage.getItem("cloud")}/>    
         </Container>
         </>
     )

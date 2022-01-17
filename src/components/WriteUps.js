@@ -10,20 +10,20 @@ const WriteUp = (props) => {
           <table>
               <tr>
                   <td>
-                   <BiRocket  id="startPin"/> <h4>{props.val.title}</h4>
+                   <BiRocket  id="startPin"/> <h4>{props.title}</h4>
                   </td>
               </tr>
 
               <tr>
                   <td>
-                   <RiTimeLine id="datePin" /> <h5>{props.val.date_time}</h5>
+                   <RiTimeLine id="datePin" /> <h5>{props.date_time}</h5>
                   </td>
               </tr>
 
 
                 <tr>
                     <td> 
-                     <pre>{props.val.writeup}</pre>
+                     <pre>{props.writeup}</pre>
                     </td>
                 </tr>
           </table>

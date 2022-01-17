@@ -1,6 +1,6 @@
 import { useState ,useRef} from 'react';
 import styled from 'styled-components'
-import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine,RiMenu3Line, RiArrowLeftRightLine, RiArrowRightCircleLine, RiMovie2Line, RiMusic2Line, RiNavigationLine, RiSearch2Line, RiShoppingBag2Fill, RiShoppingBag3Line, RiUser2Line, RiVideoLine} from 'react-icons/ri'
+import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine,RiMenu3Line, RiArrowLeftRightLine, RiArrowRightCircleLine, RiTv2Line, RiMusic2Line, RiNavigationLine, RiSearch2Line, RiShoppingBag2Fill, RiShoppingBag3Line, RiUser2Line, RiVideoLine} from 'react-icons/ri'
 import { useNavigate }  from 'react-router-dom'
 import { connect } from 'react-redux';
 import {signOutGoogleApi, signOutCustomApi}  from  '../actions'
@@ -102,7 +102,7 @@ const  Header = (props) => {
 
                         <Navchild  onClick={Streaming}>
                             <a>
-                                <RiMovie2Line
+                                <RiTv2Line
                                 size={20}
                                 color="#000"/>
                                 <span>Stream</span>
@@ -115,7 +115,7 @@ const  Header = (props) => {
                                 <RiMusic2Line
                                 size={20}
                                 color="#000"/>
-                                <span>Download</span>
+                                <span>Music</span>
                             </a>
                         </Navchild>
 
@@ -146,7 +146,7 @@ padding: 0  24px;
 position:  fixed;
 top: 0;
 width: 100%;
-z-index: 99;
+z-index: 555;
 height: 60px;
 
 `;

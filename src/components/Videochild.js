@@ -247,6 +247,9 @@ height: 10vh;
 margin-top:150px;
 margin-bottom:30px;
 box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+@media(max-width:768px){
+font-size:8pt;
+}
 
 `;
 
@@ -320,6 +323,12 @@ font-size:35px;
 &:hover{
 ${BreakDown}{
 display: block;
+}
+}
+
+@media(max-width:768px){
+#sort{
+font-size:20px;
 }
 }
 `;

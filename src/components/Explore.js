@@ -22,7 +22,7 @@ const Explore  =  (props) => {
 
 
     const reset =  (email, docA, docB) =>  {
-        
+        console.log(email, docA, docB);
         if(react){
             setReact(false);  setUpdate(false);
         }else{
@@ -30,36 +30,33 @@ const Explore  =  (props) => {
         }
     } 
 
-    let lists = [];
-    lists.push(props.post);
 
 
 
 
+    console.log(sessionStorage.getItem("cloud"))
+    console.log(props.media)
 
     return(
       <Container>
-     
-      {lists.length > 0 ? (  
+
        <Content>
-           {lists.map((v,i) => (
-                              props.val === "Pictureframe" ? (
+                           {props.frame === "Pictureframe" ? (
                                 <div className='frame'>  
-                                {v.UserPost !== undefined ? (
                                    <div>  
 
 
                                        <div  id='soap'>
                                            <table>
                                                <tr>
-                                                   <td   onClick={() => reset(v.User.useremail,v.UserPost.doc_id_a, v.UserPost.doc_id_b)}>
+                                                   <td   onClick={() => reset(props.useremail,props.doc_id_a, props.doc_id_b)}>
                                                     {!react ?  <RiThumbUpLine  id='thumb'/> :  <RiThumbUpFill color='#4180FF'  id='thumb'/>}
                                                    </td>
                                                </tr>
 
                                                <tr>
                                                    <td>
-                                                   <span>{update ?  parseInt(format(v.UserPost.likes))+1 : format(v.UserPost.likes)}</span>
+                                                   <span>{update ?  parseInt(format(props.likes))+1 : format(props.likes)}</span>
                                                    </td>
                                                </tr>
                                            </table>
@@ -70,8 +67,8 @@ const Explore  =  (props) => {
                                         <MobileView>
                                             <CloudinaryContext cloudName="otecdealings">
                                                             <div>
-                                                            <Image publicId={v.UserPost.cloudinaryPub} width="100%"  height="100%">
-                                                                <Transformation  angle={v.UserPost.exifData} />
+                                                            <Image alt={props.title}  publicId={sessionStorage.getItem("cloud")} width="100%"  height="100%">
+                                                                <Transformation  angle={props.exifData} />
                                                             </Image>
                                                             </div>
                                             </CloudinaryContext> 
@@ -79,78 +76,65 @@ const Explore  =  (props) => {
 
                                         
                                         <BrowserView>
-                                            <img  
-                                            src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.image} />
+                                            <CloudinaryContext cloudName="otecdealings">
+                                              <Image alt={props.title}  publicId={sessionStorage.getItem("cloud")} width="100%"  height="100%"/>
+                                            </CloudinaryContext> 
                                         </BrowserView>
 
-                                        <WriteUp val={v.UserPost}/>
+                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup}/>
                                     </div>
-                                     ):( 
-                                     <Load/>
-                                     )}
                                 </div>  
-                                ):props.val === "Videoframe" ? (
+                                ):props.frame === "Videoframe" ? (
                                     <div className='frame'> 
-                                    {v.UserPost !== undefined ? (
                                      <div>
 
                                         <div  id='soap'>
                                             <table>
                                                 <tr>
-                                                    <td   onClick={() => reset(v.User.useremail,v.UserPost.doc_id_a, v.UserPost.doc_id_b)}>
+                                                    <td   onClick={() => reset(props.useremail,props.doc_id_a, props.doc_id_b)}>
                                                         {!react ?  <RiThumbUpLine  id='thumb'/> :  <RiThumbUpFill color='#4180FF'  id='thumb'/>}
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>
-                                                    <span>{update ?  parseInt(v.UserPost.likes)+1 : format(v.UserPost.likes)}</span>
+                                                    <span>{update ?  parseInt(props.likes)+1 : format(props.likes)}</span>
                                                     </td>
                                                 </tr>
                                             </table>
                                         </div>
 
-                                            <ReactPlayer  width="100%"  height="400px"  controls url={process.env.REACT_APP_APP_S3_VIDEO_BUCKET+v.UserPost.video}  autoPlay />
-                                            <WriteUp val={v.UserPost}/>
+                                            <ReactPlayer  alt={props.title}   width="100%"  height="400px"  controls url={process.env.REACT_APP_APP_S3_VIDEO_BUCKET+props.media}  autoPlay />
+                                            <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup}/>
                                      </div>
-                                    ):( 
-                                     <Load/>
-                                    )}
                                     </div>
-                                  ):props.val === "Playerframe" ? (
+                                  ):props.frame === "Playerframe" ? (
                                     <div className='frame'>  
-                                     {v.UserPost !== undefined ? (
                                       <div>
                                         <div  id='soap'>
                                             <table>
                                                 <tr>
-                                                    <td   onClick={() => reset(v.User.useremail,v.UserPost.doc_id_a, v.UserPost.doc_id_b)}>
+                                                    <td   onClick={() => reset(props.useremail,props.doc_id_a, props.doc_id_b)}>
                                                         {!react ?  <RiThumbUpLine  id='thumb'/> :  <RiThumbUpFill color='#4180FF'  id='thumb'/>}
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>
-                                                    <span>{update ?  parseInt(format(v.UserPost.likes))+1 : format(v.UserPost.likes)}</span>
+                                                    <span>{update ?  parseInt(format(props.likes))+1 : format(props.likes)}</span>
                                                     </td>
                                                 </tr>
                                             </table>
                                          </div>
 
-                                        <ReactPlayer   width="100%"  height="400px" controls url={v.UserPost.youtubeLink}  autoPlay/>
-                                        <WriteUp val={v.UserPost}/>
+                                        <ReactPlayer  alt={props.title}   width="100%"  height="400px" controls url={props.media}  autoPlay/>
+                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup}/>
                                       </div>
-                                     ):( 
-                                      <Load/>
-                                    )}
                                     </div>
                                 ):(<p></p>)
-                    
-                        )
-                 )
-            }
-        </Content>):(<div></div>)
-       }
+
+                           }
+        </Content>
         </Container>
       
     

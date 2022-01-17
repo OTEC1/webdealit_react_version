@@ -85,7 +85,7 @@ props.getUserAuth();
         
 
 
-
+{/* 
           <Routes>
           <Route  path="//explorecontent/:val/:em/:doc"  element={<Header/>}/>
           </Routes>
@@ -94,9 +94,19 @@ props.getUserAuth();
           </Routes>
           <Routes>
             <Route  path='/explorecontent/:val/:em/:doc'  element={<Explorecontent/>}/>
+          </Routes> */}
+
+          <Routes>
+          <Route  path='/explorecontent/:frame/:useremail'  element={<Header/>}/>
+          </Routes>
+          <Routes>
+          <Route   path="/explorecontent/:frame/:useremail"  element={<Ad/>}/>
+          </Routes>
+          <Routes>
+            <Route   path="/explorecontent/:frame/:useremail/"  element={<Explorecontent/>}/>
           </Routes>
 
-
+        
 
           <Routes>
           <Route  path="/UserPage"  element={<Header/>}/>

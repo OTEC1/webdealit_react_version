@@ -27,7 +27,7 @@ const Musicplayer = (props) => {
         else
             setProgress2(true)
         axios({ url: dataUrl,
-            method: 'GET', responseType: 'blob',})
+                method: 'GET', responseType: 'blob',})
              .then((response) => { 
                  const url = window.URL.createObjectURL(new Blob([response.data])); 
                   const link = document.createElement('a');
@@ -39,6 +39,10 @@ const Musicplayer = (props) => {
                       setProgress2(false);
                 }).catch(err => {
                     alert(err);
+                    if(index === 1)
+                        setProgress1(false);
+                    else
+                      setProgress2(false);
                 })
         
     }
@@ -238,8 +242,6 @@ color: #b8b9be;
 @media(max-width:768px){
 width:100%;
 img{
-height: 120px;
-width: 120px;
 margin-top: 5px;
 }
 

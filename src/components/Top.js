@@ -13,7 +13,6 @@ import  {MobileView, BrowserView}  from 'react-device-detect';
 
 
 
-
 const Top = (props) => {
     
     var a  = 55; 
@@ -39,20 +38,31 @@ const Top = (props) => {
     //const scrollY = window.scrollY 
     const scrollTop = myref.current.scrollTop
     sessionStorage.setItem("scrollPoint", scrollTop);
-    console.log(`OnScrollY: ${scrollTop}`)
   }
 
-    const navigates = (val,em,doc,docB) =>{
-      updatePostlikes(1,0,1,em,doc,docB);
-      history('/explorecontent/'+val+"/"+em+"/"+docB);
-      console.log(sessionStorage.getItem("scrollPoint"));
+
+    const navigates = (x) =>{
+      let frame = x.frame;
+      let useremail=x.useremail;
+      
+      // updatePostlikes(1,0,1,useremail,doc_id_a,doc_id_b);
+        sessionStorage.setItem("cloud",x.cloudinaryPub);
+        sessionStorage.setItem("date_time",x.date_time);
+        sessionStorage.setItem("doc_id_a",x.doc_id_a);
+        sessionStorage.setItem("doc_id_b",x.doc_id_b);
+        sessionStorage.setItem("cloudinaryPub",x.cloudinaryPub);
+        sessionStorage.setItem("exifData",x.exifData);
+        sessionStorage.setItem("media",x.media);
+        sessionStorage.setItem("writeup",x.writeup);
+        sessionStorage.setItem("date_time",x.date_time);
+        sessionStorage.setItem("likes",x.likes);
+        history('/explorecontent/'+frame+"/"+useremail)
     }
 
 
   const handelScrollPosition = () => {
       const scroll = sessionStorage.getItem("scrollPoint");
       if(scroll){
-        console.log(scroll,"Got scroll Point")
         window.scrollTo(0,parseInt(scroll));
         sessionStorage.removeItem("scrollPoint");
       }
@@ -87,14 +97,14 @@ const Top = (props) => {
                                     <BrowserView>
                                         <CloudinaryContext cloudName="otecdealings">
                                               <div>
-                                                <Image height="500"  width="500" publicId={value.UserPost.cloudinaryPub}/>
+                                                <Image  alt={value.UserPost.title} height="500"  width="500" publicId={value.UserPost.cloudinaryPub}/>
                                               </div>
                                         </CloudinaryContext>
                                     </BrowserView>
 
                                     <MobileView>
                                          <CloudinaryContext cloudName="otecdealings">
-                                                <Image height="500"  width="100%" publicId={value.UserPost.cloudinaryPub}>
+                                                <Image alt={value.UserPost.title}  height="300"  width="100%" publicId={value.UserPost.cloudinaryPub}>
                                                    <Transformation  angle={value.UserPost.exifData} />
                                                  </Image>
                                         </CloudinaryContext>
@@ -102,7 +112,8 @@ const Top = (props) => {
                                      
                                  
 
-                                    <WriteUp onClick={(e)=> navigates("Pictureframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
+                                    <WriteUp 
+                                          onClick={(e) => navigates({frame:"Pictureframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.image, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
                                         {
                                         value.UserPost.writeup.length > a ?
                                         <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -129,22 +140,23 @@ const Top = (props) => {
 
                                 <BrowserView>
                                       <CloudinaryContext cloudName="otecdealings">
-                                              <Image height="500"  width="500" publicId={value.UserPost.cloudinaryPub}/>
+                                              <Image  alt={value.UserPost.title}   height="500"  width="500" publicId={value.UserPost.cloudinaryPub}/>
                                       </CloudinaryContext>
                                 </BrowserView>
 
 
                                 <MobileView>
                                      <CloudinaryContext cloudName="otecdealings">
-                                              <Image height="500"  width="100%" publicId={value.UserPost.cloudinaryPub}>
+                                              <Image  alt={value.UserPost.title}   height="300"  width="100%" publicId={value.UserPost.cloudinaryPub}>
                                                   <Transformation  angle={value.UserPost.exifData} />
                                               </Image>
                                       </CloudinaryContext>
                                 </MobileView>
                                      
-                                 
+                            
 
-                                    <WriteUp onClick={(e)=> navigates("Videoframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
+                                    <WriteUp onClick={(e)=> 
+                                     navigates({frame:"Videoframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.video, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
                                         {
                                         value.UserPost.writeup.length > a ?
                                         <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -170,9 +182,16 @@ const Top = (props) => {
                                 {value.User.useremail}
                               </PosterDetails>
 
-                                  <ReactPlayer  width="100%"  height="100%" url={value.UserPost.youtubeLink}  controls  />
+                                  <BrowserView>
+                                    <ReactPlayer  alt={value.UserPost.title}   width="100%"  height="500px" url={value.UserPost.youtubeLink}  controls  />
+                                  </BrowserView>
 
-                                    <WriteUp onClick={(e)=> navigates("Playerframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
+                                  <MobileView>
+                                    <ReactPlayer  alt={value.UserPost.title}   width="100%"  height="320px" url={value.UserPost.youtubeLink}  controls  />
+                                  </MobileView>
+                                  
+                                    <WriteUp onClick={(e)=> 
+                                       navigates({frame:"Playerframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.youtubeLink, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
                                         {
                                         value.UserPost.writeup.length > a ?
                                         <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -182,8 +201,8 @@ const Top = (props) => {
                                     </WriteUp>
 
                                     <Reactions>
-                                     <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
-                                     <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
+                                      <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
+                                      <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
                                     </Reactions>
 
                             </div>
@@ -211,21 +230,21 @@ const Top = (props) => {
                                      <BrowserView>
                                         <CloudinaryContext cloudName="otecdealings">
                                               <div>
-                                                <Image  width="100%"  height="200" publicId={value.UserPost.cloudinaryPub}/>
+                                                <Image  alt={value.UserPost.title}  width="100%"  height="200" publicId={value.UserPost.cloudinaryPub}/>
                                               </div>
                                         </CloudinaryContext>
                                       </BrowserView>
 
                                       <MobileView>
                                         <CloudinaryContext cloudName="otecdealings">
-                                                <Image  width="100%"  height="300" publicId={value.UserPost.cloudinaryPub}>
+                                                <Image alt={value.UserPost.title}   width="100%"  height="300" publicId={value.UserPost.cloudinaryPub}>
                                                   <Transformation  angle={value.UserPost.exifData} />
                                                 </Image>
                                         </CloudinaryContext>
                                       </MobileView>
 
                                     <RightSideWriteUp  
-                                         onClick={(e)=> navigates("Pictureframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
+                                         onClick={(e)=>  navigates({frame:"Pictureframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.image, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
                                       {
                                         value.UserPost.writeup.length > a ?
                                         <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -241,7 +260,7 @@ const Top = (props) => {
                                   <BrowserView>
                                   <CloudinaryContext cloudName="otecdealings">
                                           <div>
-                                            <Image   width="100%"  height="200" publicId={value.UserPost.cloudinaryPub}/>
+                                            <Image alt={value.UserPost.title}   width="100%"  height="200" publicId={value.UserPost.cloudinaryPub}/>
                                           </div>
                                     </CloudinaryContext>
 
@@ -251,7 +270,7 @@ const Top = (props) => {
 
                                     <MobileView>
                                         <CloudinaryContext cloudName="otecdealings">
-                                                <Image  width="100%"  height="300" publicId={value.UserPost.cloudinaryPub}>
+                                                <Image alt={value.UserPost.title}   width="100%"  height="300" publicId={value.UserPost.cloudinaryPub}>
                                                    <Transformation  angle={value.UserPost.exifData} />
                                                 </Image>
                                         </CloudinaryContext>
@@ -259,7 +278,7 @@ const Top = (props) => {
 
 
                                       <RightSideWriteUp  
-                                          onClick={(e)=> navigates("Videoframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
+                                          onClick={(e)=>   navigates({frame:"Videoframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.video, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
                                         {
                                         value.UserPost.writeup.length > a ?
                                         <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -272,10 +291,10 @@ const Top = (props) => {
                           :
                         value.UserPost.youtubeLink  ?
                         <Locals>
-                          <ReactPlayer  width="100%"  height="100%" url={value.UserPost.youtubeLink}  controls  />
+                          <ReactPlayer  alt={value.UserPost.title}   width="100%"  height="100%" url={value.UserPost.youtubeLink}  controls  />
 
                           <RightSideWriteUpYoutube   
-                            onClick={(e)=> navigates("Playerframe",value.User.useremail,value.UserPost.doc_id_a, value.UserPost.doc_id_b)}>
+                            onClick={(e)=>   navigates({frame:"Playerframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.youtubeLink, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
                              {
                               value.UserPost.writeup.length > a ?
                               <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -313,7 +332,7 @@ flex-wrap: wrap;
 box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 padding: 10px;
 @media(max-width:768px){
-height: 58vh;
+height: 45vh;
 width: 100%;
 padding: 0px;
 }
@@ -333,7 +352,7 @@ margin-top:0px;
 
 
 @media(max-width:768px){
-height: 75vh;
+height: 50vh;
 }
 
 `;
@@ -414,6 +433,14 @@ color:#fff;
 font-weight:900;
 display: flex;
 justify-content:space-between;
+z-index:200;
+
+
+@media(max-width:768px){
+margin-bottom:120px;
+height: 50px;
+font-size:8pt;
+}
 `;
 
 
@@ -433,6 +460,7 @@ margin-bottom:10px;
 
 @media(max-width:768px){
 width: 30%; 
+margin-bottom:100px;
 }
 `;
 
@@ -452,7 +480,7 @@ display: none;
 
 @media(max-width:768px){
 width: 100%;
-height: 120%;
+height: 130%;
 overflow-x:hidden;
 }
 
