@@ -34,21 +34,24 @@ const User = (props) => {
                 break;
         };
   }else
-      swal.fire({text:'Pls sign in to upload your products ', icon:'warning'})
+      swal.fire({text:'Pls sign in to add Post', icon:'warning'})
 
     }
 
-    var x = props.user.email;
+
+    var x = props.user ? props.user.email : '';
     var e = {User:{useremail:x}};
 
     useEffect(() => {
      window.scrollTo(0,0);
-     axios.post(process.env.REACT_APP_GET_SINGLE_USE_POST,e)
-             .then(res => {
-                setAllUserPost(res.data.message);
-              }).catch(err => {
-                console.log(err);
-              })
+     props.user ? (
+            axios.post(process.env.REACT_APP_GET_SINGLE_USE_POST,e)
+                    .then(res => {
+                        setAllUserPost(res.data.message);
+                    }).catch(err => {
+                        console.log(err);
+                    })
+     ):(<p></p>)
 
 
 },[])
@@ -408,6 +411,14 @@ margin: 5px;
 @media(max-width:768px){
 width: 100%;
 justify-content:center;
+
+
+
+div{
+div{
+width: 60%;
+}
+}
 }
 `;
 
