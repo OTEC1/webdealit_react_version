@@ -120,7 +120,7 @@ const Postmodel = (props) => {
         const file5 = youtube;
 
             if(file1 !== ''){    
-                img_format = ts*1000+ts+".png";
+                img_format = ts*1000+ts+"_"+uuid4()+".png";
                 img_format = img_format.replace(/ /g, '')
                 //datatoBlob if resizeImage is called and pass shareImage direct to img src
                 SEND_TO_S3(img_format,file1,1,cloud); 
@@ -134,7 +134,7 @@ const Postmodel = (props) => {
               filestoupload.push(m2);
             for(var x= 0; x < filestoupload.length; x++){
                 m2 = filestoupload[x];
-                vid_format = addextension(m2.get("id"),ts,m2.get("ext"));
+                vid_format = addextension(m2.get("id"),ts,uuid4(),m2.get("ext"));
                 vid_format = vid_format.replace(/ /g, '')
                 SEND_THUMBNAIL(vid_format,m2.get("data"),2,cloud); 
             }
@@ -307,9 +307,9 @@ const Postmodel = (props) => {
  };
 
 
-    const addextension = (data,stamp,extension) => {
+    const addextension = (data,stamp,uuid,extension) => {
         var  formated = data.substring(0,data.indexOf("."));
-        formated = formated+"_"+stamp+""+extension;
+        formated = formated+"_"+stamp+"_"+uuid+""+extension;
         return formated;
     }
 

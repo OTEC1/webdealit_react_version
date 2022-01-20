@@ -47,14 +47,13 @@ table{
 max-width:90%;
 width: 90%;
 font-family: "Poppins", sans-serif;
-color: #828282;
+color: #f5f5f5;
 padding-bottom:100px;
 }
 
 
 
 h4{
-color: #515151;
 font-weight:900;
 font-size:15pt;
 max-width:80%;

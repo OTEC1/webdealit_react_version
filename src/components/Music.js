@@ -1,12 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
-import Loader from 'react-loader-spinner'
 import  styled  from 'styled-components'
 import Header from './Header'
 import Ad from './Ad'
 import {RiAlbumLine, RiContactsBook2Line, RiDownloadCloudLine, RiHeadphoneLine, RiMenu2Line, RiPlayList2Line, RiSortDesc, RiSpeaker2Line, RiUpload2Line} from 'react-icons/ri'
 import Musicplayer from './Musicplayer'
 import  {MobileView, BrowserView}  from 'react-device-detect';
+import Load from './Load'
+import TwoTone from './TwoTone'
 
 
 
@@ -77,6 +78,7 @@ import  {MobileView, BrowserView}  from 'react-device-detect';
 
     return (
         <>
+                <TwoTone/>
                 <Container>
                     <SideNav>
                             <Grooves>
@@ -211,12 +213,7 @@ import  {MobileView, BrowserView}  from 'react-device-detect';
                                     )
                                    ):(
                                     <div  id="loader">
-                                        <Loader
-                                        type="Oval"
-                                        color="#4180FF"
-                                        height={100}
-                                        width={100} 
-                                        />
+                                        <Load/>
                                     </div>
                               )}
                         </MusicMedias>
@@ -231,15 +228,18 @@ import  {MobileView, BrowserView}  from 'react-device-detect';
 
 
  const Container = styled.div`
+ position: relative;
  display:flex;
- height: auto;
+ width: 100%;
 
 #loader{
-height:200px;
-width:200px;
+width: 100px;
+height: 100px;
+height: 200px;
+margin-top:10%;
+text-align:center;
 margin-left:auto;
 margin-right:auto;
-margin-top:10%;
 }
 
 
@@ -329,14 +329,13 @@ margin-top:150px;
 
 const TopMostPart = styled.div`
 width: 100%;
-color:#000000;
+color:#f5f5f5;
 
 
 h1{
 margin-left:20px;
 font-size:30pt;
 font-weight:1000;
-color:#000000;
 font-family: "Poppins", sans-serif;
 }
 
@@ -352,7 +351,7 @@ font-size:15pt;
 const SecondTopMost = styled.div`
 width: 100%;
 margin-top:10px;
-
+color:#f5f5f5;
  
 
 `;

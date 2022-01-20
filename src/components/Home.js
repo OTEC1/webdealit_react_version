@@ -4,7 +4,10 @@ import Bottom from "./Bottom";
 import Ad from "./Ad";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Loader from 'react-loader-spinner';
+import Load from './Load';
+import Marquee from 'react-fast-marquee';
+import {RiAmazonLine, RiBitCoinLine, RiCoinLine, RiPlug2Line, RiStore2Line} from 'react-icons/ri'
+import TwoTone from "./TwoTone";
 
 
 const Home = (props) => {
@@ -23,10 +26,28 @@ useEffect(() => {
 
 
         return(
+          <>
+        <TwoTone/>  
         <Container>
 
           <AdRunner>
+             <Marquee speed={100}>
+                <Contains>
+                  <RiBitCoinLine/> Bitcoin rate  
+                </Contains>
 
+                <Contains>
+                  <RiStore2Line/> Exchange merchant 
+                </Contains>
+
+                <Contains>
+                  <RiCoinLine/> NFT trends 
+                </Contains>
+
+                <Contains>
+                  <RiAmazonLine/> Gift card 
+                </Contains>
+            </Marquee>  
           </AdRunner>
 
              <Contain>
@@ -35,40 +56,37 @@ useEffect(() => {
               ):
               (
                 <div  id="loader">
-                 <Loader
-                  type="Oval"
-                  color="#4180FF"
-                  height={100}
-                  width={100} 
-                 />
+                 <Load/>
                 </div>
               )}
               <Bottom/>
              </Contain>
              <Ad/>  
-            </Container>        
+            </Container>  
+            </>      
     )
 }
  
 
 
 const Container = styled.div`
+position: relative;
 width: 100%;
-height: 100vh;
+
 
 
 #loader{
 margin-right: auto;
 margin-left:auto;
 height: 200px;
-margin-top:25%;
+margin-top:10%;
 width: 200px;
 text-align:center;
 }
 
 @media(max-width:768px){
 #loader{
-margin-top:90%;
+margin-top:50%;
 height: auto;
 } 
 }
@@ -101,11 +119,25 @@ width: 70%;
 margin:auto;
 margin-top:10px;
 
-
-
 @media(max-width:768px){
 width: 100%;
 }
+`;
+
+
+
+
+const Contains = styled.div`
+font-size:1em;
+display: flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+background: #f5f5f5;
+border-radius:5px;
+padding: 5px;
+margin:10px;
+font-family: "Poppins", sans-serif;
 `;
 
 

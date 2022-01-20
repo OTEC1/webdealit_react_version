@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import Videoui from './components/Videosui';
 import Music from './components/Music'
 import Explorecontent from './components/Explorecontent'
-import Usercontentpage from './components/UsercontentPage'
 import Player from './components/Player'
 import Ad from './components/Ad';
 
@@ -27,6 +26,10 @@ props.getUserAuth();
         <Routes>
           <Route  path="/"  element={<Header/>}/>
           </Routes>
+          <Routes>
+          <Route  path="/user"  element={<Ad/>}/>
+          </Routes>
+          
           <Routes>
            <Route  path="/" element={<Home/>}/>
           </Routes>
@@ -82,19 +85,6 @@ props.getUserAuth();
 
 
 
-        
-
-
-{/* 
-          <Routes>
-          <Route  path="//explorecontent/:val/:em/:doc"  element={<Header/>}/>
-          </Routes>
-          <Routes>
-          <Route  path="//explorecontent/:val/:em/:doc"  element={<Ad/>}/>
-          </Routes>
-          <Routes>
-            <Route  path='/explorecontent/:val/:em/:doc'  element={<Explorecontent/>}/>
-          </Routes> */}
 
           <Routes>
           <Route  path='/explorecontent/:frame/:useremail'  element={<Header/>}/>
@@ -108,15 +98,7 @@ props.getUserAuth();
 
         
 
-          <Routes>
-          <Route  path="/UserPage"  element={<Header/>}/>
-          </Routes>
-          <Routes>
-          <Route  path="/UserPage"  element={<Ad/>}/>
-          </Routes>
-          <Routes>
-            <Route  path='/UserPage'  element={<Usercontentpage/>}></Route>
-          </Routes>
+     
 
 
           <Routes>

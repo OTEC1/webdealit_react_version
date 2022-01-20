@@ -6,6 +6,7 @@ import Loader from 'react-loader-spinner'
 import axios from 'axios'
 import { useEffect , useState } from 'react'
 import Explore  from './Explore'
+import TwoTone from './TwoTone'
 
 
 
@@ -18,6 +19,7 @@ import Explore  from './Explore'
       
     return (
        <>
+       <TwoTone/>
         <Container>
             <Navs/>
             <Explore  frame={frame} 
@@ -39,8 +41,7 @@ import Explore  from './Explore'
 
 
  const Container = styled.div`
- 
- 
+ position: relative;
  
  `;
 

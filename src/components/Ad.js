@@ -31,16 +31,13 @@ const Ad = (props) => {
 
 
 const Container = styled.div`
-height: 12vh;
+height: 0vh;
 width: 100%;
-background-color: white;
-border-bottom: 1px solid rgba(0,0,0, 0.08);
 margin:auto;
-top:55px;
+top:0;
 left: 0;
-padding: 0  24px;
 position:  fixed;
-z-index: 99;
+z-index: 0;
 `;
 
 

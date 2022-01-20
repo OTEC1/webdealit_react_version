@@ -61,7 +61,7 @@ const  Header = (props) => {
 
 
                     <NavBar>
-                         <RiMenu3Line  id="menu" color="#4180FF"/>
+                         <RiMenu3Line  id="menu" color="#f5f5f5"/>
                     </NavBar>
 
                         
@@ -91,9 +91,9 @@ const  Header = (props) => {
                                     ):(
                                     <RiAccountCircleLine
                                     size={20}
-                                    color="#000"/>
+                                    color="#fff"/>
                                     )}
-                                    <span  style={ props.user ? {color:"#0D96FF"} :  {color:"#000"} }>User</span>
+                                    <span  style={ props.user ? {color:"#0D96FF"} :  {color:"#fff"} }>User</span>
                                 </a>
                                 
                             
@@ -104,7 +104,7 @@ const  Header = (props) => {
                             <a>
                                 <RiTv2Line
                                 size={20}
-                                color="#000"/>
+                                color="#fff"/>
                                 <span>Stream</span>
                             </a>
                         </Navchild>
@@ -114,7 +114,7 @@ const  Header = (props) => {
                             <a>
                                 <RiMusic2Line
                                 size={20}
-                                color="#000"/>
+                                color="#fff"/>
                                 <span>Music</span>
                             </a>
                         </Navchild>
@@ -124,7 +124,7 @@ const  Header = (props) => {
                             <a>
                                 <RiArrowRightCircleLine
                                 size={20}
-                                color="#000"/>
+                                color="#fff"/>
                                 <span id='authstate'> {props.user ? "Logout": "Login"}</span>
                             </a>
                         </Navchild>
@@ -140,7 +140,7 @@ const  Header = (props) => {
 
 
 const Container = styled.div`  
-background-color: white;
+background-image: linear-gradient(to top right,#1f505f, #07091C);
 left: 0;
 padding: 0  24px;
 position:  fixed;
@@ -165,7 +165,7 @@ max-width: 1128px;
 
 const Webdealit = styled.div`
 padding: 10px;
-color: #4180FF;
+color: #fff;
 font-size:20pt;
 font-weight:700;
 font-family: "Poppins", sans-serif;
@@ -192,13 +192,13 @@ const Search = styled.div`
 opacity:1;
 flex-grow:1;
 position: relative;
-margin-top:10px;
+margin-top:5px;
 & > div{
 max-width:280px;
 input{
 border: none;
 box-shadow:none;
-background-color:#ffffff;
+background-color:#f5f5f5;
 border-radius:7px;
 color: rgba(0,0,0,0.9);
 width: 218px;
@@ -288,7 +288,6 @@ display: block;
 position: fixed;
 left: 0;
 bottom: 0;
-background:white;
 width: 100%;
 } 
 
@@ -311,7 +310,7 @@ justify-content: center;
 align-items: center;
 position: fixed;
 bottom: 0;
-background: #ffffff;
+background-image: linear-gradient(to top right,#1f505f, #07091C);
 }
 `;
 
@@ -337,7 +336,7 @@ position: relative;
 text-decoration: none;
 
 span{
-color: rgba(0,0,0,0.6);
+color: #fff;
 display: flex;
 align-items: center;
 }

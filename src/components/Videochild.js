@@ -3,7 +3,7 @@ import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 import { RiThumbUpLine, RiPlayCircleLine, RiGroup2Line, RiPlayLine, RiArrowLeftCircleLine,RiArrowRightCircleLine, RiShareBoxLine, RiShareLine, RiDownload2Line, RiThumbUpFill, RiRotateLockLine} from 'react-icons/ri'
 import { BiSlideshow, BiSortDown } from 'react-icons/bi';
-import {FaSearchengin} from 'react-icons/fa'
+import {FaSearchengin, FaSearchPlus} from 'react-icons/fa'
 import { useState , useEffect} from 'react';
 import { format } from '../actions';
 import axios from 'axios';
@@ -94,7 +94,7 @@ return(
 
 
                <BottomQuery>
-                   <FaSearchengin/>
+                   <FaSearchPlus  color='#000'/>
                </BottomQuery>
                </BreakDown>
                Sort Movies by <BiSortDown id='sort'/>
@@ -103,7 +103,7 @@ return(
 
         <MovieSection>
             <TopSection>   
-                <Slider  id="slider" autoplay={1} previousButton={<RiArrowLeftCircleLine/>} nextButton={<RiArrowRightCircleLine/>}  onSlideChange={(e) => reset(e)}>
+                <Slider  id="slider" autoplay={1} previousButton={<RiArrowLeftCircleLine color="#f5f5f5"/>} nextButton={<RiArrowRightCircleLine  color="#f5f5f5"/>}  onSlideChange={(e) => reset(e)}>
                     {list1.map((v,i) =>
                        <div>
 
@@ -112,7 +112,7 @@ return(
 
                               <div id='contain'>
                                     <div  id='Top_teaser' onClick={() => thanks()}>
-                                     {update ? <RiThumbUpFill  id="icons"  color='#4180FF'  />  : <RiThumbUpLine  id="icons"  color='#000'  /> }{update ?  parseInt(v.likes)+1 : format(v.likes)}
+                                     {update ? <RiThumbUpFill  id="icons"  color='#4180FF'  />  : <RiThumbUpLine  id="icons"  color='#f5f5f5'  /> }{update ?  parseInt(v.likes)+1 : format(v.likes)}
                                     </div>
 
                                     <pre  id='WriteUp'>
@@ -120,7 +120,7 @@ return(
                                     </pre>
 
                                     <div  id='Bottom_teaser'>
-                                      <RiShareLine id="icons"   color='#000'/> 
+                                      <RiShareLine id="icons"   color='#f5f5f5'/> 
                                     </div>
                              </div>
 
@@ -187,8 +187,7 @@ const Container = styled.div`
 margin-left:auto;
 margin-right:auto;
 width: 80%;
-height: auto;
- 
+
 
 #player-btn{
 left:2%;
@@ -308,16 +307,17 @@ const Sort = styled.div`
 float: right;
 width:auto;
 height: 100%;
-color: #4180FF;
+color: #fff;
 display: flex;
 align-items: center;
 font-weight:700;
 padding-right: 5px;
-
+font-family: "Poppins", sans-serif;
 
 #sort{
 float: right;
 font-size:35px;
+
 }
 
 &:hover{
@@ -359,6 +359,7 @@ margin-bottom:5px;
 margin: 10px;
 font-weight:800;
 font-family: "Poppins", sans-serif;
+color:#f5f5f5
 }
 
 @media(max-width:768px){
@@ -395,6 +396,7 @@ float: right;
 height: 95%;
 max-width: 25%;
 margin-right:7px;
+color:#f5f5f5;
 }
 #WriteUp{
 word-wrap: break-word;
@@ -406,7 +408,7 @@ height: 200px;
 max-height:200px;
 overflow-y: scroll;
 text-align:left;
-color: #000;
+color: #f5f5f5;
 font-weight:500;
 padding-top:7px;
 margin-right:10px;

@@ -147,7 +147,6 @@ const Explore  =  (props) => {
 
 const Container = styled.div`
 width: 100%;
-height: 100vh;
 margin-bottom:100px;
 
 

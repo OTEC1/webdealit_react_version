@@ -10,7 +10,7 @@ const Load =  (props) => {
             <div>
                 <Loader
                     type="Oval"
-                    color="#4180FF"
+                    color="#fff"
                     height={100}
                     width={100}
                 />
@@ -30,26 +30,6 @@ display: flex;
 justify-content:center;
 align-items:center;
 text-align:center;
-
-
-
-div{
-position: absolute;
-margin-left:40%;
-margin-top:25%;
-
-}
-
-
-@media(max-width:768px){
-   
-div{
-margin-top:15%;
-width: 100%;
-margin-left:auto;
-margin-right:auto;
-}
-}
 
 `;
 

@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import {CloudinaryContext, Image, cloudinary} from 'cloudinary-react'
 import Header from './Header'
 import Ad from './Ad'
+import Load from './Load';
+import TwoTone from './TwoTone';
 
 
 
@@ -36,22 +38,19 @@ import Ad from './Ad'
   
     return (
       <>
+     <TwoTone/>
      <Container>
             {list3.length > 0 ? (
               <Videochild  post={list3.length > 0 ? list3 : []}/>
                 ):
                 (
                   <div  id="loader">
-                  <Loader
-                    type="Oval"
-                    color="#4180FF"
-                    height={100}
-                    width={100} 
-                  />
+                  <Load/>
                   </div>
                 )}  
-          
+           
         </Container>
+       
         </>
     )
  }
@@ -59,16 +58,20 @@ import Ad from './Ad'
 
 
 const Container = styled.div`
+position: relative;
 width: 100%;
-height: 100vh;
-background-image: linear-gradient(to top right,#D0DAf9, #f5f5f5);
+top: 0;
+
+
 
 #loader{
 width: 100px;
 height: 100px;
-margin-left: auto;
+height: 200px;
+margin-top:20%;
+text-align:center;
+margin-left:auto;
 margin-right:auto;
-margin-top:25%;
 }
 
 @media(max-width:768px){
@@ -78,6 +81,9 @@ margin-top:55%;
 }
 }
 `;
+
+
+
 
 
  export default Videoui;

@@ -24,7 +24,7 @@ const Top = (props) => {
     
 
     const UserPage = () => {
-      history("/UserPage")
+      history("/")
    }
 
    useEffect(() => {
@@ -230,7 +230,7 @@ const Top = (props) => {
                                      <BrowserView>
                                         <CloudinaryContext cloudName="otecdealings">
                                               <div>
-                                                <Image  alt={value.UserPost.title}  width="100%"  height="200" publicId={value.UserPost.cloudinaryPub}/>
+                                                <Image  alt={value.UserPost.title}  width="100%"  height={index === 0 ? "300" : "200"} publicId={value.UserPost.cloudinaryPub}/>
                                               </div>
                                         </CloudinaryContext>
                                       </BrowserView>
@@ -238,7 +238,7 @@ const Top = (props) => {
                                       <MobileView>
                                         <CloudinaryContext cloudName="otecdealings">
                                                 <Image alt={value.UserPost.title}   width="100%"  height="300" publicId={value.UserPost.cloudinaryPub}>
-                                                  <Transformation  angle={value.UserPost.exifData} />
+                                                  <Transformation    angle={value.UserPost.exifData} />
                                                 </Image>
                                         </CloudinaryContext>
                                       </MobileView>
@@ -324,7 +324,6 @@ const Top = (props) => {
 
 
 const Container = styled.div`
-height: 80vh;
 width: 98%;
 text-align:center;
 display: flex;
@@ -373,6 +372,10 @@ text-align:left;
 width: 45%;
 height: 25px;
 display: flex;
+
+h4{
+color:#f5f5f5;
+}
 `;
 
 
@@ -495,7 +498,7 @@ justify-content:center;
 
 & > *:first-of-type{
 width: 100%;
-height: 250px;
+height: 300px;
 margin: 5px;
 }
 
@@ -505,7 +508,6 @@ margin: 5px;
 
 const Locals = styled.div`
 width: 48%;
-height: 200px;
 margin: 2px;
 font-size:10pt;
 color:#fff;
