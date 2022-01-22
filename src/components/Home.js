@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import Load from './Load';
 import Marquee from 'react-fast-marquee';
 import {RiAmazonLine, RiBitCoinLine, RiCoinLine, RiPlug2Line, RiStore2Line} from 'react-icons/ri'
+import {BiCreditCard} from 'react-icons/bi'
+import {FaSyncAlt} from 'react-icons/fa'
 import TwoTone from "./TwoTone";
 
 
@@ -29,27 +31,41 @@ useEffect(() => {
           <>
         <TwoTone/>  
         <Container>
+          <TopHouseContainer>
+               <div id="Online">
+                  <span>Online Marchant </span>&nbsp; <BiCreditCard id="icon" /> 
+               </div>
 
-          <AdRunner>
-             <Marquee speed={100}>
-                <Contains>
-                  <RiBitCoinLine/> Bitcoin rate  
-                </Contains>
+              <AdRunner>
+                    <Marquee speed={100}>
+                        <Contains>
+                          <FaSyncAlt/> &nbsp;Bitcoin rate  
+                        </Contains>
 
-                <Contains>
-                  <RiStore2Line/> Exchange merchant 
-                </Contains>
+                        <Contains>
+                          <FaSyncAlt/> &nbsp;NFT trends 
+                        </Contains>
 
-                <Contains>
-                  <RiCoinLine/> NFT trends 
-                </Contains>
+                        <Contains>
+                          <FaSyncAlt/> &nbsp;Gift card 
+                        </Contains>
 
-                <Contains>
-                  <RiAmazonLine/> Gift card 
-                </Contains>
-            </Marquee>  
-          </AdRunner>
+                        <Contains>
+                          <FaSyncAlt/> &nbsp;Ethereum
+                        </Contains>
 
+                        <Contains>
+                          <FaSyncAlt/> &nbsp;DeFi Trends
+                        </Contains>
+
+                        <Contains>
+                          <FaSyncAlt/> &nbsp;Coinbase news
+                        </Contains>
+                    </Marquee> 
+              </AdRunner>
+
+          </TopHouseContainer>
+          
              <Contain>
              {list.length > 0 ? (
               <Top  post={list.length > 0 ? list : []}/>
@@ -73,6 +89,9 @@ const Container = styled.div`
 position: relative;
 width: 100%;
 
+::-webkit-scrollbar {
+display: none;
+}
 
 
 #loader{
@@ -97,15 +116,56 @@ overflow-y: scroll;
 }
 `;
 
+const TopHouseContainer = styled.div`
+width: 70%;
+display: flex;
+margin-right:auto;
+margin-left:auto;
+margin-top:141px;
+height: 50px;
+
+#Online{
+display: flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+font-size:10pt;
+font-weight:700;
+color: #f5f5f5;
+font-family: "Poppins", sans-serif;
+}
+
+#icon{
+font-size:20pt;
+}
+@media(max-width:768px){
+width: 100%;
+height: 40px;
+
+span{
+display: none;
+}
+
+#Online{
+margin-left:-2px;
+}
+
+#icon{
+font-size:40pt;
+
+}
+
+}
+
+`;
 
 
 const AdRunner = styled.div`
 box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-height: 70px;
-width: 70%;
-margin-top:141px;
+width: 80%;
 margin-left:auto;
-margin-right:auto;
+display: flex;
+
 
 @media(max-width:768px){
 width: 100%;

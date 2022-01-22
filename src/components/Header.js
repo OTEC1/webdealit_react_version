@@ -22,20 +22,15 @@ const  Header = (props) => {
 
 
     const Streaming = () => {
-        history("/Streaming");
+        history("/streaming");
     }
 
 
     const Music = () => {
-        history("/Music");
+        history("/music");
     }
 
-   
-    const dropshipping = () => {
-        history("/dropshipping");
-    }
-
-   
+    
 
     const auth = () => {
        var data = document.getElementById("authstate").innerText;

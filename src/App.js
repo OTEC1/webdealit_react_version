@@ -60,13 +60,13 @@ props.getUserAuth();
 
 
           <Routes>
-          <Route  path="/Streaming"  element={<Header/>}/>
+          <Route  path="/streaming"  element={<Header/>}/>
           </Routes>
           <Routes>
-          <Route  path="/Streaming"  element={<Ad/>}/>
+          <Route  path="/streaming"  element={<Ad/>}/>
           </Routes>
           <Routes>
-           <Route  path="/Streaming" element={<Videoui/>}/>
+           <Route  path="/streaming" element={<Videoui/>}/>
           </Routes>
 
 
@@ -74,13 +74,13 @@ props.getUserAuth();
 
 
           <Routes>
-          <Route  path="/Music"  element={<Header/>}/>
+          <Route  path="/music"  element={<Header/>}/>
           </Routes>
           <Routes>
-          <Route  path="/Music"  element={<Ad/>}/>
+          <Route  path="/music"  element={<Ad/>}/>
           </Routes>
           <Routes>
-           <Route  path="/Music" element={<Music/>}/>
+           <Route  path="/music" element={<Music/>}/>
           </Routes>
 
 
