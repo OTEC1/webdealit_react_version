@@ -70,33 +70,35 @@ return(
     <Container>
         <SortDivs>
            <Sort>
-               <BreakDown>
-               <div>
-                <span>Category</span> 
-                 <select>
-                   {props.post.map((v,i) =>
-                     i !== 0 ?
-                     <option  key={i}>{v}</option>
-                      :
-                    <p></p>
-                   )}
-                 </select>
-               </div>
+                   <BreakDown>
 
-               <div>
-                <span>Year released</span> 
-                 <select>
-                   {list4.map((v,i) =>
-                    <option  key={i}>{v}</option>
-                   )}
-                 </select>
-               </div>
+                      <div>
+                        <span>Category</span> 
+                        <select>
+                          {props.post.map((v,i) =>
+                            i !== 0 ?
+                            <option  key={i}>{v}</option>
+                              :
+                            <p></p>
+                          )}
+                        </select>
+                      </div>
 
+                      <div>
+                        <span>Year released</span> 
+                        <select>
+                          {list4.map((v,i) =>
+                            <option  key={i}>{v}</option>
+                          )}
+                        </select>
+                      </div>
 
-               <BottomQuery>
-                   <FaSearchPlus  color='#000'/>
-               </BottomQuery>
-               </BreakDown>
+                    <BottomQuery>
+                        <FaSearchPlus  color='#000'/>
+                    </BottomQuery>
+                     
+                </BreakDown>
+
                Sort Movies by <BiSortDown id='sort'/>
            </Sort>
         </SortDivs>
@@ -106,23 +108,26 @@ return(
                 <Slider  id="slider" autoplay={1} previousButton={<RiArrowLeftCircleLine color="#f5f5f5"/>} nextButton={<RiArrowRightCircleLine  color="#f5f5f5"/>}  onSlideChange={(e) => reset(e)}>
                     {list1.map((v,i) =>
                        <div>
-
+                            <Readmore>
+                             {v.writeUp}
+                            </Readmore>
                               <img  style={{transform: [{rotate: `${v.spin}deg`}]}} src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"}/>
                          
 
-                              <div id='contain'>
+                               <div id='contain'>
                                     <div  id='Top_teaser' onClick={() => thanks()}>
                                      {update ? <RiThumbUpFill  id="icons"  color='#4180FF'  />  : <RiThumbUpLine  id="icons"  color='#f5f5f5'  /> }{update ?  parseInt(v.likes)+1 : format(v.likes)}
                                     </div>
 
                                     <pre  id='WriteUp'>
-                                        { v.writeUp}
+                                        {v.writeUp}
                                     </pre>
 
                                     <div  id='Bottom_teaser'>
                                       <RiShareLine id="icons"   color='#f5f5f5'/> 
                                     </div>
-                             </div>
+                                    
+                                </div>
 
                              <div id="player-btn">
                                  <table>
@@ -291,7 +296,7 @@ margin-top:5px;
 
 @media(max-width:768px){
 position: relative;
-width: 300px;
+width: 200px;
 border:2px solid #f5f5f5;
 left:25%;
 z-index:500;
@@ -374,8 +379,7 @@ const TopSection = styled.div`
 height: 60vh;
 width: 100%; 
 padding-bottom:0px;
-
-
+position: relative;
 
 img{
 max-width:70%;
@@ -443,8 +447,8 @@ max-width:100%;
 width: 100%;
 min-width:100%;
 max-height:70%;
-height: 70%;
-min-height:70%;
+height: 90%;
+min-height:90%;
 object-fit:cover;
 }
 
@@ -482,6 +486,7 @@ margin: 5px;
 position: absolute;
 float:left;
 top: 0px;
+margin: 2px;
 }
 
 #icons{
@@ -490,7 +495,26 @@ top:5px;
 font-size:30px;
 }
 
+`;
 
+
+const Readmore = styled.div`
+display: none;
+
+@media(max-width:768px){
+display: block;
+position: absolute;
+width: 60%;
+height: 100px;
+right:0;
+font-size:9pt;
+border-radius:10px;
+margin: 5px;
+padding: 5px;
+color: #fff;
+background-image: linear-gradient(to top right,#1f505f, #07091C);
+font-family: "Poppins", sans-serif;
+}
 `;
 
 

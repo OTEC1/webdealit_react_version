@@ -86,6 +86,7 @@ const Top = (props) => {
                           {props.post.map((value, index) => 
                             value.UserPost.image ?
                             <div>
+
                               <PosterDetails>
                                  <img id="userImg" src={value.User.user_img !== "icons" ?  
                                     value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
@@ -227,6 +228,13 @@ const Top = (props) => {
                       {props.post.map((value, index) => 
                         value.UserPost.image ?
                                    <Locals>   
+
+                                     <div  id="UserProfile1">
+                                        <img id="userImg" src={value.User.user_img !== "icons" ?  
+                                            value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
+                                            &nbsp;&nbsp;
+                                          {value.User.useremail}
+                                     </div>
                                      <BrowserView>
                                         <CloudinaryContext cloudName="otecdealings">
                                               <div>
@@ -257,6 +265,14 @@ const Top = (props) => {
                              value.UserPost.video ?
                          
                                 <Locals>
+
+                                  <div  id="UserProfile1">
+                                       <img id="userImg" src={value.User.user_img !== "icons" ?  
+                                            value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
+                                            &nbsp;&nbsp;
+                                          {value.User.useremail}
+                                  </div>
+
                                   <BrowserView>
                                   <CloudinaryContext cloudName="otecdealings">
                                           <div>
@@ -291,6 +307,15 @@ const Top = (props) => {
                           :
                         value.UserPost.youtubeLink  ?
                         <Locals>
+
+                          <div  id="UserProfile1">
+                               <img id="userImg" src={value.User.user_img !== "icons" ?  
+                                value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
+                                &nbsp;&nbsp;
+                                {value.User.useremail}
+                          </div>
+
+
                           <ReactPlayer  alt={value.UserPost.title}   width="100%"  height="100%" url={value.UserPost.youtubeLink}  controls  />
 
                           <RightSideWriteUpYoutube   
@@ -403,19 +428,20 @@ margin-top:100px;
 
 const PosterDetails = styled.div`
 position: absolute;
-padding:10px;
 width: 20%;
 height: 15px;
 top: 0;
 left:0;
 color:#fff;
 display: flex;
+margin: 10px;
 
 
 #userImg{
 border-radius:50%;
 height: 24px;
 width:24px;
+z-index:500;
 cursor: pointer;
 }
 
@@ -511,6 +537,25 @@ width: 48%;
 margin: 2px;
 font-size:10pt;
 color:#fff;
+position: relative;
+
+
+#UserProfile1{
+position: absolute;
+width: 100%;
+height: 50px;
+display: flex;
+color: #fff;
+font-weight:700;
+text-shadow: 2px 2px #4180FF;
+padding: 5px;
+
+img{
+width: 24px;
+height: 24px;
+border-radius:50%;
+}
+}
 
 @media(max-width:768px){
 width: 100%;
