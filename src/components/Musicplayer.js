@@ -241,6 +241,7 @@ color: #b8b9be;
 
 @media(max-width:768px){
 width:100%;
+flex-direction:row;
 img{
 margin-top: 5px;
 }
@@ -268,7 +269,7 @@ color:#ffffff;
 display: flex;
 
 @media(max-width:768px){
-flex-flow: row nowrap;
+flex-direction:row;
 height: 50%;   
 width:100%;
 }
@@ -309,8 +310,8 @@ margin-top:-25px;
 width: 50%;
 margin-left:0px;
 div{    
-padding-top:30px;  
 margin-left:10px;  
+padding-top:4px;
 }
 
 #loadimg{
@@ -343,7 +344,7 @@ font-size:8pt;
 
 @media(max-width:768px){
 div{
-padding-top:10px;    
+height: 100%;
 }
 }
 
