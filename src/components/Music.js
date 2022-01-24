@@ -175,7 +175,7 @@ import TwoTone from './TwoTone'
                     <MusicBanner>
                         <TopMostPart>
                                 <h1>
-                                Music Collection
+                                  Music Collection
                                 </h1>
                             
                         </TopMostPart>
@@ -255,7 +255,7 @@ width:100px;
 
 const SideNav = styled.div`
 width:20%;
-height: 80vh;
+height: 100vh;
 background:#f2f5fc;
 margin-top:137px;
 padding-left:18px;
@@ -367,7 +367,7 @@ margin-left:18px;
 
 
 const MusicMedias = styled.div`
-height: 69%;
+height: 49.5%;
 width: 100%;
 display: inline-block;
 overflow-x:scroll;

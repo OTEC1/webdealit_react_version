@@ -10,6 +10,8 @@ import axios from 'axios';
 import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
 import  {MobileView, BrowserView}  from 'react-device-detect';
 import {useNavigate} from 'react-router-dom';
+import swal from 'sweetalert2'
+import Loader from "react-loader-spinner"
 
 const Videochild = (props) => {
 
@@ -18,13 +20,13 @@ const Videochild = (props) => {
     const [list2, setlist2] = useState([]); 
     const [update, setUpdate] = useState(false);
     const list4 = ["2000", "2001","2002","2003"]
+    const [progress1, setProgress1] = useState(false);
+    const [progress2, setProgress2] = useState(false);
 
 
     useEffect(()=>{
-
       Slideshow();
       Recomendation();
-
     },[]);
 
 
@@ -61,10 +63,43 @@ const Videochild = (props) => {
      //console.log(e.slideIndex)
    }
 
-   const history = useNavigate();
-   const sendToPlayer = (url) => {
-        history("/player/"+url)
+   const startDowload = (url,title,index) => {
+    
+  
+        if(index === 1)
+           setProgress1(true);
+        else
+           setProgress2(true)
+
+
+    axios({ url: url,
+      method: 'GET', responseType: 'blob',})
+      .then((response) => {   
+        swal.fire({text:"Video file has started downloading....", icon:'info'});
+         const url = window.URL.createObjectURL(new Blob([response.data])); 
+         const link = document.createElement('a');
+         link.href = url; link.setAttribute('download', title);
+         document.body.appendChild(link); link.click(); 
+
+          if(index === 1)
+             setProgress1(false);
+          else
+            setProgress2(false);
+
+      }).catch(err => {
+          alert(err);
+          // if(index === 1)
+          //     setProgress1(false);
+          // else
+          //   setProgress2(false);
+      })
    }
+
+
+
+
+
+
 return(
     <>
     <Container>
@@ -105,7 +140,7 @@ return(
 
         <MovieSection>
             <TopSection>   
-                <Slider  id="slider" autoplay={1} previousButton={<RiArrowLeftCircleLine color="#f5f5f5"/>} nextButton={<RiArrowRightCircleLine  color="#f5f5f5"/>}  onSlideChange={(e) => reset(e)}>
+                <Slider  id="slider" duration={3500} autoplay={1} previousButton={<RiArrowLeftCircleLine color="#f5f5f5"/>} nextButton={<RiArrowRightCircleLine  color="#f5f5f5"/>}  onSlideChange={(e) => reset(e)}>
                     {list1.map((v,i) =>
                        <div>
                             <Readmore>
@@ -131,16 +166,16 @@ return(
 
                              <div id="player-btn">
                                  <table>
-
-                                     <tr>
-                                         <td>  
-                                         <label  id='Upcaving' onClick={()=> sendToPlayer(v.fileName+".mp4")}>Stream <RiPlayLine id='Slider_icons' /></label>  <label  id='Upcaving'>Title: {v.Mtitle}</label>
-                                         </td>
-                                     </tr>
-
                                      <tr>
                                          <td>
-                                         <label  id='Upcaving'>Download  &nbsp;&nbsp;<RiDownload2Line id='Slider_icons'/></label>  <label  id='Upcaving'>Year release: {v.year}</label>
+                                         <label  id='Upcaving'>Title: {v.Mtitle}</label> 
+                                           {!progress1 ? 
+                                            <label  id='Upcaving' onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4", v.Mtitle+".mp4",1)}>Download  &nbsp;&nbsp;<RiDownload2Line id='Slider_icons'/></label> 
+                                            : 
+                                            <label id='Upcaving'> <Loader  type="Oval" color="#f5f5f5" height={20}width={20}/></label>
+                                            }
+                                         
+                                          <label  id='Upcaving'>Year release: {v.year}</label>
                                          </td>
                                      </tr>
 
@@ -163,18 +198,23 @@ return(
                     {list2.map((v,i)=>
                     <div id='videos'>
                           <MobileView>
-                           <img  onClick={()=> sendToPlayer(v.fileName+".mp4")}
+                           <img 
                               style={{ transform: `rotate(${v.spin}deg)`}}
                               src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
                           </MobileView>
 
                            <BrowserView> 
-                            <img  onClick={()=> sendToPlayer(v.fileName+".mp4")}
+                            <img 
                             src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
                           </BrowserView>
 
                            <div  id='downComponent'>
-                            <label  id='caving'><RiPlayLine /></label>  <label  id='caving'>{v.Mtitle}</label>
+                            {!progress2 ?
+                            <label  id='caving'><RiDownload2Line onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4",v.Mtitle+".mp4",2)} /></label> 
+                            : 
+                            <label  id='caving'><Loader  type="Oval" color="#f5f5f5" height={20}width={20}/></label>
+                            }
+                            <label  id='cavingName'>{v.Mtitle}</label>
                            </div>
  
                     </div>
@@ -531,8 +571,6 @@ white-space: nowrap;
 #videos{
 display: inline-block;
 margin: 10px;
-cursor: pointer;
-
 }
 
 
@@ -546,6 +584,16 @@ color: #fff;
 
 
 #caving{
+border: 1px solid #fff;
+border-radius:5px;
+font-weight:500;
+padding: 3px;
+margin: 3px;
+cursor: pointer;
+}
+
+#cavingName{
+font-size:10pt;
 border: 1px solid #fff;
 border-radius:5px;
 font-weight:500;

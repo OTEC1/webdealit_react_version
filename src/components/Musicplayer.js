@@ -26,6 +26,7 @@ const Musicplayer = (props) => {
             setProgress1(true);
         else
             setProgress2(true)
+            
         axios({ url: dataUrl,
                 method: 'GET', responseType: 'blob',})
              .then((response) => { 
@@ -356,6 +357,8 @@ height: 100%;
 font-size:20pt;
 text-align:right;
 padding: 10px;
+cursor: pointer;
+
 `;
 
 

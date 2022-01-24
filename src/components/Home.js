@@ -168,7 +168,6 @@ display: flex;
 
 
 @media(max-width:768px){
-width: 100%;
 }
 
 `;

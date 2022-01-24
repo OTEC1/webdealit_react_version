@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { RiDeleteBackLine, RiDeleteBin3Line, RiOpenSourceLine, RiPencilLine } from 'react-icons/ri';
 import ReactPlayer from 'react-player';
+import Load from './Load'
 
 
 
@@ -95,7 +96,7 @@ const User = (props) => {
 
 
                 <Signinuserrightsection>
-                   <CardBackground/>
+                   <CardBackground2/>
 
                     {allUserPost.map((v,i) =>
                         v.UserPost !== undefined  ? (
@@ -106,7 +107,8 @@ const User = (props) => {
                             <img  src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.video.replace("mp4","png")}/>
                             : v.UserPost.youtubeLink ?
                             <ReactPlayer />
-                            :<p></p>}
+                            :<p></p>
+                            }
                                 <div>
                                         <label>
                                           {v.UserPost.writeup.length > 200 ? v.UserPost.writeup.substring(0,140)+"... read more" : v.UserPost.writeup}
@@ -117,11 +119,10 @@ const User = (props) => {
                                         </div>
                                 </div>  
                         </Postcards>
-                        ):<p></p>
-                    
+                        ):<div  id='loaders'>
+                                Loading...
+                          </div>
                     )}
-                
-                  
                 
                 </Signinuserrightsection>
                 
@@ -206,8 +207,6 @@ background-position:center;
 background-size:462px;
 height:54px;
 margin: -12px -12px 0;
-
-
 `;
 
 
@@ -318,6 +317,7 @@ display: block;
 margin: auto;
 margin-bottom: 25px;
 margin-top: 100px;
+height: 60vh;
 
 }
 
@@ -340,27 +340,46 @@ overflow-x:hidden;
 
 
 
-& > *:first-of-type{
-margin: 0px;
-height: 42px;
-width: 100%;
-
+#loaders{
+display: flex;
+justify-content:center;
+text-align:center;
+align-items:center;
+width: 100px;
+height: 100px;
+border:0.5px solid #000;
+border-radius:50%;
+margin-left:40%;
+margin-top:35%;
 }
-
 
 ::-webkit-scrollbar {
 display: none;
 }
 
 
-
-
 @media(max-width:768px){
 flex-wrap:wrap;
-width: 100%;
+width: 90%;
+margin-left:auto;
+margin-right:auto;
+
+#loaders{
+margin-left:36%;
+margin-top:50%;
+}
 }
 `;
 
+
+const CardBackground2 = styled.div`
+background: url('/images/card-bg.svg');
+background-position:center;
+background-size:462px;
+height:45px;
+width: 100%;
+margin: 0px;
+`;
 
 
 

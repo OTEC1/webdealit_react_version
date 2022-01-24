@@ -164,7 +164,6 @@ const Postmodel = (props) => {
             title: file3 ? file3 : '',
             writeup: file4 ? file4 : '',
             youtubeLink: file5 ? file5 : '',
-            timestamp: new Date().getTime(),
             date_time: new Date().toLocaleString(),
             cloudinaryPub: cloud,
             orientations: orin,

@@ -4,7 +4,7 @@ import {RiTimeLine}  from 'react-icons/ri'
 
 
 const WriteUp = (props) => {
-
+    console.log(props.title)
     return(
         <Container>
           <table>
@@ -57,7 +57,6 @@ h4{
 font-weight:900;
 font-size:15pt;
 max-width:80%;
-
 }
 
 h5{
@@ -108,6 +107,9 @@ text-align:center;
 font-size:15pt;
 }
 
+h4{
+font-size:12pt;
+}
 
 
 tr td{
