@@ -5,6 +5,7 @@ import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css';
 import Loader from "react-loader-spinner";
 import axios from "axios";
+import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,WhatsappIcon,TwitterIcon} from 'react-share'
 
 
 
@@ -15,6 +16,7 @@ const Musicplayer = (props) => {
 
     const [progress1, setProgress1] = useState(false);
     const [progress2, setProgress2] = useState(false);
+    const [share, setShare] = useState(false);
 
     const reset =  (e) => {
         props.PopUpPlayer(e);
@@ -50,7 +52,37 @@ const Musicplayer = (props) => {
 
 
     return(
+        
             <>
+
+
+          {share ? 
+            <ShareDialog>
+                <div>
+                        <FacebookShareButton
+                            url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id} 
+                            quote={props.musicData.musicArtist+"  "+ props.musicData.musicTitle}
+                            onClick={(e) => setShare(false)}>
+                        <FacebookIcon round size={35}/>
+                        </FacebookShareButton>
+
+                        <WhatsappShareButton
+                            url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id}
+                            quote={props.musicData.musicArtist+"  "+ props.musicData.musicTitle}
+                            onClick={(e) => setShare(false)}>
+                        <WhatsappIcon round size={35}/>
+                        </WhatsappShareButton>
+
+
+                        <TwitterShareButton
+                            url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id}
+                            quote={props.musicData.musicArtist+"  "+ props.musicData.musicTitle}
+                            onClick={(e) => setShare(false)}>
+                        <TwitterIcon round size={35}/>
+                        </TwitterShareButton>
+                </div>   
+         </ShareDialog> :""}
+
                 {props.showPlayermodel === "open" &&(
                     <Container>
                         <WidgetButton>
@@ -103,7 +135,7 @@ const Musicplayer = (props) => {
 
                             <Incentivesection>
                                   
-                                 <div>
+                                 <div onClick={(e) => setShare(true)} >
                                     <RiShareLine/>
                                     <h5>Share Post to win weekly prize</h5>
                                 </div>
@@ -118,6 +150,8 @@ const Musicplayer = (props) => {
 
                         
                     </Container>
+
+                    
                     )}
             </>
         )
@@ -360,6 +394,37 @@ padding: 10px;
 cursor: pointer;
 
 `;
+
+
+
+const ShareDialog= styled.div`
+position: absolute;
+width: 30%;
+height: auto;
+z-index:500;
+background: #fff;
+border-radius:10px;
+margin-top:20%;
+margin-left:35%;
+padding: 20px;
+display: flex;
+justify-content:space-evenly;
+align-items:center;
+text-align:center;
+
+
+@media(max-width:768px){
+position: fixed;
+overflow: hidden;
+width: 60%;
+margin-left:17%;
+margin-top:50vh;
+padding: 5px;
+}
+
+`;
+
+
 
 
 

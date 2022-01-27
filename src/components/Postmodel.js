@@ -10,7 +10,7 @@ import ReactPlayer from 'react-player'
 import { RiAlbumLine, RiCamera2Line, RiGalleryFill, RiGalleryLine, RiPictureInPicture2Line, RiRefreshLine, RiVideoAddLine, RiVideoUploadLine, RiYoutubeFill, RiYoutubeLine } from 'react-icons/ri';
 import Resizer from 'react-image-file-resizer';
 import {v4 as uuid4}  from 'uuid';
-import EXIF from 'exif-js'
+// import EXIF from 'exif-js'
 
 
 
@@ -75,17 +75,17 @@ const Postmodel = (props) => {
              else{
                  if(file.type === "image/png" || file.type === "image/jpeg" || file.type === "image/jpg"  || file.type === "image/webp"){
                     //const image = await resizeFile(file,300,300);
-                    EXIF.getData(file, function() {
-                        var exifData = EXIF.pretty(this);
-                        if (exifData) {
-                            if(EXIF.getTag(this, "Orientation") == 6)
-                                 setexifR(0)
-                            else if(EXIF.getTag(this, "Orientation") == 8)
-                                setexifR(0); 
-                        }
+                    // EXIF.getData(file, function() {
+                    //     var exifData = EXIF.pretty(this);
+                    //     if (exifData) {
+                    //         if(EXIF.getTag(this, "Orientation") == 6)
+                    //              setexifR(0)
+                    //         else if(EXIF.getTag(this, "Orientation") == 8)
+                    //             setexifR(0); 
+                    //     }
                        
-                        setShareImage(file);
-                      });
+                    //     setShareImage(file);
+                    //   });
                     
                 
   

@@ -8,7 +8,7 @@ import Musicplayer from './Musicplayer'
 import  {MobileView, BrowserView}  from 'react-device-detect';
 import Load from './Load'
 import TwoTone from './TwoTone'
-import { useParams} from 'react-router-dom'
+import { useParams,useLocation, useNavigate} from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { BiDisc, BiTime, BiUser } from 'react-icons/bi'
 import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,WhatsappIcon,TwitterIcon} from 'react-share'
@@ -16,16 +16,20 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
 
  const MusicResult = (props) => {
 
-   
+    const {query} = useParams();
     const [music, setMusic] = useState([]);
-    const [share, setShare] = useState(false);
     const [musiclink, setMusicLink] = useState([]);
+    const [share, setShare] = useState(false);
     const [errand, setErrand] = useState('');
     const [showPlayermodel, setshowPlayermodel] = useState("close");
-    const [pageErrand,setpageErrand] = useState({musicArtist:"",musicTitle:"",musicUrl:"",musicVideoUrl:"",musicThumb:"",promoIncentive:""})
+    const [pageErrand,setpageErrand] = useState({musicArtist:"",musicTitle:"",musicUrl:"",musicVideoUrl:"",musicThumb:"",doc_id:"",promoIncentive:""})
    
 
 
+
+
+
+  
     const PopUpPlayer  = (e,v) => {
         e.preventDefault();
         switch(showPlayermodel){
@@ -47,26 +51,22 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
 
 
     
-    const {query} = useParams();
+    
     useEffect(() => {
-        if(query != undefined){
-        axios.post(process.env.REACT_APP_GET_SONG_BY_LINK,{Music:{doc_id:query}})
+        let x = query;
+        axios.post(process.env.REACT_APP_GET_SONG_BY_LINK,{Music:{doc_id:x}})
         .then(res => {
              setMusicLink(res.data.message);
              res.data.message.map((v,i) => {
                 CALL_TWO(v.Music.music_artist)
                document.title =  "Search result: "+v.Music.music_artist +": "+ v.Music.music_title
              })
-        }).catch(err=> {
+          }).catch(err => {
             console.log(err);
         })
-    }else
-       console.log("Error");
+    },[]);
 
-       console.log("A");
-    },[query])
-
-    console.log("B");
+ 
 
 
 
@@ -118,7 +118,7 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
 
     return (
         <>
-          {/* {share ? 
+          {share ? 
             <ShareDialog>
               {musiclink.length > 0 ? 
                 musiclink.map((v,i) =>
@@ -146,7 +146,7 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
                 </TwitterShareButton>
                 </div>
              ):<p></p>}     
-         </ShareDialog> :""} */}
+             </ShareDialog> :""}
         
 
                 <TwoTone/>
@@ -233,7 +233,7 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
                                 <tr>
                                     <td>
                                     <SubContainer>
-                                        <RiContactsBook2Line/> Contact Webdealz
+                                        <RiContactsBook2Line/> Contact Webfly
                                         </SubContainer>
                                     </td>
                                 </tr>
@@ -292,14 +292,14 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
                                                 <tr>
                                                     <td>
                                                         <div  id='widget'
-                                                            onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}>
+                                                            onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, doc_id: v.Music.doc_id,promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}>
                                                             <RiDownload2Line/> Download   
                                                         </div>
                                                         
                                                             &nbsp;&nbsp;&nbsp;&nbsp; 
                                                         
                                                           <div  id='widget'
-                                                            onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}>
+                                                            onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, doc_id: v.Music.doc_id, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}>
                                                               <RiPlayLine/> Play
                                                             </div>
 
@@ -329,7 +329,7 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
                                  music.map((v,i) => 
                                     <MusicGlide>
                                         
-                                         <img   onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
+                                         <img   onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, doc_id: v.Music.doc_id,promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
                                         
                                           <BrowserView>
                                               <h4>{ v.Music.music_title.length > 13 ? v.Music.music_title.substring(0,13)+"..." : v.Music.music_title}</h4>

@@ -40,7 +40,7 @@ props.getUserAuth();
           </Routes>
 
 
-
+      
 
           <Routes>
             <Route  path="/musicquerylink/:query"  element={<Header/>}/>
@@ -54,6 +54,7 @@ props.getUserAuth();
            <Route  path="/musicquerylink/:query" element={<MusicResult/>}/>
           </Routes>
      
+
 
 
           <Routes>
