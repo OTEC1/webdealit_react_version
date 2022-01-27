@@ -62,23 +62,27 @@ const  Header = (props) => {
 
     const homeNav = () => {
         history("/");
+        window.scrollTo(0,0);
         sessionStorage.setItem("View","home");
     }
 
     const userNav = () => {
         history("/user");
+        window.scrollTo(0,0);
         sessionStorage.setItem("View","user");
     }
 
 
     const Streaming = () => {
         history("/streaming");
+        window.scrollTo(0,0);
         sessionStorage.setItem("View","streaming");
     }
 
 
     const Music = () => {
         history("/music");
+        window.scrollTo(0,0);
         sessionStorage.setItem("View","music");
     }
 
@@ -118,13 +122,9 @@ const  Header = (props) => {
     return (
         <>
         {showdrawer ? 
-        <ShowDiv>
-            {sessionStorage.getItem("View") === "music" ?
+           <ShowDiv>
                 <div  id='musicview'>
-                    <>
                     <button onClick={(e) => setshowdrawer(false)}><RiCloseLine/></button>
-                    
-
                                 <Searchs>
                                     <div>
                                         <input placeholder='Search for music,post,video' value={query}  onChange={(e) => setQuery(e.target.value)} />
@@ -139,7 +139,7 @@ const  Header = (props) => {
 
                           <SideNav>
                             <Grooves>
-                                Groove
+                                @Webfly
                             </Grooves>
 
 
@@ -226,30 +226,11 @@ const  Header = (props) => {
                             
                             </table>  
                          </SideNav>
-
-                    </>
-                </div>    
-                  :
-                <div id='mainview'>
-                        <div>
-                        <button  onClick={(e) => setshowdrawer(false)}><RiCloseLine/></button>
-                        
-                                <Searchs>
-                                    <div>
-                                        <input placeholder='Search for music,post,video' value={query}  onChange={(e) => setQuery(e.target.value)} />
-                                    </div>
-                                    <SearchIcons onClick={(e) => runquery()}>
-                                        <RiSearch2Line
-                                            size={15}
-                                            color='#000'/>
-                                    </SearchIcons>
-                                </Searchs>
-                        
-                         </div>
-                   </div>
-            }
-        </ShowDiv>:
-        ""}
+                </div>   
+           </ShowDiv>
+           :
+           ""}
+          
          
         <Container>
             <Content>
@@ -358,6 +339,7 @@ position: absolute;
 height: 100vh;
 width: 100%;
 z-index:600;
+top:0;
 
 
 #mainview{
