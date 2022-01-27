@@ -61,14 +61,14 @@ const Musicplayer = (props) => {
                 <div>
                         <FacebookShareButton
                             url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id} 
-                            quote={props.musicData.musicArtist+"  "+ props.musicData.musicTitle}
+                            quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle}
                             onClick={(e) => setShare(false)}>
                         <FacebookIcon round size={35}/>
                         </FacebookShareButton>
 
                         <WhatsappShareButton
                             url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id}
-                            quote={props.musicData.musicArtist+"  "+ props.musicData.musicTitle}
+                            quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle}
                             onClick={(e) => setShare(false)}>
                         <WhatsappIcon round size={35}/>
                         </WhatsappShareButton>
@@ -76,7 +76,7 @@ const Musicplayer = (props) => {
 
                         <TwitterShareButton
                             url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id}
-                            quote={props.musicData.musicArtist+"  "+ props.musicData.musicTitle}
+                            quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle}
                             onClick={(e) => setShare(false)}>
                         <TwitterIcon round size={35}/>
                         </TwitterShareButton>

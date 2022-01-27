@@ -15,6 +15,7 @@ import Player from './components/Player'
 import Ad from './components/Ad';
 import SearchbyArtistsName from './components/SearchbyArtistsName';
 import MusicResult from './components/MusicResult';
+import Footer from './components/Footer';
 
 
 function App(props) {
@@ -39,8 +40,15 @@ props.getUserAuth();
             <Route    path="/musicquery/:query" element={<SearchbyArtistsName/>}/>
           </Routes>
 
+          <Routes>
+            <Route    path="/musicquery/:query" element={<Footer/>}/>
+          </Routes>
 
       
+
+
+
+
 
           <Routes>
             <Route  path="/musicquerylink/:query"  element={<Header/>}/>
@@ -52,6 +60,10 @@ props.getUserAuth();
           
           <Routes>
            <Route  path="/musicquerylink/:query" element={<MusicResult/>}/>
+          </Routes>
+
+          <Routes>
+            <Route    path="/musicquerylink/:query" element={<Footer/>}/>
           </Routes>
      
 
@@ -87,6 +99,12 @@ props.getUserAuth();
           </Routes>
 
 
+          <Routes>
+           <Route  path="/user" element={<Footer/>}/>
+          </Routes>
+          
+
+
 
 
 
@@ -114,6 +132,11 @@ props.getUserAuth();
           </Routes>
 
 
+          <Routes>
+           <Route  path="/streaming" element={<Footer/>}/>
+          </Routes>
+
+
 
 
 
@@ -129,6 +152,13 @@ props.getUserAuth();
            <Route  path="/music" element={<Music/>}/>
           </Routes>
 
+          <Routes>
+           <Route  path="/music" element={<Footer/>}/>
+          </Routes>
+
+
+
+
 
 
 
@@ -143,6 +173,15 @@ props.getUserAuth();
           <Routes>
             <Route   path="/explorecontent/:frame/:useremail/"  element={<Explorecontent/>}/>
           </Routes>
+
+   
+          <Routes>
+            <Route   path="/explorecontent/:frame/:useremail/"  element={<Footer/>}/>
+          </Routes>
+
+
+
+
 
           <Routes>
             <Route  path='/player/:url'  element={<Player/>}></Route>

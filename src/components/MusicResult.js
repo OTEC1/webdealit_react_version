@@ -125,14 +125,14 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
                 <div>
                   <FacebookShareButton
                     url={"https://webfly.click/musicquerylink/"+query} 
-                    quote={v.Music.music_artist+"  "+v.Music.music_title}
+                    quote={v.Music.music_artist.toUpperCase()+":  "+v.Music.music_title}
                     onClick={(e) => setShare(false)}>
                    <FacebookIcon round size={35}/>
                   </FacebookShareButton>
 
                   <WhatsappShareButton
                      url={"https://webfly.click/musicquerylink/"+query} 
-                    quote={v.Music.music_artist+"  "+v.Music.music_title}
+                    quote={v.Music.music_artist.toUpperCase()+":  "+v.Music.music_title}
                     onClick={(e) => setShare(false)}>
                    <WhatsappIcon round size={35}/>
                 </WhatsappShareButton>
@@ -140,7 +140,7 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
 
                 <TwitterShareButton
                      url={"https://webfly.click/musicquerylink/"+query} 
-                    quote={v.Music.music_artist+"  "+v.Music.music_title}
+                    quote={v.Music.music_artist.toUpperCase()+":  "+v.Music.music_title}
                     onClick={(e) => setShare(false)}>
                   <TwitterIcon round size={35}/>
                 </TwitterShareButton>

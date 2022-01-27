@@ -236,7 +236,7 @@ import TwoTone from './TwoTone'
  position: relative;
  display:flex;
  width: 100%;
-
+ height: 120vh;
 #loader{
 width: 100px;
 height: 100px;
@@ -322,7 +322,9 @@ color: #b8b9be;
 
 const MusicBanner = styled.div`
 width:80%;
+height: 80vh;
 margin-top:137px;
+
 
 
 @media(max-width:768px){
@@ -372,7 +374,7 @@ margin-left:18px;
 
 
 const MusicMedias = styled.div`
-height: 49.5%;
+height: 110%;
 width: 100%;
 display: inline-block;
 overflow-x:scroll;

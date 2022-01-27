@@ -1,10 +1,17 @@
 import React,{useEffect, useState} from 'react';
 import styled  from "styled-components";
+import { updatePostlikes, format } from "../actions";
+import { useNavigate } from "react-router-dom";
+import ReactPlayer from 'react-player';
+import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
+import  {MobileView, BrowserView}  from 'react-device-detect';
+import Footer from './Footer';
+
 
 
 const Bottom = (props) => {
 
-    console.log(props.data);
+    const history = useNavigate();
     const [list, setlist] = useState([])
 
 
@@ -14,19 +21,92 @@ const Bottom = (props) => {
         }
     },[])
 
+
+    const navigates = (x) =>{
+        let frame = x.frame;
+        let useremail=x.useremail;
+        
+          updatePostlikes(1,0,1,useremail,x.doc_id_a,x.doc_id_b);
+          sessionStorage.setItem("cloud",x.cloudinaryPub);
+          sessionStorage.setItem("date_time",x.date_time);
+          sessionStorage.setItem("doc_id_a",x.doc_id_a);
+          sessionStorage.setItem("doc_id_b",x.doc_id_b);
+          sessionStorage.setItem("cloudinaryPub",x.cloudinaryPub);
+          sessionStorage.setItem("exifData",x.exifData);
+          sessionStorage.setItem("media",x.media);
+          sessionStorage.setItem("writeup",x.writeup);
+          sessionStorage.setItem("date_time",x.date_time);
+          sessionStorage.setItem("likes",x.likes);
+          sessionStorage.setItem("title",x.title);
+          history('/explorecontent/'+frame+"/"+useremail)
+      }
+  
+  
+  
+
     return(<div>
             <Container>
                 {list.map((v,i) =>
+                v.UserPost.image ?
                  <CardShow>
-                <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.image}/>
-                <div>{v.UserPost.writeup.length > 100 ? v.UserPost.writeup.substring(0,100)+" ... Read more" : v.UserPost.writeup }</div>
+                    <BrowserView>
+                            <CloudinaryContext cloudName="otecdealings">
+                                    <Image  alt={v.UserPost.title}    width="100%" publicId={v.UserPost.cloudinaryPub}/>
+                            </CloudinaryContext>
+                    </BrowserView>
+
+
+                        <MobileView>
+                                <CloudinaryContext cloudName="otecdealings">
+                                        <Image  alt={v.UserPost.title}    width="100%" publicId={v.UserPost.cloudinaryPub}>
+                                            <Transformation  angle={v.UserPost.exifData} />
+                                        </Image>
+                                </CloudinaryContext>
+                        </MobileView>
+                        
+                        
+                        
+                        <div id='writeUp' onClick={(e)=>  navigates({frame:"Pictureframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.video, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes})}>
+                            {v.UserPost.writeup.length > 100 ? v.UserPost.writeup.substring(0,100)+" ... Read more" : v.UserPost.writeup }
+                        </div>
                 </CardShow>
+                : v.UserPost.video ?
+
+                <CardShow>
+                        <BrowserView>
+                                <CloudinaryContext cloudName="otecdealings">
+                                        <Image  alt={v.UserPost.title}     width="100%" publicId={v.UserPost.cloudinaryPub}/>
+                                </CloudinaryContext>
+                        </BrowserView>
+
+
+                        <MobileView>
+                                <CloudinaryContext cloudName="otecdealings">
+                                        <Image  alt={v.UserPost.title}     width="100%" publicId={v.UserPost.cloudinaryPub}>
+                                            <Transformation  angle={v.UserPost.exifData} />
+                                        </Image>
+                                </CloudinaryContext>
+                        </MobileView>
+                        
+                        
+                        <div id='writeUp' onClick={(e)=>  navigates({frame:"Videoframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.video, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes})}>
+                            {v.UserPost.writeup.length > 100 ? v.UserPost.writeup.substring(0,100)+" ... Read more" : v.UserPost.writeup }
+                        </div>
+                </CardShow>
+
+                : v.UserPost.youtubeLink ?
+
+                <CardShow>
+                <ReactPlayer alt={v.UserPost.title}  url={v.UserPost.youtubeLink}  controls width="100%" height="50%"/>
+                <div  id='writeUp' onClick={(e)=>  navigates({frame:"Playerframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.video, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes})}>
+                    {v.UserPost.writeup.length > 100 ? v.UserPost.writeup.substring(0,100)+" ... Read more" : v.UserPost.writeup }
+                </div>
+                </CardShow>
+                :<p></p>
                 )}
             </Container>
 
-            <Footer>
-
-            </Footer>
+            <Footer/>
         </div>
     )
 }
@@ -55,7 +135,7 @@ margin-top:200px;
 
 
 const CardShow = styled.div`
-height: 300px;
+height: 320px;
 width: 350px;
 box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 margin:20px;
@@ -69,26 +149,22 @@ clip-path: ellipse(78% 100% at 32.64% 0%);
 object-fit:cover;
 }
 
-div{
+
+#writeUp{
 margin: 10px;
 }
 
+
 @media(max-width:768px){
+
+img{
+height: 50%;
+}
 margin: 2px;
 width: 100%;
 height: 350px;
 }
 `;
-
-
-const Footer = styled.div`
-position: relative;
-height: 150px;
-width: 100%;
-background-image: linear-gradient(to top right,#1f505f, #07091C);
-bottom: 0;
-`;
-
 
 
 export default Bottom
