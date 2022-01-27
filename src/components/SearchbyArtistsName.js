@@ -8,12 +8,15 @@ import Musicplayer from './Musicplayer'
 import  {MobileView, BrowserView}  from 'react-device-detect';
 import Load from './Load'
 import TwoTone from './TwoTone'
+import { useParams } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 
 
- const Music = (props) => {
+ const SearchbyArtistsName = (props) => {
 
-    document.title = "Webfly Music Gallery"
+    const {query} = useParams();
+    document.title =  "Search result: "+query;
     const [music, setMusic] = useState([]);
     const [errand, setErrand] = useState('');
     const [showPlayermodel, setshowPlayermodel] = useState("close");
@@ -43,22 +46,39 @@ import TwoTone from './TwoTone'
 
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_GET_SONG)
+
+        let x = query;
+        console.log(x);
+      
+        axios.post(process.env.REACT_APP_GET_SONG_BY_TITLE,{Music:{music_title:x}})
         .then(res => {
+            console.log(res.data.message);
+            if(res.data.message.length <= 0)
+                CALL_TWO(x)
+          else
             setMusic(res.data.message);
-            mapping(res.data.message);
         }).catch(err=> {
             console.log(err);
         })
-
     },[])
 
-  
 
 
-    function mapping(blob){
-        sessionStorage.setItem("musiclist",  JSON.stringify(blob));
+
+    function CALL_TWO(x){
+        axios.post(process.env.REACT_APP_GET_SONG_BY_NAME,{Music:{music_artist:x}})
+        .then(res => {
+            console.log(res.data.message);
+            if(res.data.message.length <= 0)
+                Swal.fire({text:"Sorry no music found !", icon:"info"})
+          else
+             setMusic(res.data.message);
+        }).catch(err=> {
+            console.log(err);
+        })
     }
+  
+ 
 
 
     const SortDiv = () => {
@@ -161,20 +181,22 @@ import TwoTone from './TwoTone'
                                 </tr>
                                 <tr>
                                     <td>
-                                        <SubContainer>
+                                    <SubContainer>
                                         <RiUpload2Line/> Upload Music
                                         </SubContainer>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <SubContainer>
-                                        <RiContactsBook2Line/> Contact Webfly
+                                    <SubContainer>
+                                        <RiContactsBook2Line/> Contact Webdealz
                                         </SubContainer>
                                     </td>
                                 </tr>
                             
                             </table>  
+
+
                     </SideNav>
                     
                     <MusicBanner>
@@ -437,6 +459,7 @@ font-size:8pt;
 
 
 
-  export default Music;
+
+ export default SearchbyArtistsName;
 
 

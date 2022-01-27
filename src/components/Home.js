@@ -14,18 +14,31 @@ import TwoTone from "./TwoTone";
 
 const Home = (props) => {
 
-const [list, setList] = useState([]);
+let list = [];
+const [L1, setL1] = useState([]);
+const [L2, setL2] = useState([]);
 
 useEffect(() => {
   axios.get(process.env.REACT_APP_GET_ALL_POST)
   .then(res => {
-      setList(res.data.message);
+      list = (res.data.message);
+      if(list.length>0)
+        format(list); 
   }).catch(err => {
      console.log(err.message)
   });
-  
+
+
 },[])
 
+
+
+function format(list){
+  let size = list.length/2;
+  setL1(list.slice(0,size));
+  setL2(list.slice(size,list.length));
+  console.log(L1,L2)
+}
 
         return(
           <>
@@ -67,19 +80,24 @@ useEffect(() => {
           </TopHouseContainer>
           
              <Contain>
-             {list.length > 0 ? (
-              <Top  post={list.length > 0 ? list : []}/>
-              ):
-              (
-                <div  id="loader">
-                 <Load/>
-                </div>
-              )}
-              <Bottom/>
+              {L1.length > 0 ? (
+                <Top  post={L1}/>
+                  ):
+                  (
+                    <div  id="loader">
+                    <Load/>
+                    </div>
+                )}
              </Contain>
              <Ad/>  
-            </Container>  
-            </>      
+            </Container>
+            {L2.length > 0 ? ( 
+            <Bottom data={L2}/>            
+            ):<p></p>
+           }
+          
+           
+           </>    
     )
 }
  
@@ -198,6 +216,8 @@ padding: 5px;
 margin:10px;
 font-family: "Poppins", sans-serif;
 `;
+
+
 
 
 export default Home

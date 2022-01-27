@@ -1,20 +1,25 @@
-import React,{useState,useEffect} from 'react'
+import {useState,useEffect} from 'react'
 import axios from 'axios'
 import  styled  from 'styled-components'
 import Header from './Header'
 import Ad from './Ad'
-import {RiAlbumLine, RiContactsBook2Line, RiDownloadCloudLine, RiHeadphoneLine, RiMenu2Line, RiPlayList2Line, RiSortDesc, RiSpeaker2Line, RiUpload2Line} from 'react-icons/ri'
+import {RiAlbumLine, RiContactsBook2Line, RiDownload2Line, RiDownloadCloudLine, RiHeadphoneLine, RiMenu2Line, RiPlayLine, RiPlayList2Line, RiShareLine, RiSortDesc, RiSpeaker2Line, RiUpload2Line} from 'react-icons/ri'
 import Musicplayer from './Musicplayer'
 import  {MobileView, BrowserView}  from 'react-device-detect';
 import Load from './Load'
 import TwoTone from './TwoTone'
+import { useParams} from 'react-router-dom'
+import Swal from 'sweetalert2'
+import { BiDisc, BiTime, BiUser } from 'react-icons/bi'
+import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,WhatsappIcon,TwitterIcon} from 'react-share'
 
 
+ const MusicResult = (props) => {
 
- const Music = (props) => {
-
-    document.title = "Webfly Music Gallery"
+   
     const [music, setMusic] = useState([]);
+    const [share, setShare] = useState(false);
+    const [musiclink, setMusicLink] = useState([]);
     const [errand, setErrand] = useState('');
     const [showPlayermodel, setshowPlayermodel] = useState("close");
     const [pageErrand,setpageErrand] = useState({musicArtist:"",musicTitle:"",musicUrl:"",musicVideoUrl:"",musicThumb:"",promoIncentive:""})
@@ -41,24 +46,46 @@ import TwoTone from './TwoTone'
 
 
 
-
+    
+    const {query} = useParams();
     useEffect(() => {
-        axios.get(process.env.REACT_APP_GET_SONG)
+        if(query != undefined){
+        axios.post(process.env.REACT_APP_GET_SONG_BY_LINK,{Music:{doc_id:query}})
         .then(res => {
-            setMusic(res.data.message);
-            mapping(res.data.message);
+             setMusicLink(res.data.message);
+             res.data.message.map((v,i) => {
+                CALL_TWO(v.Music.music_artist)
+               document.title =  "Search result: "+v.Music.music_artist +": "+ v.Music.music_title
+             })
         }).catch(err=> {
             console.log(err);
         })
+    }else
+       console.log("Error");
 
-    },[])
+       console.log("A");
+    },[query])
 
-  
+    console.log("B");
 
 
-    function mapping(blob){
-        sessionStorage.setItem("musiclist",  JSON.stringify(blob));
+
+
+    function CALL_TWO(x){
+        axios.post(process.env.REACT_APP_GET_SONG_BY_NAME,{Music:{music_artist:x}})
+        .then(res => {
+            console.log(res.data.message);
+            if(res.data.message.length <= 0)
+                Swal.fire({text:"Sorry no music found !", icon:"info"})
+            else
+               setMusic(res.data.message);
+
+        }).catch(err=> {
+            console.log(err);
+        })
     }
+  
+ 
 
 
     const SortDiv = () => {
@@ -79,12 +106,49 @@ import TwoTone from './TwoTone'
     }
 
 
+    const popup = () => {
+     setShare(true)
+     
+    }
+
+   
+
 
     
 
-
     return (
         <>
+          {/* {share ? 
+            <ShareDialog>
+              {musiclink.length > 0 ? 
+                musiclink.map((v,i) =>
+                <div>
+                  <FacebookShareButton
+                    url={"https://webfly.click/musicquerylink/"+query} 
+                    quote={v.Music.music_artist+"  "+v.Music.music_title}
+                    onClick={(e) => setShare(false)}>
+                   <FacebookIcon round size={35}/>
+                  </FacebookShareButton>
+
+                  <WhatsappShareButton
+                     url={"https://webfly.click/musicquerylink/"+query} 
+                    quote={v.Music.music_artist+"  "+v.Music.music_title}
+                    onClick={(e) => setShare(false)}>
+                   <WhatsappIcon round size={35}/>
+                </WhatsappShareButton>
+
+
+                <TwitterShareButton
+                     url={"https://webfly.click/musicquerylink/"+query} 
+                    quote={v.Music.music_artist+"  "+v.Music.music_title}
+                    onClick={(e) => setShare(false)}>
+                  <TwitterIcon round size={35}/>
+                </TwitterShareButton>
+                </div>
+             ):<p></p>}     
+         </ShareDialog> :""} */}
+        
+
                 <TwoTone/>
                 <Container>
                     <SideNav>
@@ -161,20 +225,22 @@ import TwoTone from './TwoTone'
                                 </tr>
                                 <tr>
                                     <td>
-                                        <SubContainer>
+                                    <SubContainer>
                                         <RiUpload2Line/> Upload Music
                                         </SubContainer>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <SubContainer>
-                                        <RiContactsBook2Line/> Contact Webfly
+                                    <SubContainer>
+                                        <RiContactsBook2Line/> Contact Webdealz
                                         </SubContainer>
                                     </td>
                                 </tr>
                             
                             </table>  
+
+
                     </SideNav>
                     
                     <MusicBanner>
@@ -196,13 +262,74 @@ import TwoTone from './TwoTone'
                             </table>
                         </SecondTopMost>
 
-                        <MusicMedias>
-                            {music.length> 0 ? (
+
+                        <MusicMediasResult>
+                            {musiclink.length > 0 ? 
+                                    musiclink.map((v,i) =>
+                                        <>
+                                        <LEFTWING>
+                                        <img src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
+                                        </LEFTWING>
+                                        
+
+                                        <RIGHTWING>
+                                            <table>
+                                            <tr>
+                                                    <td>
+                                                    <BiUser/> Title: {v.Music.music_title}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <RiAlbumLine/> Artist: {v.Music.music_artist}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                    <BiTime/> Year: {v.Music.music_year}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div  id='widget'
+                                                            onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}>
+                                                            <RiDownload2Line/> Download   
+                                                        </div>
+                                                        
+                                                            &nbsp;&nbsp;&nbsp;&nbsp; 
+                                                        
+                                                          <div  id='widget'
+                                                            onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}>
+                                                              <RiPlayLine/> Play
+                                                            </div>
+
+                                                            &nbsp;&nbsp;&nbsp;&nbsp; 
+                                                        
+                                                            <div  id='widget' onClick={(e) => popup()}>
+                                                              <RiShareLine/> Share
+                                                            </div>
+                                                    
+                                                    
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            </RIGHTWING>
+                                            </>
+                                        )
+                                        :(
+                                        <div  id="loader">
+                                                <Load/>
+                                            </div>
+                                        )}  
+                          </MusicMediasResult>
+
+                          <MusicMedias>
+                              {music.length> 0 ? (
                                  music.map((v,i) => 
                                     <MusicGlide>
                                         
-                                         <img 
-                                           onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
+                                         <img   onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
                                         
                                           <BrowserView>
                                               <h4>{ v.Music.music_title.length > 13 ? v.Music.music_title.substring(0,13)+"..." : v.Music.music_title}</h4>
@@ -220,8 +347,8 @@ import TwoTone from './TwoTone'
                                     <div  id="loader">
                                         <Load/>
                                     </div>
-                              )}
-                        </MusicMedias>
+                                   )}
+                           </MusicMedias>
 
                     </MusicBanner>
                     <Musicplayer  showPlayermodel={showPlayermodel}   PopUpPlayer={PopUpPlayer}  musicData={pageErrand}/>
@@ -370,12 +497,85 @@ margin-left:18px;
 `;
 
 
+const MusicMediasResult = styled.div`
+width: 100%;
+height: 60vh;
+display: flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+margin-bottom:10px;
+
+tr td{
+padding-left: 50px;
+margin-top:20px;
+display: flex;
+justify-content:left;
+align-items:left;
+text-align:left;
+font-weight:700;
+color: #f5f5f5;
+} 
+
+#widget{
+border:1px solid #fff;
+border-radius:5px;
+padding:5px;
+cursor: pointer;
+}
+
+
+@media(max-width:768px){
+flex-wrap:wrap;
+height: 500px;
+
+
+tr td{
+padding-left: 5px;
+}
+}
+
+
+`;
+
+
+
+const LEFTWING = styled.div`
+height: 100%;
+width: 47.5%;
+img{
+width: 100%;
+height: 100%;
+object-fit:cover;
+}
+
+@media(max-width:768px){
+width: 100%;
+height: 60%;
+img{
+height: 300px;
+}
+}
+
+`;
+
+
+const RIGHTWING = styled.div`
+height: 100%;
+width: 47.5%;
+@media(max-width:768px){
+width: 100%;
+}
+
+`;
+
 
 const MusicMedias = styled.div`
-height: 49.5%;
+height: 25vh;
 width: 100%;
-display: inline-block;
+display: inline-block; 
 overflow-x:scroll;
+
 
 ::-webkit-scrollbar {
  display:none;
@@ -383,15 +583,15 @@ overflow-x:scroll;
 
 
 @media(max-width:768px){
-height: 100%;
+height: 50%;
 text-align:center;
 }
 `;
 
 
 const MusicGlide = styled.div`
-width: 200px;
-height: 200px;
+width: 150px;
+height: 120px;
 margin:5px;
 text-align:center;
 display: inline-block;
@@ -401,8 +601,8 @@ font-family: "Poppins", sans-serif;
 
 
 img{
-width: 200px;
-height: 200px;
+width: 100px;
+height: 100px;
 object-fit:cover;
 }
 
@@ -436,7 +636,36 @@ font-size:8pt;
 
 
 
+const ShareDialog= styled.div`
+position: absolute;
+width: 30%;
+height: auto;
+z-index:500;
+background: #fff;
+border-radius:10px;
+margin-top:20%;
+margin-left:35%;
+padding: 20px;
+display: flex;
+justify-content:space-evenly;
+align-items:center;
+text-align:center;
 
-  export default Music;
+
+@media(max-width:768px){
+position: fixed;
+overflow: hidden;
+width: 60%;
+margin-left:17%;
+margin-top:50vh;
+padding: 5px;
+}
+
+`;
+
+
+
+
+ export default MusicResult;
 
 

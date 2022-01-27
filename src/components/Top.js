@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { updatePostlikes, format } from "../actions";
 import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
 import  {MobileView, BrowserView}  from 'react-device-detect';
+import Bottom from "./Bottom";
 
 
 
@@ -15,10 +16,13 @@ import  {MobileView, BrowserView}  from 'react-device-detect';
 
 const Top = (props) => {
     
-    var a  = 55; 
+    document.title = "Webfly Home"
+    var a  = 120; 
 
     const history = useNavigate();
     const [scrollPostion, setScrollPosition] = useState(0);
+    const [L1, setL1] = useState([]);
+    const [L2, setL2] = useState([]);
     const myref = useRef(null);
     const imgRef = useRef();
     
@@ -27,9 +31,15 @@ const Top = (props) => {
       history("/")
    }
 
+
+   let size,last_size;
    useEffect(() => {
      handelScrollPosition();
-     console.log("Call")
+      if(props.post.length > 0){        
+          size = props.post.length;
+          setL1(props.post.slice(0,size/2));
+          setL2(props.post.slice(size/2, size));
+      }
    },[])
 
 
@@ -70,11 +80,12 @@ const Top = (props) => {
     };
   
 
- 
 
+    console.log(L1,L2);
 
-
-    return(<Container>
+     return(
+    <>
+     <Container>
              <TopSection>
                 <TopLeftinnerDiv>
                   <SectionTab>
@@ -85,12 +96,12 @@ const Top = (props) => {
                           duration={3500} 
                           previousButton={<RiArrowLeftCircleLine
                           color="red"/>} 
-                          nextButton={<RiArrowRightCircleLine color="red"/>}
-                          >
-                          {props.post.map((value, index) => 
+                          nextButton={<RiArrowRightCircleLine color="red"/>}>
+                          {L1.length <= 0 ?<p></p>
+                            : 
+                          L1.map((value, index) => 
                             value.UserPost.image ?
                             <div>
-
                               <PosterDetails>
                                  <img id="userImg" src={value.User.user_img !== "icons" ?  
                                     value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
@@ -128,8 +139,13 @@ const Top = (props) => {
                                     </WriteUp>
 
                                     <Reactions>
-                                     <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
-                                     <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
+                                      <div>
+                                      <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
+                                      </div>
+                                     
+                                     <div>
+                                       <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
+                                     </div>     
                                     </Reactions>
                             </div>
                               :
@@ -171,8 +187,13 @@ const Top = (props) => {
                                     </WriteUp>
 
                                     <Reactions>
-                                     <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
-                                     <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
+                                      <div>
+                                      <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
+                                      </div>
+                                     
+                                     <div>
+                                       <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
+                                     </div>     
                                     </Reactions>
 
                             </div>
@@ -206,14 +227,20 @@ const Top = (props) => {
                                     </WriteUp>
 
                                     <Reactions>
+                                      <div>
                                       <RiThumbUpFill size={20}/>&nbsp;{format(value.UserPost.likes)}
-                                      <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
+                                      </div>
+                                     
+                                     <div>
+                                       <RiEyeFill   size={20}/>&nbsp;{format(value.UserPost.views)}
+                                     </div>     
                                     </Reactions>
 
                             </div>
                               :
                             <p></p>
-                          )}
+                          )
+                          }
                   </Slider>
                 </TopLeftinnerDiv>
 
@@ -228,8 +255,9 @@ const Top = (props) => {
                       <RiTv2Line   size={20}  color="red"/> <h4>Gist feed</h4>
                     </SectionTab>
                     <TopRightinnerDiv>
-                      
-                      {props.post.map((value, index) => 
+                      {L2.length <= 0 ? <p></p>
+                      :
+                      L2.map((value, index) => 
                         value.UserPost.image ?
                                    <Locals>   
 
@@ -339,14 +367,9 @@ const Top = (props) => {
                     </TopRightinnerDiv>
                 </TopOuterDiv> 
               </TopSection>
-
-
-
-        <BottomSection>
-
-        </BottomSection>
-         
+             
         </Container>
+         </>
     )
 }
 
@@ -455,7 +478,7 @@ cursor: pointer;
 
 const WriteUp = styled.div`
 position: absolute;
-width: 80%;
+width: 90%;
 height: 100px;
 bottom: 0;
 left:0;
@@ -470,9 +493,9 @@ z-index:200;
 
 
 @media(max-width:768px){
-margin-bottom:120px;
-height: 50px;
+margin-bottom:80px;
 font-size:8pt;
+height: 100px;
 }
 `;
 
@@ -490,6 +513,13 @@ justify-content:space-between;
 color: #828282;
 margin-bottom:10px;
 
+div{
+display: flex;
+justify-content:center;
+text-align:center;
+align-items:center;
+}
+text-shadow: none;
 
 @media(max-width:768px){
 width: 30%; 
@@ -621,11 +651,6 @@ height: 80px;
 
 
 
-
-const BottomSection = styled.div`
-
-
-`;
 
 
 

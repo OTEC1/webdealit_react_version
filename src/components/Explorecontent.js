@@ -17,6 +17,9 @@ import TwoTone from './TwoTone'
    
     let {frame,useremail,doc_id_a,doc_id_b,title,exifData,image,writeup} = useParams();
       
+    useEffect(()=>{
+      window.scrollTo(0,0);
+    },[])
     return (
        <>
        <TwoTone/>

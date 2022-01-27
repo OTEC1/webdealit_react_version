@@ -13,6 +13,9 @@ import Music from './components/Music'
 import Explorecontent from './components/Explorecontent'
 import Player from './components/Player'
 import Ad from './components/Ad';
+import SearchbyArtistsName from './components/SearchbyArtistsName';
+import MusicResult from './components/MusicResult';
+
 
 function App(props) {
 
@@ -23,11 +26,43 @@ props.getUserAuth();
   return (
     <div className="App">
       <Router>
-        <Routes>
+
+          <Routes>
+          <Route  path="/musicquery/:query"  element={<Header/>}/>
+          </Routes>
+
+          <Routes>
+           <Route  path="/musicquery/:query"  element={<Ad/>}/>
+          </Routes>
+
+          <Routes>
+            <Route    path="/musicquery/:query" element={<SearchbyArtistsName/>}/>
+          </Routes>
+
+
+
+
+          <Routes>
+            <Route  path="/musicquerylink/:query"  element={<Header/>}/>
+          </Routes>
+
+          <Routes>
+            <Route  path="/musicquerylink/:query"  element={<Ad/>}/>
+          </Routes>
+          
+          <Routes>
+           <Route  path="/musicquerylink/:query" element={<MusicResult/>}/>
+          </Routes>
+     
+
+
+          <Routes>
           <Route  path="/"  element={<Header/>}/>
           </Routes>
+
+
           <Routes>
-          <Route  path="/user"  element={<Ad/>}/>
+          <Route  path="/"  element={<Ad/>}/>
           </Routes>
           
           <Routes>
@@ -39,9 +74,13 @@ props.getUserAuth();
           <Routes>
           <Route  path="/user"  element={<Header/>}/>
           </Routes>
+
+
           <Routes>
           <Route  path="/user"  element={<Ad/>}/>
           </Routes>
+
+
           <Routes>
            <Route  path="/user" element={<User/>}/>
           </Routes>
@@ -59,12 +98,16 @@ props.getUserAuth();
           </Routes>
 
 
+
+
           <Routes>
           <Route  path="/streaming"  element={<Header/>}/>
           </Routes>
+
           <Routes>
           <Route  path="/streaming"  element={<Ad/>}/>
           </Routes>
+
           <Routes>
            <Route  path="/streaming" element={<Videoui/>}/>
           </Routes>
@@ -76,9 +119,11 @@ props.getUserAuth();
           <Routes>
           <Route  path="/music"  element={<Header/>}/>
           </Routes>
+
           <Routes>
           <Route  path="/music"  element={<Ad/>}/>
           </Routes>
+
           <Routes>
            <Route  path="/music" element={<Music/>}/>
           </Routes>
@@ -89,17 +134,14 @@ props.getUserAuth();
           <Routes>
           <Route  path='/explorecontent/:frame/:useremail'  element={<Header/>}/>
           </Routes>
+
           <Routes>
           <Route   path="/explorecontent/:frame/:useremail"  element={<Ad/>}/>
           </Routes>
+
           <Routes>
             <Route   path="/explorecontent/:frame/:useremail/"  element={<Explorecontent/>}/>
           </Routes>
-
-        
-
-     
-
 
           <Routes>
             <Route  path='/player/:url'  element={<Player/>}></Route>

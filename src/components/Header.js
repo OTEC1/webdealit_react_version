@@ -1,36 +1,100 @@
-import { useState ,useRef} from 'react';
+import { useState ,useRef, useEffect} from 'react';
 import styled from 'styled-components'
-import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine,RiMenu3Line, RiArrowLeftRightLine, RiArrowRightCircleLine, RiTv2Line, RiMusic2Line, RiNavigationLine, RiSearch2Line, RiShoppingBag2Fill, RiShoppingBag3Line, RiUser2Line, RiVideoLine} from 'react-icons/ri'
+import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine,RiMenu3Line, RiArrowLeftRightLine, RiArrowRightCircleLine, RiTv2Line, RiMusic2Line, RiNavigationLine, RiSearch2Line, RiShoppingBag2Fill, RiShoppingBag3Line, RiUser2Line, RiVideoLine, RiCloseLine} from 'react-icons/ri'
+import {RiAlbumLine, RiContactsBook2Line, RiDownloadCloudLine, RiHeadphoneLine, RiMenu2Line, RiPlayList2Line, RiSortDesc, RiSpeaker2Line, RiUpload2Line} from 'react-icons/ri'
 import { useNavigate }  from 'react-router-dom'
 import { connect } from 'react-redux';
 import {signOutGoogleApi, signOutCustomApi}  from  '../actions'
+import axios from 'axios';
 
 
 const  Header = (props) => {
 
     const [query, setQuery] = useState('');
+    const [showdrawer, setshowdrawer] = useState(false);
     const history = useNavigate();
+
+
+
+    
+
+    useEffect(() => {
+           if(sessionStorage.getItem("visitCount") === null) {
+                sessionStorage.setItem("visitCount","visited");  
+                UPDATE();
+            }
+            window.addEventListener("beforeunload", (ev) => {  
+               sessionStorage.setItem("visitCount",null);
+            });
+              
+    },[])
+
+
+    
+    const SortDiv = () => {
+
+    } 
+
+    const GetAlbumPlaylist = (e) => {
+
+    }
+
+
+    const SortByGenre = () => {
+
+    }
+
+    const GetDownloadHighCount = (e) => {
+
+    }
+
+
+
+    function UPDATE(){
+      axios.post(process.env.REACT_APP_UPDATE_VISIT_COUNT,{count:1})
+            .then(res => {
+                console.log(res.data.message,"Here")
+            }).catch(err => {
+                console.log(err);
+            })
+    }
 
 
     const homeNav = () => {
         history("/");
+        sessionStorage.setItem("View","home");
     }
 
     const userNav = () => {
         history("/user");
+        sessionStorage.setItem("View","user");
     }
 
 
     const Streaming = () => {
         history("/streaming");
+        sessionStorage.setItem("View","streaming");
     }
 
 
     const Music = () => {
         history("/music");
+        sessionStorage.setItem("View","music");
     }
 
     
+
+    const runquery = () => {
+        if(sessionStorage.getItem("View") === "music")
+            history("/musicquery/"+query.toLowerCase());
+        else
+          if(sessionStorage.getItem("View") === "streaming")
+                history("/streamingquery/"+query.toLowerCase());
+        else
+          if(sessionStorage.getItem("View") === "home")
+                history("/homequery/"+query.toLowerCase());
+
+    }
 
     const auth = () => {
        var data = document.getElementById("authstate").innerText;
@@ -44,9 +108,149 @@ const  Header = (props) => {
          
     }
 
+
+    function show(){
+        setshowdrawer(true);
+        window.scrollTo(0,0);
+    }
   
 
     return (
+        <>
+        {showdrawer ? 
+        <ShowDiv>
+            {sessionStorage.getItem("View") === "music" ?
+                <div  id='musicview'>
+                    <>
+                    <button onClick={(e) => setshowdrawer(false)}><RiCloseLine/></button>
+                    
+
+                                <Searchs>
+                                    <div>
+                                        <input placeholder='Search for music,post,video' value={query}  onChange={(e) => setQuery(e.target.value)} />
+                                    </div>
+                                    <SearchIcons onClick={(e) => runquery()}>
+                                        <RiSearch2Line
+                                            size={15}
+                                            color='#000'/>
+                                    </SearchIcons>
+                                </Searchs>
+
+
+                          <SideNav>
+                            <Grooves>
+                                Groove
+                            </Grooves>
+
+
+                            <MenuBar>
+                                <RiMenu2Line/>
+                            </MenuBar>
+
+                            <HR>
+                                <hr/>
+                            </HR>
+                            <table>
+
+                                <tr>
+                                    <td>
+                                        <TabInfo>
+                                        <RiHeadphoneLine/> &nbsp;&nbsp; Your Groove
+                                        </TabInfo>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <SubContainer>
+                                        <RiSortDesc  onClick={(e)=> SortDiv(e)}/> Sort By
+                                        </SubContainer>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                       <SubContainer>
+                                        <RiDownloadCloudLine  onClick={(e) =>  GetDownloadHighCount(e)}/> Trending
+                                        </SubContainer>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <SubContainer>
+                                        <RiAlbumLine   onClick={(e) => GetAlbumPlaylist(e)}/> Album
+                                        </SubContainer>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <SubContainer>
+                                        <RiPlayList2Line onClick={(e) => SortByGenre(e)}/> Genre
+                                        </SubContainer>
+                                    </td>
+                                </tr>
+                            </table>  
+
+                            <HR>
+                                <hr/>
+                            </HR>
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        <TabInfo1>
+                                            QUICK ACCESS
+                                        </TabInfo1>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <SubContainer>
+                                        <RiSpeaker2Line/> Promote Music
+                                        </SubContainer>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <SubContainer>
+                                        <RiUpload2Line/> Upload Music
+                                        </SubContainer>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <SubContainer>
+                                        <RiContactsBook2Line/> Contact Webfly
+                                        </SubContainer>
+                                    </td>
+                                </tr>
+                            
+                            </table>  
+                         </SideNav>
+
+                    </>
+                </div>    
+                  :
+                <div id='mainview'>
+                        <div>
+                        <button  onClick={(e) => setshowdrawer(false)}><RiCloseLine/></button>
+                        
+                                <Searchs>
+                                    <div>
+                                        <input placeholder='Search for music,post,video' value={query}  onChange={(e) => setQuery(e.target.value)} />
+                                    </div>
+                                    <SearchIcons onClick={(e) => runquery()}>
+                                        <RiSearch2Line
+                                            size={15}
+                                            color='#000'/>
+                                    </SearchIcons>
+                                </Searchs>
+                        
+                         </div>
+                   </div>
+            }
+        </ShowDiv>:
+        ""}
+         
         <Container>
             <Content>
                    <Webdealit onClick={homeNav}>
@@ -55,17 +259,16 @@ const  Header = (props) => {
                     </Webdealit>
 
 
-                    <NavBar>
+                    <NavBar onClick={(e) => show()}>
                          <RiMenu3Line  id="menu" color="#f5f5f5"/>
                     </NavBar>
-
-                        
+         
 
                 <Search>
                     <div>
                         <input placeholder='Search for music,post,video' value={query}  onChange={(e) => setQuery(e.target.value)} />
                     </div>
-                    <SearchIcon>
+                    <SearchIcon onClick={(e) => runquery()}>
                         <RiSearch2Line
                             size={15}
                             color='#000'/>
@@ -129,6 +332,7 @@ const  Header = (props) => {
 
             </Content>
         </Container>
+        </>
     )
 
 }
@@ -144,7 +348,44 @@ width: 100%;
 z-index: 555;
 height: 60px;
 
+
+
 `;
+
+
+const ShowDiv = styled.div`
+position: absolute;
+height: 100vh;
+width: 100%;
+z-index:600;
+
+
+#mainview{
+height: 100vh;
+width: 100%;
+background-image: linear-gradient(to top right,#1f505f, #07091C); 
+}
+
+#musicview{
+height: 100vh;
+width: 100%;
+background-image: linear-gradient(to top right,#1f505f, #07091C); 
+}
+
+
+button{
+display: flex;
+justify-content:center;
+border-radius:50%;
+padding: 5px;
+font-size:25pt;
+color: #f5f5f5;
+background: transparent;
+border:none;
+}
+
+`;
+
 
 
 const Content = styled.div`
@@ -206,7 +447,7 @@ border-color:#dce6f1;
 vertical-align:text-top;
 text-align:left;
 }
-
+}
 @media(max-width:1200px){
 input{
 width: 178px;
@@ -218,16 +459,51 @@ input{
 display: none;
 }
 }
-}
+
 
 &:hover{
 input{
 background-color: #eef3f8;
 }
+}
 
 `;
 
 
+
+const Searchs = styled.div`
+opacity:1;
+flex-grow:1;
+position: relative;
+margin-top:30px;
+& > div{
+display: flex;
+align-items:center;
+justify-content:center;
+
+input{
+border: none;
+box-shadow:none;
+background-color:#f5f5f5;
+border-radius:7px;
+color: rgba(0,0,0,0.9);
+width: 218px;
+padding: 0 8px 0 40px;
+line-height:1.75;
+font-weight:400;
+font-size:14px;
+height: 34px;
+border-color:#dce6f1;
+vertical-align:text-top;
+text-align:left;
+}
+
+@media(max-width:1200px){
+input{
+width: 80%;
+}
+}
+`;
 
 
 
@@ -268,6 +544,13 @@ justify-content: center;
 
 @media(max-width:768px){
 display: none;
+}
+`;
+
+const SearchIcons = styled(SearchIcon)`
+@media(max-width:768px){
+display:block;
+margin-left:15px;
 }
 `;
 
@@ -360,6 +643,77 @@ color:rgba(0,0,0,0.9);
 }
 }
 `;
+
+
+
+
+
+const SideNav = styled.div`
+@media(max-width:768px){
+width:90%;
+height: 100vh;
+margin-top:10px;
+padding:15px;
+}
+
+`;
+
+
+const SubContainer = styled.div`
+margin-top:15px;
+color: #b8b9be; 
+font-size:10pt;
+`;
+
+
+const TabInfo = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+font-weight:700;
+color:#b8b9be;
+margin-top:10px;
+`;
+
+
+const TabInfo1 = styled(TabInfo)`
+margin-left:-10px;
+
+`;
+
+
+const Grooves = styled.div`
+width: 70%;
+padding-top:20px;
+font-weight:800;
+font-family: "Poppins", sans-serif;
+color:#fff;
+`;
+
+
+const MenuBar = styled(Grooves)`
+font-weight:none;
+font-size:20pt;
+color: #b8b9be;
+
+
+`;
+
+
+const HR = styled(Grooves)`
+font-weight:none;
+color: #b8b9be;
+`;
+
+
+const Tabs = styled.span`
+font-weight:600;
+cursor:pointer;
+font-family: "Poppins", sans-serif;
+margin-left:18px; 
+`;
+
 
 
 

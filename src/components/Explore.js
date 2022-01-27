@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player';
 import Loader from 'react-loader-spinner';
 import WriteUp from './WriteUps';
 import { RiThumbUpFill, RiThumbUpLine } from 'react-icons/ri';
-import { useState, useRef} from 'react';
+import { useState, useRef,useEffect} from 'react';
 import Load from './Load';
 import {updatePostlikes,format} from '../actions'
 import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
@@ -15,6 +15,10 @@ import  {MobileView, BrowserView}  from 'react-device-detect';
 
 const Explore  =  (props) => {
 
+
+    useEffect(()=>{
+        window.scrollTo(0,0);
+      },[])
 
     const [react, setReact] = useState(false);
     const [update, setUpdate] = useState(false);
@@ -34,8 +38,7 @@ const Explore  =  (props) => {
 
 
 
-    console.log(sessionStorage.getItem("cloud"))
-    console.log(props.media)
+   
 
     return(
       <Container>
@@ -148,11 +151,6 @@ const Explore  =  (props) => {
 const Container = styled.div`
 width: 100%;
 margin-bottom:100px;
-
-
-
-
-
 `;
 
 
@@ -165,7 +163,7 @@ margin-top:40px;
 
 
 img{
-height: 600px;
+height: 400px;
 width: 600px;
 object-fit:cover;
 }

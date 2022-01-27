@@ -16,7 +16,7 @@ import TwoTone from './TwoTone';
 
  const Videoui = (props) => {
 
- 
+  document.title = "Webfly Video Gallery"
 
     const [list3, setList3] = useState([]); 
     const myref = useRef();

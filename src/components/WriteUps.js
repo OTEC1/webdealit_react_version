@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { BiRocket } from 'react-icons/bi';
 import {RiTimeLine}  from 'react-icons/ri'
+import InstagramEmbed from 'react-instagram-embed';
+import ReactHtmlParser  from 'html-react-parser'
 
 
 const WriteUp = (props) => {
-    console.log(props.title)
+    let length = props.writeup.length;
     return(
         <Container>
           <table>
@@ -23,16 +25,30 @@ const WriteUp = (props) => {
 
                 <tr>
                     <td> 
-                     <pre>{props.writeup}</pre>
+                      {length > 100 ? 
+                                <div>
+                                    <pre> {ReactHtmlParser(props.writeup.substring(0, props.writeup.indexOf(">")))} </pre>  
+                                    <Ad> 
+                                    </Ad>  
+
+                                    <pre> {ReactHtmlParser(props.writeup.substring(props.writeup.indexOf(">>")+2, props.writeup.indexOf(">>>")))} </pre>  
+                                    <Ad>
+                                    </Ad> 
+                                    
+                                    <pre> {ReactHtmlParser(props.writeup.substring(props.writeup.indexOf(">>>")+3, props.writeup.length))} </pre>  
+                                    <Ad>
+                                    </Ad> 
+                                </div> 
+                            :<div>
+                             <Ad>
+
+                             </Ad>  
+                            <pre>ONE {ReactHtmlParser(props.writeup)} </pre>  
+                           </div>
+                        }
                     </td>
                 </tr>
-          </table>
-           
-
-
-           
-
-           
+          </table>   
         </Container>
     )
 }
@@ -84,6 +100,11 @@ word-wrap: break-word;
 height: auto;
 white-space: pre-wrap;
 font-family: Consolas,monospace;
+
+>a{
+text-decoration:none;
+color: #33ff00;
+}
 }
 
 
@@ -119,6 +140,14 @@ float: none;
 text-align:left;
 }
 }
+`;
+
+
+
+const Ad = styled.div`
+width: 100%;
+height: 200px;
+
 `;
 
 export default WriteUp;
