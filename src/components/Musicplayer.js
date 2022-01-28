@@ -59,27 +59,42 @@ const Musicplayer = (props) => {
           {share ? 
             <ShareDialog>
                 <div>
-                        <FacebookShareButton
-                            url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id} 
-                            quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle}
-                            onClick={(e) => setShare(false)}>
-                        <FacebookIcon round size={35}/>
-                        </FacebookShareButton>
+                       <div id="house">
+                                <div id="writeup">
+                                    Share via
+                                </div>
+                                <FacebookShareButton
+                                    url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id} 
+                                    quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle}
+                                    onClick={(e) => setShare(false)}>
+                                <FacebookIcon round size={35}/>
+                                </FacebookShareButton>
+                        </div>
 
-                        <WhatsappShareButton
-                            url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id}
-                            quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle}
-                            onClick={(e) => setShare(false)}>
-                        <WhatsappIcon round size={35}/>
-                        </WhatsappShareButton>
+                        <div id="house">
+                            <div id="writeup">
+                                Share via
+                            </div>
+                            <WhatsappShareButton
+                                url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id}
+                                quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle}
+                                onClick={(e) => setShare(false)}>
+                            <WhatsappIcon round size={35}/>
+                            </WhatsappShareButton>
+                        </div>
 
-
-                        <TwitterShareButton
-                            url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id}
-                            quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle}
-                            onClick={(e) => setShare(false)}>
-                        <TwitterIcon round size={35}/>
-                        </TwitterShareButton>
+                        <div id="house">
+                                <div id="writeup">
+                                    Share via
+                                </div>
+                                <TwitterShareButton
+                                    url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id}
+                                    quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle}
+                                    onClick={(e) => setShare(false)}>
+                                <TwitterIcon round size={35}/>
+                                </TwitterShareButton>
+                        </div>
+                        <button onClick={(e) => setShare(false)}>Cancel</button>
                 </div>   
          </ShareDialog> :""}
 
@@ -396,10 +411,9 @@ cursor: pointer;
 `;
 
 
-
 const ShareDialog= styled.div`
 position: absolute;
-width: 30%;
+width: 25%;
 height: auto;
 z-index:500;
 background: #fff;
@@ -407,24 +421,45 @@ border-radius:10px;
 margin-top:20%;
 margin-left:35%;
 padding: 20px;
+
+
+
+#house{
+width: 100%;
 display: flex;
-justify-content:space-evenly;
+justify-content:space-between;
 align-items:center;
-text-align:center;
+text-align:left;
+margin: 10px;
+}
+
+
+button{
+border: none;
+border-radius:10px;
+padding: 10px;
+font-weight:700;
+}
+
 
 
 @media(max-width:768px){
-position: fixed;
+position: absolute;
 overflow: hidden;
-width: 60%;
-margin-left:17%;
-margin-top:50vh;
-padding: 5px;
+width: 100%;
+height: auto;
+bottom: 0;
+margin-left:0px;
+padding: 0px;
+
+#house{
+width: 95%;
 }
-
+button{
+margin: 5px;
+}
+}
 `;
-
-
 
 
 
