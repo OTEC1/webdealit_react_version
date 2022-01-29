@@ -16,14 +16,14 @@ const Footer = (props) => {
 
                 <tr>
                     <td>
-                      Like our Page on  &nbsp;<RiFacebookBoxLine/> 
+                     <a  href="https://web.facebook.com/webflyblog/?ref=pages_you_manage">Like our Page on</a>  &nbsp;<RiFacebookBoxLine/> 
                     </td>
                 </tr>
 
 
                 <tr>
                     <td>
-                      Follow us on  &nbsp;<RiInstagramLine/> 
+                      <a href="https://www.instagram.com/webfly_/?hl=en">Follow us on </a>  &nbsp;<RiInstagramLine/> 
                     </td>
                 </tr>
 
@@ -115,6 +115,11 @@ display: flex;
 justify-content:left;
 align-items:center;
 text-align:left;
+a{
+text-decoration:none;
+font-family: "Poppins", sans-serif;
+color: #f5f5f5;
+}
 }
 @media(max-width:768px){
 border-top:1px solid #fff;

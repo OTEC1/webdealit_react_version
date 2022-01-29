@@ -27,23 +27,31 @@ const WriteUp = (props) => {
                     <td> 
                       {length > 100 ? 
                                 <div>
-                                    <pre> {ReactHtmlParser(props.writeup.substring(0, props.writeup.indexOf(">")))} </pre>  
+                                    <pre>{ReactHtmlParser(props.writeup.substring(0, props.writeup.indexOf(">")))} </pre>  
                                     <Ad> 
+                                    ADVERTISMENT
                                     </Ad>  
 
-                                    <pre> {ReactHtmlParser(props.writeup.substring(props.writeup.indexOf(">>")+2, props.writeup.indexOf(">>>")))} </pre>  
+                                    <pre>{ReactHtmlParser(props.writeup.substring(props.writeup.indexOf(">")+1, props.writeup.indexOf(">>")))} </pre>  
                                     <Ad>
+                                      ADVERTISMENT
                                     </Ad> 
                                     
-                                    <pre> {ReactHtmlParser(props.writeup.substring(props.writeup.indexOf(">>>")+3, props.writeup.length))} </pre>  
+                                    <pre>{ReactHtmlParser(props.writeup.substring(props.writeup.indexOf(">>")+2, props.writeup.indexOf(">>>")))} </pre>  
                                     <Ad>
+                                        ADVERTISMENT 
                                     </Ad> 
-                                </div> 
+
+                                    <pre>{ReactHtmlParser(props.writeup.substring(props.writeup.indexOf(">>>")+3, props.writeup.length))} </pre>  
+                                    <Ad>
+                                        ADVERTISMENT 
+                                    </Ad> 
+                                </div>
                             :<div>
                              <Ad>
-
+                               ADVERTISMENT
                              </Ad>  
-                            <pre>ONE {ReactHtmlParser(props.writeup)} </pre>  
+                            <pre>{ReactHtmlParser(props.writeup)} </pre>  
                            </div>
                         }
                     </td>
@@ -146,7 +154,9 @@ text-align:left;
 
 const Ad = styled.div`
 width: 100%;
-height: 200px;
+height: 150px;
+color:#f5f5f5;
+text-align:center;
 
 `;
 

@@ -92,7 +92,7 @@ const Top = (props) => {
                     <RiLiveFill   size={20}  color="red"/> <h4>Explore feeds</h4>
                   </SectionTab>
                   
-                  <Slider autoplay={1} 
+                    <Slider autoplay={1} 
                           duration={3500} 
                           previousButton={<RiArrowLeftCircleLine
                           color="red"/>} 
@@ -383,7 +383,7 @@ flex-wrap: wrap;
 box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 padding: 10px;
 @media(max-width:768px){
-height: 45vh;
+height: 75vh;
 width: 100%;
 padding: 0px;
 }
@@ -402,6 +402,7 @@ text-shadow: 2px 2px #4180FF;
 margin-top:0px;
 
 
+
 @media(max-width:768px){
 height: 50vh;
 }
@@ -412,10 +413,9 @@ height: 50vh;
 const TopLeftinnerDiv = styled.div`
 height: 100%;
 width: 50%;
-
 @media(max-width:768px){
 width: 100%;
-height: 60%;
+height: 90%;
 }
 `;
 
@@ -443,7 +443,7 @@ height: 220px;
 width: 100%;
 margin-left:auto;
 margin-right:auto;
-margin-top:100px;
+margin-top:0px;
 }
 
 `;
@@ -523,7 +523,7 @@ text-shadow: none;
 
 @media(max-width:768px){
 width: 30%; 
-margin-bottom:100px;
+margin-bottom:105px;
 }
 `;
 
@@ -554,6 +554,7 @@ const TopRightinnerDiv = styled.div`
 display: flex;
 flex-wrap:wrap;
 justify-content:center;
+height: 500px;
 
 
 & > *:first-of-type{
@@ -574,6 +575,13 @@ color:#fff;
 position: relative;
 
 
+img{
+border-radius:10px;
+width: 100%;
+object-fit:cover;
+}
+
+
 #UserProfile1{
 position: absolute;
 width: 100%;
@@ -584,7 +592,7 @@ font-weight:700;
 text-shadow: 2px 2px #4180FF;
 padding: 5px;
 
-img{
+#userImg{
 width: 24px;
 height: 24px;
 border-radius:50%;

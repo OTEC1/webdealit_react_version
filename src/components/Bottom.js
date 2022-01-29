@@ -51,14 +51,14 @@ const Bottom = (props) => {
                  <CardShow>
                     <BrowserView>
                             <CloudinaryContext cloudName="otecdealings">
-                                    <Image  alt={v.UserPost.title}    width="100%" publicId={v.UserPost.cloudinaryPub}/>
+                                    <Image  alt={v.UserPost.title}   width="100%" publicId={v.UserPost.cloudinaryPub}/>
                             </CloudinaryContext>
                     </BrowserView>
 
 
                         <MobileView>
                                 <CloudinaryContext cloudName="otecdealings">
-                                        <Image  alt={v.UserPost.title}    width="100%" publicId={v.UserPost.cloudinaryPub}>
+                                        <Image  alt={v.UserPost.title}     width="100%" publicId={v.UserPost.cloudinaryPub}>
                                             <Transformation  angle={v.UserPost.exifData} />
                                         </Image>
                                 </CloudinaryContext>
@@ -82,7 +82,7 @@ const Bottom = (props) => {
 
                         <MobileView>
                                 <CloudinaryContext cloudName="otecdealings">
-                                        <Image  alt={v.UserPost.title}     width="100%" publicId={v.UserPost.cloudinaryPub}>
+                                        <Image  alt={v.UserPost.title}   height="300px"   width="100%" publicId={v.UserPost.cloudinaryPub}>
                                             <Transformation  angle={v.UserPost.exifData} />
                                         </Image>
                                 </CloudinaryContext>
@@ -135,7 +135,7 @@ margin-top:200px;
 
 
 const CardShow = styled.div`
-height: 320px;
+height: 340px;
 width: 350px;
 box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 margin:20px;
@@ -144,7 +144,7 @@ border-radius:10px;
 img{
 border-radius:10px;
 width: 100%;
-height: 70%;
+height: 250px;
 clip-path: ellipse(78% 100% at 32.64% 0%);
 object-fit:cover;
 }
@@ -152,17 +152,15 @@ object-fit:cover;
 
 #writeUp{
 margin: 10px;
+padding: 5px;
 }
 
 
 @media(max-width:768px){
-
-img{
-height: 50%;
-}
 margin: 2px;
-width: 100%;
+width: 90%;
 height: 350px;
+
 }
 `;
 

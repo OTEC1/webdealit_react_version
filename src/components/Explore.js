@@ -15,6 +15,7 @@ import  {MobileView, BrowserView}  from 'react-device-detect';
 
 const Explore  =  (props) => {
 
+    document.title = props.title
 
     useEffect(()=>{
         window.scrollTo(0,0);
