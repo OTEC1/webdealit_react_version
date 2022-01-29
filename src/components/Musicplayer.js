@@ -444,12 +444,13 @@ font-weight:700;
 
 
 @media(max-width:768px){
-position: absolute;
+position: fixed;
 overflow: hidden;
 width: 100%;
 height: auto;
 bottom: 0;
 margin-left:0px;
+margin-bottom:80px;
 padding: 0px;
 
 #house{
