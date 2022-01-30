@@ -50,7 +50,7 @@ function format(list){
                </div>
 
               <AdRunner>
-                    <Marquee speed={100}>
+                    <Marquee speed={100} gradient={false}>
                         <Contains>
                           <FaSyncAlt/> &nbsp;Bitcoin rate  
                         </Contains>

@@ -123,7 +123,7 @@ const  Header = (props) => {
         <>
         {showdrawer ? 
            <ShowDiv>
-                <div  id='musicview'>
+                <div  id='mainview'>
                     <button onClick={(e) => setshowdrawer(false)}><RiCloseLine/></button>
                                 <Searchs>
                                     <div>
@@ -342,13 +342,9 @@ z-index:600;
 top:0;
 
 
-#mainview{
-height: 100vh;
-width: 100%;
-background-image: linear-gradient(to top right,#1f505f, #07091C); 
-}
 
-#musicview{
+
+#mainview{
 height: 100vh;
 width: 100%;
 background-image: linear-gradient(to top right,#1f505f, #07091C); 

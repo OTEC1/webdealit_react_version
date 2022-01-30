@@ -1,12 +1,20 @@
 import styled  from "styled-components";
 import { RiAccountCircleLine, RiCopyrightLine,RiSafeFill, RiFacebookBoxLine, RiInstagramLine, RiMessage2Line, RiTeamLine, RiTwitterLine, } from 'react-icons/ri';
-
+import {useNavigate, useNavigator} from  'react-router-dom';
 
 const Footer = (props) => {
+
+
+    const history = useNavigate();
+
+
+    const nav = (data,index1,index2) => {
+        history(`/${data}/`+index1+"/"+index2);
+    }
+
     return(
         <Footers>
-
-<LEFT> 
+            <LEFT> 
             <table>
                 <tr>
                     <td>
@@ -16,7 +24,7 @@ const Footer = (props) => {
 
                 <tr>
                     <td>
-                     <a  href="https://web.facebook.com/webflyblog/?ref=pages_you_manage">Like our Page on</a>  &nbsp;<RiFacebookBoxLine/> 
+                     <a  href="https://web.facebook.com/webflyblogger/?view_public_for=103951448871860&_rdc=1&_rdr">Like our Page on</a>  &nbsp;<RiFacebookBoxLine/> 
                     </td>
                 </tr>
 
@@ -40,7 +48,7 @@ const Footer = (props) => {
         <MIDDLE> 
            <table>
                 <tr>
-                    <td>
+                    <td onClick={(e) => nav("about",0,0)}>
                      About us &nbsp; <RiAccountCircleLine/>
                     </td>
                 </tr>
@@ -52,13 +60,13 @@ const Footer = (props) => {
                 </tr>
 
                 <tr>
-                    <td>
+                    <td onClick={(e) => nav("contact",0,0)}>
                      Connect  &nbsp;<RiTeamLine/> 
                     </td>
                 </tr>
 
                 <tr>
-                    <td>
+                    <td  onClick={(e) => nav("about",1200,1200)}>
                      Disclaimer  &nbsp;<RiSafeFill/> 
                     </td>
                 </tr>

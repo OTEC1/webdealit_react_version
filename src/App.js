@@ -16,6 +16,8 @@ import Ad from './components/Ad';
 import SearchbyArtistsName from './components/SearchbyArtistsName';
 import MusicResult from './components/MusicResult';
 import Footer from './components/Footer';
+import About  from './components/About'
+import Connect  from './components/Connect'
 
 
 function App(props) {
@@ -158,8 +160,34 @@ props.getUserAuth();
 
 
 
+          <Routes>
+          <Route  path="/about/:index1/:index2"  element={<Header/>}/>
+          </Routes>
+
+          <Routes>
+          <Route  path="/about/:index1/:index2"  element={<Ad/>}/>
+          </Routes>
+
+          <Routes>
+           <Route  path="/about/:index1/:index2" element={<About/>}/>
+          </Routes>
 
 
+
+
+          <Routes>
+          <Route  path="/contact"  element={<Header/>}/>
+          </Routes>
+
+          <Routes>
+          <Route  path="/contact"  element={<Ad/>}/>
+          </Routes>
+
+          <Routes>
+           <Route  path="/contact" element={<Connect/>}/>
+          </Routes>
+
+          
 
 
           <Routes>
