@@ -130,7 +130,7 @@ border-radius:5px;
 padding: 10px;
 background: transparent;
 color: #f5f5f5;
-z-index:9999;
+z-index:99;
 }
 
 textarea{
@@ -143,7 +143,7 @@ padding: 10px;
 background: transparent;
 color: #f5f5f5;
 resize:none;
-z-index:9999;
+z-index:99;
 
 }
 
