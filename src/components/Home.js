@@ -17,6 +17,7 @@ const Home = (props) => {
 let list = [];
 const [L1, setL1] = useState([]);
 const [L2, setL2] = useState([]);
+const [L3, setL3] = useState([]);
 
 useEffect(() => {
   axios.get(process.env.REACT_APP_GET_ALL_POST)
@@ -27,6 +28,14 @@ useEffect(() => {
   }).catch(err => {
      console.log(err.message)
   });
+
+  axios.get(process.env.REACT_APP_GET_HOMEPAGETOP_LIST)
+      .then(res=>{
+        setL3(res.data.message);
+      })
+      .catch(err=> {
+        console.log(err);
+      })
 
 
 },[])
@@ -51,29 +60,12 @@ function format(list){
 
               <AdRunner>
                     <Marquee speed={100} gradient={false}>
-                        <Contains>
-                          <FaSyncAlt/> &nbsp;Bitcoin rate  
-                        </Contains>
-
-                        <Contains>
-                          <FaSyncAlt/> &nbsp;NFT trends 
-                        </Contains>
-
-                        <Contains>
-                          <FaSyncAlt/> &nbsp;Gift card 
-                        </Contains>
-
-                        <Contains>
-                          <FaSyncAlt/> &nbsp;Ethereum
-                        </Contains>
-
-                        <Contains>
-                          <FaSyncAlt/> &nbsp;DeFi Trends
-                        </Contains>
-
-                        <Contains>
-                          <FaSyncAlt/> &nbsp;Coinbase news
-                        </Contains>
+                      {L3.map((v,i) => 
+                      <Contains>
+                      <FaSyncAlt/> &nbsp; {v} 
+                    </Contains>
+                      )}
+                        
                     </Marquee> 
               </AdRunner>
 

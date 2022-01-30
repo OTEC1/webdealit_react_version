@@ -25,7 +25,7 @@ const WriteUp = (props) => {
 
                 <tr>
                     <td> 
-                      {length > 100 ? 
+                     {length > 100 && props.User ===  process.env.REACT_APP_NOMAIL1 || props.User  === process.env.REACT_APP_NOMAIL2 ? 
                                 <div>
                                     <pre>{ReactHtmlParser(props.writeup.substring(0, props.writeup.indexOf(">")))} </pre>  
                                     <Ad> 

@@ -85,7 +85,7 @@ const Explore  =  (props) => {
                                             </CloudinaryContext> 
                                         </BrowserView>
 
-                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup}/>
+                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup} User={props.useremail}/>
                                     </div>
                                 </div>  
                                 ):props.frame === "Videoframe" ? (
@@ -109,7 +109,7 @@ const Explore  =  (props) => {
                                         </div>
 
                                             <ReactPlayer  alt={props.title}   width="100%"  height="400px"  controls url={process.env.REACT_APP_APP_S3_VIDEO_BUCKET+props.media}  autoPlay />
-                                            <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup}/>
+                                            <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup} User={props.useremail}/>
                                      </div>
                                     </div>
                                   ):props.frame === "Playerframe" ? (
@@ -132,7 +132,7 @@ const Explore  =  (props) => {
                                          </div>
 
                                         <ReactPlayer  alt={props.title}   width="100%"  height="400px" controls url={props.media}  autoPlay/>
-                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup}/>
+                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup}  User={props.useremail}/>
                                       </div>
                                     </div>
                                 ):(<p></p>)

@@ -51,12 +51,12 @@ const  Header = (props) => {
 
 
     function UPDATE(){
-      axios.post(process.env.REACT_APP_UPDATE_VISIT_COUNT,{count:1})
-            .then(res => {
-                console.log(res.data.message,"Here")
-            }).catch(err => {
-                console.log(err);
-            })
+        axios.post(process.env.REACT_APP_UPDATE_VISIT_COUNT,{count:1})
+        .then(res => {
+            console.log(res.data.message,"Here")
+        }).catch(err => {
+            console.log(err);
+        })         
     }
 
 

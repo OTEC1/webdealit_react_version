@@ -173,18 +173,16 @@ props.getUserAuth();
           </Routes>
 
 
-
-
           <Routes>
-          <Route  path="/contact"  element={<Header/>}/>
+          <Route  path="/contact/:index1/:index2"  element={<Header/>}/>
           </Routes>
 
           <Routes>
-          <Route  path="/contact"  element={<Ad/>}/>
+          <Route  path="/contact/:index1/:index2"  element={<Ad/>}/>
           </Routes>
 
           <Routes>
-           <Route  path="/contact" element={<Connect/>}/>
+           <Route  path="/contact/:index1/:index2" element={<Connect/>}/>
           </Routes>
 
           

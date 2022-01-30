@@ -110,6 +110,10 @@ margin-top:200px;
 box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 padding: 15px;
 font-size:15pt;
+@media(max-width:768px){
+width: 100%;
+font-size:10pt;
+}
 }
 
 #div2{
@@ -120,6 +124,10 @@ font-family: "Poppins", sans-serif;
 margin-top:50px;
 box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 padding: 15px;
+@media(max-width:768px){
+width: 100%;
+font-size:9pt;
+}
     
 }
 
@@ -130,6 +138,12 @@ font-family: "Poppins", sans-serif;
 margin-top:50px;
 box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 padding: 15px; 
+
+@media(max-width:768px){
+width: 100%;
+font-size:9pt;
+}
+
 }
 
 #div4{
@@ -143,6 +157,11 @@ box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 padding: 30px; 
 font-size:12pt;
 margin-bottom:100px;
+
+@media(max-width:768px){
+width: 100%;
+font-size:9pt;
+}
 }
 }
 }

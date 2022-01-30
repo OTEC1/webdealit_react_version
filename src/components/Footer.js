@@ -101,6 +101,10 @@ background-image: linear-gradient(to top right,#1f505f, #07091C);
 bottom: 0;
 display: flex;
 flex-wrap:wrap;
+table{
+padding-top:50px;
+padding-bottom:50px;
+}
 @media(max-width:768px){
 }
 `;
