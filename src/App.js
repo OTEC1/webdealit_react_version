@@ -18,6 +18,7 @@ import MusicResult from './components/MusicResult';
 import Footer from './components/Footer';
 import About  from './components/About'
 import Connect  from './components/Connect'
+import ETH from './components/ETH'
 
 
 function App(props) {
@@ -206,6 +207,31 @@ props.getUserAuth();
           </Routes>
 
 
+
+
+
+
+
+
+
+
+          <Routes>
+            <Route   path="/model/:mode"  element={<Header/>}/>
+          </Routes>
+
+          
+          <Routes>
+            <Route  path="/model/:mode"    element={<Ad/>}/>
+          </Routes>
+
+          
+          <Routes>
+            <Route   path="/model/:mode"   element={<ETH/>}/>
+          </Routes>
+          
+          <Routes>
+            <Route   path="/model/:mode"   element={<Footer/>}/>
+          </Routes>
 
 
 

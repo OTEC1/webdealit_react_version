@@ -35,10 +35,6 @@ const Explore  =  (props) => {
         }
     } 
 
-
-
-
-
    
 
     return(
@@ -180,13 +176,13 @@ position: relative;
 
 #soap{
 position: absolute;
-height: 100px;
-width: 100px;
+height: 70px;
+width: 70px;
 border-radius:50%;
 background: #fff;
 display: flex;
 right:0;
-margin-right:105px;
+margin-right:20px;
 margin-top:-35px;
 text-align:left;
 justify-content:center;

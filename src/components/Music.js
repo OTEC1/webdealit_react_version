@@ -412,7 +412,7 @@ object-fit:cover;
 }
 
 h4{
-color: #000000;
+color:#f5f5f5;;
 font-size:12pt;
 }
 

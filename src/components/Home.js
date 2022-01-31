@@ -10,11 +10,13 @@ import {RiAmazonLine, RiBitCoinLine, RiCoinLine, RiPlug2Line, RiStore2Line} from
 import {BiCreditCard} from 'react-icons/bi'
 import {FaSyncAlt} from 'react-icons/fa'
 import TwoTone from "./TwoTone";
+import { useNavigate } from "react-router-dom";
 
 
 const Home = (props) => {
 
 let list = [];
+const history =  useNavigate();
 const [L1, setL1] = useState([]);
 const [L2, setL2] = useState([]);
 const [L3, setL3] = useState([]);
@@ -48,6 +50,14 @@ function format(list){
   setL2(list.slice(size,list.length));
 }
 
+
+
+
+const runner = (e) => {
+  history("/model/"+e)
+
+}
+
         return(
           <>
           <TwoTone/>  
@@ -60,9 +70,9 @@ function format(list){
                 <AdRunner>
                     <Marquee speed={100} gradient={false}>
                       {L3.map((v,i) => 
-                      <Contains>
+                      <Contains onClick={(e) => runner(v)}>
                       <FaSyncAlt/> &nbsp; {v} 
-                    </Contains>
+                      </Contains>
                       )}
                         
                     </Marquee> 
@@ -206,6 +216,7 @@ border-radius:5px;
 padding: 5px;
 margin:10px;
 font-family: "Poppins", sans-serif;
+cursor: pointer;
 `;
 
 
