@@ -130,7 +130,7 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
                             <div>
                                 <FacebookShareButton
                                     url={"https://webfly.click/musicquerylink/"+query} 
-                                    quote={v.Music.music_artist.toUpperCase()+":  "+v.Music.music_title}
+                                    quote={v.Music.music_artist.toUpperCase()+":  "+v.Music.music_title+"  Download @ webfly.click"}
                                     onClick={(e) => setShare(false)}>
                                 <FacebookIcon round size={35}/>
                                 </FacebookShareButton>
@@ -144,7 +144,7 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
                     
                             <WhatsappShareButton
                                 url={"https://webfly.click/musicquerylink/"+query} 
-                                quote={v.Music.music_artist.toUpperCase()+":  "+v.Music.music_title}
+                                quote={v.Music.music_artist.toUpperCase()+":  "+v.Music.music_title+"  Download @ webfly.click"}
                                 onClick={(e) => setShare(false)}>
                             <WhatsappIcon round size={35}/>
                             </WhatsappShareButton>
@@ -157,7 +157,7 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
                                 </div>
                                 <TwitterShareButton
                                     url={"https://webfly.click/musicquerylink/"+query} 
-                                    quote={v.Music.music_artist.toUpperCase()+":  "+v.Music.music_title}
+                                    quote={v.Music.music_artist.toUpperCase()+":  "+v.Music.music_title+"  Download @ webfly.click"}
                                     onClick={(e) => setShare(false)}>
                                 <TwitterIcon round size={35}/>
                                 </TwitterShareButton>

@@ -46,19 +46,18 @@ function format(list){
   let size = list.length/2;
   setL1(list.slice(0,size));
   setL2(list.slice(size,list.length));
-  console.log(L1,L2)
 }
 
         return(
           <>
-        <TwoTone/>  
-        <Container>
-          <TopHouseContainer>
-               <div id="Online">
-                  <span>Online Marchant </span>&nbsp; <BiCreditCard id="icon" /> 
-               </div>
+          <TwoTone/>  
+          <Container>
+            <TopHouseContainer>
+                <div id="Online">
+                    <span>Online Marchant </span>&nbsp; <BiCreditCard id="icon" /> 
+                </div>
 
-              <AdRunner>
+                <AdRunner>
                     <Marquee speed={100} gradient={false}>
                       {L3.map((v,i) => 
                       <Contains>

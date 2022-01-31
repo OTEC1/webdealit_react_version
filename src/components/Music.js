@@ -79,6 +79,9 @@ import TwoTone from './TwoTone'
     }
 
 
+    function  formation(datas){
+     return  datas = datas.charAt(0).toUpperCase() + datas.slice(1); 
+    }
 
     
 
@@ -205,14 +208,14 @@ import TwoTone from './TwoTone'
                                            onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url,doc_id:v.Music.doc_id, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
                                         
                                           <BrowserView>
-                                              <h4>{ v.Music.music_title.length > 13 ? v.Music.music_title.substring(0,13)+"..." : v.Music.music_title}</h4>
+                                              <h4>{ v.Music.music_title.length > 13 ? formation(v.Music.music_title.substring(0,13))+"..." : formation(v.Music.music_title)}</h4>
                                           </BrowserView>
 
                                           <MobileView>
-                                              <h4>{ v.Music.music_title.length > 10 ? v.Music.music_title.substring(0,8)+"..." : v.Music.music_title}</h4>
+                                              <h4>{ v.Music.music_title.length > 10 ? formation(v.Music.music_title.substring(0,8))+"..." : formation(v.Music.music_title)}</h4>
                                           </MobileView>
                                            
-                                           <h5>{v.Music.music_artist}</h5>
+                                             <h5>{v.Music.music_artist.length > 10 ? formation(v.Music.music_artist.substring(0,15))+"..." : formation(v.Music.music_artist)}</h5>
             
                                       </MusicGlide>
                                     )
