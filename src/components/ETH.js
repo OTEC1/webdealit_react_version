@@ -121,7 +121,7 @@ import {updatePostlikes} from '../actions'
 
                     </MusicBanner>
                     <Musicplayer  showPlayermodel={showPlayermodel}   PopUpPlayer={PopUpPlayer}  musicData={pageErrand}/>
-                </Container>    
+                </Container>      
         </>
     )
  }
