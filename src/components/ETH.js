@@ -87,6 +87,7 @@ import {updatePostlikes} from '../actions'
                                 </h1>
                             
                         </TopMostPart>
+
                         <SecondTopMost>
                             ADVERTISMENT
                         </SecondTopMost>
@@ -120,7 +121,7 @@ import {updatePostlikes} from '../actions'
 
                     </MusicBanner>
                     <Musicplayer  showPlayermodel={showPlayermodel}   PopUpPlayer={PopUpPlayer}  musicData={pageErrand}/>
-                </Container>
+                </Container>    
         </>
     )
  }
