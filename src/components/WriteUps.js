@@ -131,6 +131,13 @@ margin:5px;
 @media(max-width:768px){
  
 text-align:center;
+max-width: 100%;
+
+table{
+max-width:95%;
+width: 95%;
+font-size:14pt;
+}
     
 #startPin{
 font-size:15pt;
@@ -142,8 +149,8 @@ font-size:12pt;
 
 
 tr td{
-max-width:97%;
-width:97%;
+max-width:99.5%;
+width:99.5%;
 float: none;
 text-align:left;
 }
