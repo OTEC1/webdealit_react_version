@@ -492,8 +492,8 @@ z-index:200;
 
 
 @media(max-width:768px){
-margin-bottom:80px;
-font-size:8pt;
+margin-bottom:82px;
+font-size:10pt;
 height: 100px;
 }
 `;
@@ -502,11 +502,11 @@ height: 100px;
 const Reactions = styled.div`
 position: absolute;
 background: #fff;
-border-radius: 0px 10px 10px 0px;
+border-radius: 10px 0px 0px 10px;
 padding:5px;
 width: 20%;
 bottom: 0;
-left:0;
+right:0;
 display: flex;
 justify-content:space-between;
 color: #828282;

@@ -106,7 +106,7 @@ import {updatePostlikes} from '../actions'
                                           </BrowserView>
 
                                           <MobileView>
-                                              <h4>{v.UserPost.writeup.length > 10 ? formation(v.UserPost.writeup.substring(0,30))+"...Read more" : formation(v.UserPost.writeup)}</h4>
+                                              <h4>{v.UserPost.writeup.length > 10 ? formation(v.UserPost.writeup.substring(0,i==0 ? 90 : 50))+"...Read more" : formation(v.UserPost.writeup)}</h4>
                                           </MobileView>
                                            
                                           
