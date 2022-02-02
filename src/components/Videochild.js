@@ -22,6 +22,7 @@ const Videochild = (props) => {
     const list4 = ["2000", "2001","2002","2003"]
     const [progress1, setProgress1] = useState(false);
     const [progress2, setProgress2] = useState(false);
+    const [returner, setReturner] = useState(10001);
 
 
     useEffect(()=>{
@@ -63,8 +64,14 @@ const Videochild = (props) => {
      //console.log(e.slideIndex)
    }
 
-   const startDowload = (url,title,index) => {
+
+
+ 
+   const startDowload = (url,title,index,ins) => {
     
+    setReturner(ins);
+    
+
   
         if(index === 1)
            setProgress1(true);
@@ -75,23 +82,23 @@ const Videochild = (props) => {
     axios({ url: url,
       method: 'GET', responseType: 'blob',})
       .then((response) => {   
-        swal.fire({text:"Video file  Downloading....", icon:'info'});
-         const url = window.URL.createObjectURL(new Blob([response.data])); 
-         const link = document.createElement('a');
-         link.href = url; link.setAttribute('download', title);
-         document.body.appendChild(link); link.click(); 
+       
+        //  const url = window.URL.createObjectURL(new Blob([response.data])); 
+        //  const link = document.createElement('a');
+        //  link.href = url; link.setAttribute('download', title);
+        //  document.body.appendChild(link); link.click(); 
 
-          if(index === 1)
-             setProgress1(false);
-          else
-            setProgress2(false);
+        //   if(index === 1)
+        //      setProgress1(false);
+        //   else
+        //     setProgress2(false);
 
       }).catch(err => {
-          alert(err);
-          if(index === 1)
-              setProgress1(false);
-          else
-            setProgress2(false);
+          // alert(err);
+          // if(index === 1)
+          //     setProgress1(false);
+          // else
+          //   setProgress2(false);
       })
    }
 
@@ -169,10 +176,17 @@ return(
                                      <tr>
                                          <td>
                                          <label  id='Upcaving'>Title: {v.Mtitle}</label> 
-                                           {!progress1 ? 
-                                            <label  id='Upcaving' onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4", v.Mtitle+".mp4",1)}>Download  &nbsp;&nbsp;<RiDownload2Line id='Slider_icons'/></label> 
-                                            : 
+                                           {!progress1? 
+                                            <label  id='Upcaving' onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4", v.Mtitle+".mp4",1,i)}>
+                                              Download  &nbsp;&nbsp;<RiDownload2Line id='Slider_icons'/>
+                                            </label> 
+                                            : returner === i ?
                                             <label id='Upcaving'> <Loader  type="Oval" color="#f5f5f5" height={20}width={20}/></label>
+                                            :
+                                            <label  id='Upcaving' onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4", v.Mtitle+".mp4",1,i)}>
+                                              Download  &nbsp;&nbsp;<RiDownload2Line id='Slider_icons'/>
+                                            </label> 
+                                            
                                             }
                                          
                                           <label  id='Upcaving'>Year release: {v.year}</label>
@@ -208,12 +222,22 @@ return(
                             src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
                           </BrowserView>
 
+                          {console.log(returner)}
+                            {console.log(progress2)}
+
                            <div  id='downComponent'>
-                            {!progress2 ?
-                            <label  id='caving'><RiDownload2Line onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4",v.Mtitle+".mp4",2)} /></label> 
-                            : 
+                            {!progress2?
+                            <label  id='caving'>
+                              <RiDownload2Line onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4",v.Mtitle+".mp4",2,i)} />
+                            </label> 
+                            : returner === i ?
                             <label  id='caving'><Loader  type="Oval" color="#f5f5f5" height={20}width={20}/></label>
-                            }
+                            :
+                            <label  id='caving'>
+                              <RiDownload2Line onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4",v.Mtitle+".mp4",2,i)} />
+                            </label> 
+                           
+                           }
                             <label  id='cavingName'>{v.Mtitle}</label>
                            </div>
  
