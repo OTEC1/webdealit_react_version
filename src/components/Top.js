@@ -54,7 +54,8 @@ const Top = (props) => {
     const navigates = (x) =>{
       let frame = x.frame;
       let useremail=x.useremail;
-      
+      let views = x.views;
+      let caller = "o";
         updatePostlikes(1,0,1,useremail,x.doc_id_a,x.doc_id_b);
         sessionStorage.setItem("cloud",x.cloudinaryPub);
         sessionStorage.setItem("doc_id_a",x.doc_id_a);
@@ -66,7 +67,7 @@ const Top = (props) => {
         sessionStorage.setItem("date_time",x.date_time);
         sessionStorage.setItem("likes",x.likes);
         sessionStorage.setItem("title",x.title);
-        history('/explorecontent/'+frame+"/"+useremail)
+        history('/explorecontent/'+frame+"/"+useremail+"/"+views+"/"+caller+"/"+x.doc_id_b)
     }
 
 
@@ -128,7 +129,7 @@ const Top = (props) => {
                                  
 
                                     <WriteUp 
-                                          onClick={(e) => navigates({frame:"Pictureframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title:value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.image, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
+                                          onClick={(e) => navigates({frame:"Pictureframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title:value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.image, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes,views:value.UserPost.views})}>
                                         {
                                         value.UserPost.writeup.length > a ?
                                         <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -176,7 +177,7 @@ const Top = (props) => {
                             
 
                                     <WriteUp onClick={(e)=> 
-                                     navigates({frame:"Videoframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.video, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
+                                     navigates({frame:"Videoframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.video, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes,views:value.UserPost.views})}>
                                         {
                                         value.UserPost.writeup.length > a ?
                                         <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -216,7 +217,7 @@ const Top = (props) => {
                                   </MobileView>
                                   
                                     <WriteUp onClick={(e)=> 
-                                       navigates({frame:"Playerframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.youtubeLink, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
+                                       navigates({frame:"Playerframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.youtubeLink, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes, views:value.UserPost.views})}>
                                         {
                                         value.UserPost.writeup.length > a ?
                                         <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -283,7 +284,7 @@ const Top = (props) => {
                                       </MobileView>
 
                                     <RightSideWriteUp  
-                                         onClick={(e)=>  navigates({frame:"Pictureframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.image, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
+                                         onClick={(e)=>  navigates({frame:"Pictureframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.image, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes, views:value.UserPost.views})}>
                                       {
                                         value.UserPost.writeup.length > a ?
                                         <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -325,7 +326,7 @@ const Top = (props) => {
 
 
                                       <RightSideWriteUp  
-                                          onClick={(e)=>   navigates({frame:"Videoframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.video, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
+                                          onClick={(e)=>   navigates({frame:"Videoframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.video, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes, views:value.UserPost.views})}>
                                         {
                                         value.UserPost.writeup.length > a ?
                                         <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>
@@ -350,7 +351,7 @@ const Top = (props) => {
                           <ReactPlayer  alt={value.UserPost.title}   width="100%"  height="100%" url={value.UserPost.youtubeLink}  controls  />
 
                           <RightSideWriteUpYoutube   
-                            onClick={(e)=>   navigates({frame:"Playerframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.youtubeLink, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes})}>
+                            onClick={(e)=>   navigates({frame:"Playerframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title: value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.youtubeLink, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes, views:value.UserPost.views})}>
                              {
                               value.UserPost.writeup.length > a ?
                               <div>{value.UserPost.writeup.toString().substring(0, a)} ...<span>Read more</span></div>

@@ -190,20 +190,20 @@ props.getUserAuth();
 
 
           <Routes>
-          <Route  path='/explorecontent/:frame/:useremail'  element={<Header/>}/>
+          <Route  path='/explorecontent/:frame/:useremail/:views/:caller/:doc_id_b'  element={<Header/>}/>
           </Routes>
 
           <Routes>
-          <Route   path="/explorecontent/:frame/:useremail"  element={<Ad/>}/>
+          <Route   path="/explorecontent/:frame/:useremail/:views/:caller/:doc_id_b"  element={<Ad/>}/>
           </Routes>
 
           <Routes>
-            <Route   path="/explorecontent/:frame/:useremail/"  element={<Explorecontent/>}/>
+            <Route   path="/explorecontent/:frame/:useremail/:views/:caller/:doc_id_b"  element={<Explorecontent/>}/>
           </Routes>
 
    
           <Routes>
-            <Route   path="/explorecontent/:frame/:useremail/"  element={<Footer/>}/>
+            <Route   path="/explorecontent/:frame/:useremail/:views/:caller/:doc_id_b"  element={<Footer/>}/>
           </Routes>
 
 
@@ -252,6 +252,6 @@ const mapStateToProps = (dispatch) => {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  getUserAuth: () => dispatch(getUserAuth()),
+  getUserAuth: () => dispatch(getUserAuth(window.sessionStorage.getItem("fbuser"))),
 })
 export default connect(mapStateToProps,mapDispatchToProps)(App);

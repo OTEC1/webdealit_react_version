@@ -1,11 +1,13 @@
 import { RiArrowDownCircleLine, RiArrowDownLine, RiArrowDropDownFill, RiArrowDropDownLine, RiCloseCircleLine, RiDownloadCloud2Fill, RiDownloadCloudLine, RiDownloadLine, RiPauseCircleLine,RiPlayCircleLine, RiShareLine, RiSkipBackFill, RiSkipForwardFill, RiVideoDownloadFill } from "react-icons/ri"
 import styled from "styled-components"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css';
 import Loader from "react-loader-spinner";
+import ShareDialog from './ShareDialog'
 import axios from "axios";
-import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,WhatsappIcon,TwitterIcon} from 'react-share'
+import  swal from 'sweetalert2'
+
 
 
 
@@ -16,11 +18,12 @@ const Musicplayer = (props) => {
 
     const [progress1, setProgress1] = useState(false);
     const [progress2, setProgress2] = useState(false);
-    const [share, setShare] = useState(false);
+    const [showModel, setShowModel] = useState("close");
 
     const reset =  (e) => {
         props.PopUpPlayer(e);
     };
+
 
 
     const DownloadFiles = (dataUrl, filename,index) => {
@@ -49,55 +52,37 @@ const Musicplayer = (props) => {
                 })
         
     }
+    
+
+
+
+    const redirectUser = (e) => {
+        e.preventDefault();
+       // if(props.user){
+
+            switch(showModel){
+            case "open":
+                setShowModel("close");
+                break;
+
+            case "close":
+                setShowModel("open");
+            break;
+
+            default:
+                setShowModel("close");
+                break;
+        };
+//   }else
+//       swal.fire({text:'Pls sign in to add Post', icon:'warning'})
+
+    }
 
 
     return(
         
             <>
-
-
-          {share ? 
-            <ShareDialog>
-                <div>
-                       <div id="house">
-                                <div id="writeup">
-                                    Share via
-                                </div>
-                                <FacebookShareButton
-                                    url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id} 
-                                    quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle+"  Download @ webfly.click"}
-                                    onClick={(e) => setShare(false)}>
-                                <FacebookIcon round size={35}/>
-                                </FacebookShareButton>
-                        </div>
-
-                        <div id="house">
-                            <div id="writeup">
-                                Share via
-                            </div>
-                            <WhatsappShareButton
-                                url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id}
-                                quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle+"  Download @ webfly.click"}
-                                onClick={(e) => setShare(false)}>
-                            <WhatsappIcon round size={35}/>
-                            </WhatsappShareButton>
-                        </div>
-
-                        <div id="house">
-                                <div id="writeup">
-                                    Share via
-                                </div>
-                                <TwitterShareButton
-                                    url={"https://webfly.click/musicquerylink/"+props.musicData.doc_id}
-                                    quote={props.musicData.musicArtist.toUpperCase()+":  "+ props.musicData.musicTitle+"  Download @ webfly.click"}
-                                    onClick={(e) => setShare(false)}>
-                                <TwitterIcon round size={35}/>
-                                </TwitterShareButton>
-                        </div>
-                        <button onClick={(e) => setShare(false)}>Cancel</button>
-                </div>   
-         </ShareDialog> :""}
-
+           
                 {props.showPlayermodel === "open" &&(
                     <Container>
                         <WidgetButton>
@@ -150,7 +135,7 @@ const Musicplayer = (props) => {
 
                             <Incentivesection>
                                   
-                                 <div onClick={(e) => setShare(true)} >
+                                 <div onClick={(e) =>redirectUser(e)}>
                                     <RiShareLine/>
                                     <h5>Share Post to win weekly prize</h5>
                                 </div>
@@ -163,12 +148,15 @@ const Musicplayer = (props) => {
 
                         </DownloadShare>
 
-                        
+                     
                     </Container>
-
+                  
                     
                     )}
+                <ShareDialog showModel={showModel}  musicArtist={props.musicData.musicArtist} musicTitle={props.musicData.musicTitle}  musicThumb={props.musicData.musicThumb}  doc_id_b={props.musicData.doc_id_b} section="m"  redirectUser={redirectUser} mail={null}/> 
+      
             </>
+            
         )
 }
 
@@ -408,58 +396,6 @@ text-align:right;
 padding: 10px;
 cursor: pointer;
 
-`;
-
-
-const ShareDialog= styled.div`
-position: absolute;
-width: 25%;
-height: auto;
-z-index:500;
-background: #fff;
-border-radius:10px;
-margin-top:20%;
-margin-left:35%;
-padding: 20px;
-
-
-
-#house{
-width: 100%;
-display: flex;
-justify-content:space-between;
-align-items:center;
-text-align:left;
-margin: 10px;
-}
-
-
-button{
-border: none;
-border-radius:10px;
-padding: 10px;
-font-weight:700;
-}
-
-
-
-@media(max-width:768px){
-position: fixed;
-overflow: hidden;
-width: 100%;
-height: auto;
-bottom: 0;
-margin-left:0px;
-margin-bottom:80px;
-padding: 0px;
-
-#house{
-width: 95%;
-}
-button{
-margin: 5px;
-}
-}
 `;
 
 

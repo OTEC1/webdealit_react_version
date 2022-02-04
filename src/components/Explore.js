@@ -6,9 +6,11 @@ import WriteUp from './WriteUps';
 import { RiThumbUpFill, RiThumbUpLine } from 'react-icons/ri';
 import { useState, useRef,useEffect} from 'react';
 import Load from './Load';
-import {updatePostlikes,format} from '../actions'
+import {updatePostlikes,format,app} from '../actions'
 import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
 import  {MobileView, BrowserView}  from 'react-device-detect';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
 
 
@@ -27,7 +29,6 @@ const Explore  =  (props) => {
 
 
     const reset =  (email, docA, docB) =>  {
-        console.log(email, docA, docB);
         if(react){
             setReact(false);  setUpdate(false);
         }else{
@@ -35,8 +36,41 @@ const Explore  =  (props) => {
         }
     } 
 
-   
 
+    useEffect(() => {
+  
+    if(props.fbuser)
+        apicall(props.fbuser.tokenDetail.userID,props.fbuser.tokenDetail.accessToken)    
+    
+    },[])
+
+
+    
+   
+    function apicall(n,x){
+        axios.get(`https://graph.facebook.com/${n}/accounts?access_token=${x}`)
+        .then(res=>{
+            console.log(res)
+            permissoncheck(res.data.data)
+            console.log(res.data)
+        }).catch(err =>{
+                console.log(err)
+        })
+    }
+
+
+
+
+    function permissoncheck(d){
+        d.map(v=>{    
+          
+
+        })
+
+       
+    }
+
+  
     return(
       <Container>
 
@@ -81,7 +115,7 @@ const Explore  =  (props) => {
                                             </CloudinaryContext> 
                                         </BrowserView>
 
-                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup} User={props.useremail}/>
+                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup} User={props.useremail}  views={props.views}  doc_id_b={props.doc_id_b} media={props.media}  frame={props.frame} />
                                     </div>
                                 </div>  
                                 ):props.frame === "Videoframe" ? (
@@ -105,7 +139,7 @@ const Explore  =  (props) => {
                                         </div>
 
                                             <ReactPlayer  alt={props.title}   width="100%"  height="400px"  controls url={process.env.REACT_APP_APP_S3_VIDEO_BUCKET+props.media}  autoPlay />
-                                            <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup} User={props.useremail}/>
+                                            <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup} User={props.useremail} views={props.views}  doc_id_b={props.doc_id_b}  media={props.media}  frame={props.frame} />
                                      </div>
                                     </div>
                                   ):props.frame === "Playerframe" ? (
@@ -128,7 +162,7 @@ const Explore  =  (props) => {
                                          </div>
 
                                         <ReactPlayer  alt={props.title}   width="100%"  height="400px" controls url={props.media}  autoPlay/>
-                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup}  User={props.useremail}/>
+                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup}  User={props.useremail}  views={props.views}   doc_id_b={props.doc_id_b}  media={props.media} frame={props.frame}/>
                                       </div>
                                     </div>
                                 ):(<p></p>)
@@ -239,4 +273,20 @@ font-size:10pt;
 `;
 
 
-export default Explore;
+
+
+
+
+const  mapStateToProps = (state)  => {
+    return {
+        fbuser: state.fbState.fbuser,
+        user:state.userState.user,
+    };
+};
+
+const mapDistpachToProps = (dispatch) => ({
+   
+});
+
+
+export default  connect(mapStateToProps,mapDistpachToProps)(Explore);

@@ -83,22 +83,22 @@ const Videochild = (props) => {
       method: 'GET', responseType: 'blob',})
       .then((response) => {   
        
-        //  const url = window.URL.createObjectURL(new Blob([response.data])); 
-        //  const link = document.createElement('a');
-        //  link.href = url; link.setAttribute('download', title);
-        //  document.body.appendChild(link); link.click(); 
+         const url = window.URL.createObjectURL(new Blob([response.data])); 
+         const link = document.createElement('a');
+         link.href = url; link.setAttribute('download', title);
+         document.body.appendChild(link); link.click(); 
 
-        //   if(index === 1)
-        //      setProgress1(false);
-        //   else
-        //     setProgress2(false);
+          if(index === 1)
+             setProgress1(false);
+          else
+            setProgress2(false);
 
       }).catch(err => {
-          // alert(err);
-          // if(index === 1)
-          //     setProgress1(false);
-          // else
-          //   setProgress2(false);
+          alert(err);
+          if(index === 1)
+              setProgress1(false);
+          else
+            setProgress2(false);
       })
    }
 
@@ -177,16 +177,18 @@ return(
                                          <td>
                                          <label  id='Upcaving'>Title: {v.Mtitle}</label> 
                                            {!progress1? 
-                                            <label  id='Upcaving' onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4", v.Mtitle+".mp4",1,i)}>
+                                            <label  id='Upcaving' 
+                                                onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4", v.Mtitle+".mp4",1,i)}>
                                               Download  &nbsp;&nbsp;<RiDownload2Line id='Slider_icons'/>
                                             </label> 
-                                            : returner === i ?
-                                            <label id='Upcaving'> <Loader  type="Oval" color="#f5f5f5" height={20}width={20}/></label>
-                                            :
-                                            <label  id='Upcaving' onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4", v.Mtitle+".mp4",1,i)}>
+                                             : returner === i ?
+                                             <label id='Upcaving'> <Loader  type="Oval" color="#f5f5f5" height={20}width={20}/></label>
+                                             :
+                                             <label  id='Upcaving' 
+                                               onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4", v.Mtitle+".mp4",1,i)}>
                                               Download  &nbsp;&nbsp;<RiDownload2Line id='Slider_icons'/>
-                                            </label> 
-                                            
+                                             </label> 
+
                                             }
                                          
                                           <label  id='Upcaving'>Year release: {v.year}</label>
@@ -222,8 +224,6 @@ return(
                             src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
                           </BrowserView>
 
-                          {console.log(returner)}
-                            {console.log(progress2)}
 
                            <div  id='downComponent'>
                             {!progress2?

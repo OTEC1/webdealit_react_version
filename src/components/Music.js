@@ -8,6 +8,7 @@ import Musicplayer from './Musicplayer'
 import  {MobileView, BrowserView}  from 'react-device-detect';
 import Load from './Load'
 import TwoTone from './TwoTone'
+import { formation } from '../actions'
 
 
 
@@ -17,7 +18,7 @@ import TwoTone from './TwoTone'
     const [music, setMusic] = useState([]);
     const [errand, setErrand] = useState('');
     const [showPlayermodel, setshowPlayermodel] = useState("close");
-    const [pageErrand,setpageErrand] = useState({musicArtist:"",musicTitle:"",musicUrl:"",musicVideoUrl:"",musicThumb:"",doc_id:"",promoIncentive:""})
+    const [pageErrand,setpageErrand] = useState({musicArtist:"",musicTitle:"",musicUrl:"",musicVideoUrl:"",musicThumb:"",doc_id_b:"",promoIncentive:""})
    
 
 
@@ -79,9 +80,7 @@ import TwoTone from './TwoTone'
     }
 
 
-    function  formation(datas){
-     return  datas = datas.charAt(0).toUpperCase() + datas.slice(1); 
-    }
+  
 
     
 
@@ -205,7 +204,7 @@ import TwoTone from './TwoTone'
                                     <MusicGlide>
                                         
                                          <img 
-                                           onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url,doc_id:v.Music.doc_id, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
+                                           onClick={(e) => PopUpPlayer(e,setpageErrand({musicTitle:v.Music.music_title, musicThumb:v.Music.music_thumbnail, musicArtist:v.Music.music_artist, musicVideoUrl:v.Music.music_video, musicUrl:v.Music.music_url,doc_id_b:v.Music.doc_id, promoIncentive:"https://"}))} src={process.env.REACT_APP_BASE_URL+v.Music.music_thumbnail}/>
                                         
                                           <BrowserView>
                                               <h4>{ v.Music.music_title.length > 13 ? formation(v.Music.music_title.substring(0,13))+"..." : formation(v.Music.music_title)}</h4>
@@ -227,8 +226,8 @@ import TwoTone from './TwoTone'
                         </MusicMedias>
 
                     </MusicBanner>
-                    <Musicplayer  showPlayermodel={showPlayermodel}   PopUpPlayer={PopUpPlayer}  musicData={pageErrand}/>
                 </Container>
+                <Musicplayer  showPlayermodel={showPlayermodel}   PopUpPlayer={PopUpPlayer}  musicData={pageErrand}/>
         </>
     )
  }

@@ -44,7 +44,6 @@ z-index: 0;
 const mapStateToProps = (state) => {
     return{
         user:state.userState.user,
-        cart:state.cartState.cart,
     };
 };
 

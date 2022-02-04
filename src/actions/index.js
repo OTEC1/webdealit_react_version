@@ -1,6 +1,7 @@
 import {auth, provider, signInWithPopup}  from '../firebase';
 import database from '../firebase';
-import { SET_USER ,SET_PROMISE, SET_CART} from './actionType';
+import { useNavigate } from 'react-router-dom';
+import { SET_USER ,SET_PROMISE,FB_USER} from './actionType';
 import axios from 'axios';
 import { async } from '@firebase/util';
 import swal from 'sweetalert2'
@@ -21,12 +22,27 @@ export const setPromise = (payload) => ({
 
 
 
-
-
-export const setCart = (payload) => ({
-    type: SET_CART,
-    cart:payload,
+export const setFBUSER = (payload) => ({
+    type: FB_USER,
+    fbuser:payload,
 });
+
+
+
+export function handleError(error){
+console.log(error)
+}
+
+
+
+
+
+export function signInfacebookApi(member){
+    console.log("facebook");
+    return (dispatch) => {
+            dispatch(setFBUSER(member))
+        }
+};
 
 
 
@@ -42,14 +58,20 @@ export function signInAPIGoogle(){
 
 
 
+
+
+
+
+
 export function signOutGoogleApi(){
     console.log("Google");
     return (dispatch) => {
         auth.signOut().then(() => {
             dispatch(setUser(null));
+            dispatch(setFBUSER(null))
         })
         .catch((err) => {
-            console.log(err.message);
+            console.log(err);
         });
     };
 }
@@ -64,27 +86,32 @@ export function signOutCustomApi() {
 }
 
 
-export function cartStated(quantity){
-    console.log(quantity);
-    return (dispatch) => {
-        dispatch(setCart(quantity));
-    };
-};
+
+
+export function  formation(datas){
+return  datas = datas.charAt(0).toUpperCase() + datas.slice(1); 
+}
 
 
 
 
-export function getUserAuth(){
+export function getUserAuth(data){
     return(dispatch)=> {
+        
         auth.onAuthStateChanged(async (use) => {
-            if(use){
-                dispatch(setUser(use));
-                localStorage.getItem("cart") ? dispatch(setCart(true)) : dispatch(setCart(false))
-                
-            }
-        });
+            if(use)
+                dispatch(setUser(use))  
+         });
+
+        if(data)
+            dispatch(setFBUSER(app(data)))   
     };
 };
+
+
+export function app(es){
+   return JSON.parse(es)
+}
 
 
 var CryptoJS = require("crypto-js");
@@ -135,7 +162,7 @@ export function CustomSignIn(){
 export  function updatePostlikes(count,likes,views,email,doc_id_a,doc_id_b){
     axios.post(process.env.REACT_APP_THUMBS_REACTION_CALL, likes !== 0 ? {User:{useremail:email},UserPost:{likes:count, doc_id_a:doc_id_a, doc_id_b:doc_id_b}} : {User:{useremail:email},UserPost:{likes:0,views:count, doc_id_a:doc_id_a, doc_id_b:doc_id_b}})
     .then(res => {
-         console.log(res);
+         //console.log(res);
     }).catch(err => {
         console.log(err);
     })
@@ -152,9 +179,7 @@ export  function updatePostlikes(count,likes,views,email,doc_id_a,doc_id_b){
 
 
 export function  format(count){
-
     let m;
-
         if(count < 1000)
                 m=count;
         else if(count >= 1000 && count < 1999)

@@ -1,6 +1,6 @@
 import { RiArrowRightFill, RiArrowRightSLine, RiEye2Line, RiFacebookBoxLine, RiGoogleFill, RiInstagramLine, RiLockPasswordLine, RiMailLine, RiTwitterLine } from 'react-icons/ri';
 import {connect} from 'react-redux'
-import { CustomSignIn, signInAPIGoogle} from '../actions';
+import { CustomSignIn, signInAPIGoogle,handleError,signInfacebookApi} from '../actions';
 import styled from 'styled-components'
 import { useState } from 'react';
 import swal from 'sweetalert2'
@@ -8,13 +8,18 @@ import { useNavigate } from 'react-router-dom';
 import {Navigate, Redirect} from "react-router"
 import  axios  from 'axios';
 import Loader from 'react-loader-spinner';
+import FacebookProvider, {Login} from 'react-facebook-sdk'
+
+
 
 
 
 const Signin = (props) => {
 
     
-    const history = useNavigate();
+ const history = useNavigate();
+
+
 
  
 
@@ -39,15 +44,26 @@ const Signin = (props) => {
        history("/register")
     }
 
+ 
+    
+    function handleResponse(data){
+     window.sessionStorage.setItem("fbuser",JSON.stringify(data));
+     if(data && !props.user){ 
+        signInfacebookApi(data)
+        history("/") 
+     }
+    }
+    
+   
+
 
     return(
                <Container>
-                    
-                    {props.user  && <Navigate to="/"/> }
+                   {props.user && <Navigate to="/"/>}
                         <Section class="screen">
                             <Content>
                               <Screencontent>
-                                    <Login>
+                                    <Logins>
                                         <Loginfield>
                                             <RiMailLine id='mail' size={20}  color='#6A679E'/>
                                             <input type="text" class="login__input" placeholder="Username / Email"   id='email'/>
@@ -73,12 +89,23 @@ const Signin = (props) => {
                                             <a onClick={ForgotPass}>Forgot Password</a>	
                                         </Carries>
                                         
-                                    </Login>
+                                    </Logins>
 
                                     <Sociallogin>
                                         <h3>log in via</h3>
                                         <Socialicons>
-                                            <RiFacebookBoxLine size={20} color='#fff'/>
+                                          
+
+                                            <FacebookProvider appId={process.env.REACT_APP_APP_ID}>
+                                                <Login
+                                                scope="pages_manage_posts"
+                                                onResponse={handleResponse}
+                                                onError={handleError}>
+                                                <RiFacebookBoxLine size={20}  color='#fff'/>
+                                                </Login>
+                                            </FacebookProvider>
+
+                                           
                                             <RiInstagramLine  size={20} color='#fff'/>
                                             <RiTwitterLine  size={20} color='#fff'/>
                                             <RiGoogleFill  onClick={() => props.Login(2)} size={20} color='#fff'/>
@@ -226,7 +253,7 @@ border-radius: 60px;
 `;
 
 
-const Login = styled.div`
+const Logins = styled.div`
 width: 320px;
 padding: 30px;
 padding-top: 156px;
@@ -327,6 +354,7 @@ const mapStateToProps = (state) => {
     return{
         user: state.userState.user,
         promise: state.promiseState.promise,
+        fbuser:state.fbState.fbuser,
     };
 }
 

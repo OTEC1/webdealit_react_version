@@ -25,20 +25,23 @@ const Bottom = (props) => {
     const navigates = (x) =>{
         let frame = x.frame;
         let useremail=x.useremail;
+        let views = x.views
+        let caller = "o";
         
-          updatePostlikes(1,0,1,useremail,x.doc_id_a,x.doc_id_b);
-          sessionStorage.setItem("cloud",x.cloudinaryPub);
-          sessionStorage.setItem("date_time",x.date_time);
-          sessionStorage.setItem("doc_id_a",x.doc_id_a);
-          sessionStorage.setItem("doc_id_b",x.doc_id_b);
-          sessionStorage.setItem("cloudinaryPub",x.cloudinaryPub);
-          sessionStorage.setItem("exifData",x.exifData);
-          sessionStorage.setItem("media",x.media);
-          sessionStorage.setItem("writeup",x.writeup);
-          sessionStorage.setItem("date_time",x.date_time);
-          sessionStorage.setItem("likes",x.likes);
-          sessionStorage.setItem("title",x.title);
-          history('/explorecontent/'+frame+"/"+useremail)
+        updatePostlikes(1,0,1,useremail,x.doc_id_a,x.doc_id_b);
+        sessionStorage.setItem("cloud",x.cloudinaryPub);
+        sessionStorage.setItem("date_time",x.date_time);
+        sessionStorage.setItem("doc_id_a",x.doc_id_a);
+        sessionStorage.setItem("doc_id_b",x.doc_id_b);
+        sessionStorage.setItem("cloudinaryPub",x.cloudinaryPub);
+        sessionStorage.setItem("exifData",x.exifData);
+        sessionStorage.setItem("media",x.media);
+        sessionStorage.setItem("writeup",x.writeup);
+        sessionStorage.setItem("date_time",x.date_time);
+        sessionStorage.setItem("likes",x.likes);
+        sessionStorage.setItem("title",x.title);
+        history('/explorecontent/'+frame+"/"+useremail+"/"+views+"/"+caller)
+        
       }
   
   
@@ -66,7 +69,7 @@ const Bottom = (props) => {
                         
                         
                         
-                        <div id='writeUp' onClick={(e)=>  navigates({frame:"Pictureframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.video, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes})}>
+                        <div id='writeUp' onClick={(e)=>  navigates({frame:"Pictureframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.image, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes, views:v.UserPost.views})}>
                             {v.UserPost.writeup.length > 100 ? v.UserPost.writeup.substring(0,100)+" ... Read more" : v.UserPost.writeup }
                         </div>
                 </CardShow>
@@ -89,7 +92,7 @@ const Bottom = (props) => {
                         </MobileView>
                         
                         
-                        <div id='writeUp' onClick={(e)=>  navigates({frame:"Videoframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.video, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes})}>
+                        <div id='writeUp' onClick={(e)=>  navigates({frame:"Videoframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.video, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes,views:v.UserPost.views})}>
                             {v.UserPost.writeup.length > 100 ? v.UserPost.writeup.substring(0,100)+" ... Read more" : v.UserPost.writeup }
                         </div>
                 </CardShow>
@@ -98,7 +101,7 @@ const Bottom = (props) => {
 
                 <CardShow>
                 <ReactPlayer alt={v.UserPost.title}  url={v.UserPost.youtubeLink}  controls width="100%" height="50%"/>
-                <div  id='writeUp' onClick={(e)=>  navigates({frame:"Playerframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.video, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes})}>
+                <div  id='writeUp' onClick={(e)=>  navigates({frame:"Playerframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.youtubeLink, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes, views:v.UserPost.views})}>
                     {v.UserPost.writeup.length > 100 ? v.UserPost.writeup.substring(0,100)+" ... Read more" : v.UserPost.writeup }
                 </div>
                 </CardShow>

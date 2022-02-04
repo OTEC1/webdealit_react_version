@@ -1,18 +1,51 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { BiRocket } from 'react-icons/bi';
-import {RiTimeLine}  from 'react-icons/ri'
+import {RiEye2Line, RiEyeLine, RiShareLine, RiTimeLine}  from 'react-icons/ri'
 import InstagramEmbed from 'react-instagram-embed';
 import ReactHtmlParser  from 'html-react-parser'
+import ShareDialog from './ShareDialog'
+
+
+
 
 
 const WriteUp = (props) => {
+
     let length = props.writeup.length;
+    const [showModel, setShowModel] = useState("close");
+
+
+
+    const redirectUser = (e) => {
+        e.preventDefault();
+       // if(props.user){
+            switch(showModel){
+            case "open":
+                setShowModel("close");
+                break;
+
+            case "close":
+                setShowModel("open");
+            break;
+
+            default:
+                setShowModel("close");
+                break;
+        };
+//   }else
+//       swal.fire({text:'Pls sign in to add Post', icon:'warning'})
+
+    }
+
+
     return(
+        <>
         <Container>
           <table>
               <tr>
                   <td>
-                   <BiRocket  id="startPin"/> <h4>{props.title}</h4>
+                   <BiRocket  id="startPin"/> <h4>{props.title}</h4>   <div id="sharebtn" onClick={(e)=> redirectUser(e)}><RiShareLine/></div>
                   </td>
               </tr>
 
@@ -22,6 +55,14 @@ const WriteUp = (props) => {
                   </td>
               </tr>
 
+              <tr>
+                  <td>
+                      <label>
+                        <RiEyeLine id="datePin" /> <h5>{props.views}</h5>
+                      </label>
+                   
+                  </td>
+              </tr> 
 
                 <tr>
                     <td> 
@@ -57,14 +98,27 @@ const WriteUp = (props) => {
                     </td>
                 </tr>
           </table>   
-        </Container>
+         </Container>
+      <Contain>
+      <ShareDialog showModel={showModel}  musicArtist={props.frame} musicTitle={props.title}  musicThumb={props.media.includes(".mp4") ?  process.env.REACT_APP_S3_VIDEO_SECTION+props.media :  process.env.REACT_APP_S3_PICTURE_SECTION+props.media}   doc_id_b={props.doc_id_b} section="p"  redirectUser={redirectUser}  mail={props.User}/> 
+      </Contain>
+     </>
     )
 }
 
+const Contain = styled.div`
+position: absolute;
+top:0;
+left:0;
+height: 100vh;
+width: 100%;
+display: flex;
+`;
+
+
 const Container = styled.div`
 text-align:left;
-
-
+display: flex;
 
 
 table{
@@ -73,6 +127,7 @@ width: 90%;
 font-family: "Poppins", sans-serif;
 color: #f5f5f5;
 padding-bottom:100px;
+font-size:12pt;
 }
 
 
@@ -94,9 +149,34 @@ text-align:left;
 align-items:center;
 justify-content:center
 font-weight:500;
-max-width:95%;
-width:95%;
+max-width:100%;
+width:100%;
 margin-left:10px;
+
+
+#sharebtn{
+margin-left:auto;
+font-size:16pt;
+cursor: pointer;
+z-index:9999;
+}
+
+}
+
+
+label{
+margin-left:auto;
+display:flex;
+text-align:left;
+align-items:center;
+justify-content:center   
+max-width:auto;
+width:auto;
+font-weight:700;
+font-size:15pt;
+h5{
+font-size:15pt;
+}
 }
 
 
@@ -113,6 +193,8 @@ font-family: Consolas,monospace;
 text-decoration:none;
 color: #33ff00;
 }
+
+
 }
 
 

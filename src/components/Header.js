@@ -4,7 +4,7 @@ import {RiAccountCircleFill, RiAccountCircleLine, RiArrowDownLine,RiMenu3Line, R
 import {RiAlbumLine, RiContactsBook2Line, RiDownloadCloudLine, RiHeadphoneLine, RiMenu2Line, RiPlayList2Line, RiSortDesc, RiSpeaker2Line, RiUpload2Line} from 'react-icons/ri'
 import { useNavigate }  from 'react-router-dom'
 import { connect } from 'react-redux';
-import {signOutGoogleApi, signOutCustomApi}  from  '../actions'
+import {signOutGoogleApi, signOutCustomApi,getUserAuth}  from  '../actions'
 import axios from 'axios';
 
 
@@ -26,6 +26,7 @@ const  Header = (props) => {
             window.addEventListener("beforeunload", (ev) => {  
                sessionStorage.setItem("visitCount",null);
             });
+            getUserAuth(window.sessionStorage.getItem("fbuser"));
               
     },[])
 
@@ -101,13 +102,15 @@ const  Header = (props) => {
     }
 
     const auth = () => {
-       var data = document.getElementById("authstate").innerText;
-
+        var data = document.getElementById("authstate").innerText;
         if(data === "Login")
-            history("/auth")
-            else{
-                history("/")
-                props.user.displayName ? props.logout(2) : props.logout(1)
+            history("/auth");
+        else{
+                history("/auth");
+                if(props.user)
+                    props.user.displayName ? props.logout(2) : props.logout(1)
+               
+                
             }
          
     }
@@ -118,6 +121,7 @@ const  Header = (props) => {
         window.scrollTo(0,0);
     }
   
+    
 
     return (
         <>
@@ -304,7 +308,12 @@ const  Header = (props) => {
                                 <RiArrowRightCircleLine
                                 size={20}
                                 color="#fff"/>
+                                {props.user ?
                                 <span id='authstate'> {props.user ? "Logout": "Login"}</span>
+                                :props.fbuser ?
+                                <span id='authstate'>{props.fbuser ? "Logout": "Login"}</span>
+                                :  <span id='authstate'>Login</span> }
+
                             </a>
                         </Navchild>
 
@@ -700,6 +709,7 @@ margin-left:18px;
 const mapStateToProps = (state) => {
     return{
         user: state.userState.user,
+        fbuser:state.fbState.fbuser,
     };
 };
 
