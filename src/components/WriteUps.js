@@ -1,10 +1,15 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { BiRocket } from 'react-icons/bi';
 import {RiEye2Line, RiEyeLine, RiShareLine, RiTimeLine}  from 'react-icons/ri'
 import InstagramEmbed from 'react-instagram-embed';
 import ReactHtmlParser  from 'html-react-parser'
 import ShareDialog from './ShareDialog'
+import axios from "axios";
+import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
+import  {MobileView, BrowserView}  from 'react-device-detect';
+import { updatePostlikes } from "../actions";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -14,12 +19,13 @@ const WriteUp = (props) => {
 
     let length = props.writeup.length;
     const [showModel, setShowModel] = useState("close");
+    const [list, setList]= useState([]);
+    let history = useNavigate();
 
 
 
     const redirectUser = (e) => {
         e.preventDefault();
-       // if(props.user){
             switch(showModel){
             case "open":
                 setShowModel("close");
@@ -33,10 +39,42 @@ const WriteUp = (props) => {
                 setShowModel("close");
                 break;
         };
-//   }else
-//       swal.fire({text:'Pls sign in to add Post', icon:'warning'})
-
     }
+
+
+
+
+    useEffect(() => {
+        axios.get(process.env.REACT_APP_GET_ALL_POST)
+        .then(res => {
+            setList(res.data.message);
+        }).catch(err => {
+           console.log(err.message)
+        });
+    },[]);
+
+    const navigates = (x) =>{
+        let frame = x.frame;
+        let useremail=x.useremail;
+        let views = x.views
+        let caller = "o"; 
+        updatePostlikes(1,0,1,useremail,x.doc_id_a,x.doc_id_b);
+        sessionStorage.setItem("cloud",x.cloudinaryPub);
+        sessionStorage.setItem("date_time",x.date_time);
+        sessionStorage.setItem("doc_id_a",x.doc_id_a);
+        sessionStorage.setItem("doc_id_b",x.doc_id_b);
+        sessionStorage.setItem("cloudinaryPub",x.cloudinaryPub);
+        sessionStorage.setItem("exifData",x.exifData);
+        sessionStorage.setItem("media",x.media);
+        sessionStorage.setItem("writeup",x.writeup);
+        sessionStorage.setItem("date_time",x.date_time);
+        sessionStorage.setItem("likes",x.likes);
+        sessionStorage.setItem("title",x.title);
+        history('/explorecontent/'+frame+"/"+useremail+"/"+views+"/"+caller+"/"+x.doc_id_b)
+        window.scrollTo(0,0);
+        
+      }
+  
 
 
     return(
@@ -102,6 +140,32 @@ const WriteUp = (props) => {
       <Contain>
       <ShareDialog showModel={showModel}  musicArtist={props.frame} musicTitle={props.title}  musicThumb={props.media.includes(".mp4") ?  process.env.REACT_APP_S3_VIDEO_SECTION+props.media :  process.env.REACT_APP_S3_PICTURE_SECTION+props.media}   doc_id_b={props.doc_id_b} section="p"  redirectUser={redirectUser}  mail={props.User}/> 
       </Contain>
+
+            <MoreContent>
+                <label>
+                You may also like
+                </label>
+                <RelatedContent>
+                        {list.map((v,i) =>
+                         v.UserPost.image  &&  v.UserPost.doc_id_a !== props.doc_id_a ?
+                            <MiniContainer   onClick={(e)=>  navigates({frame:"Pictureframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.image, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes, views:v.UserPost.views})}>
+                              <img  id="im" src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.image}/>
+                                <MobileView>
+                                <div id="up">{v.UserPost.title}</div>
+                                <br/>
+                                <div id="down">{v.UserPost.writeup.length > 100 ? v.UserPost.writeup.substring(0,70)+" ... Read more" : v.UserPost.writeup }</div>
+                                </MobileView>
+
+
+                                <BrowserView>
+                                <div id="down"> {v.UserPost.writeup.length > 60 ? v.UserPost.writeup.substring(0,60)+" ... Read more" : v.UserPost.writeup }</div>
+                                </BrowserView>
+                              </MiniContainer>
+                         : <div></div>
+                        )}
+                </RelatedContent>
+            </MoreContent>
+
      </>
     )
 }
@@ -119,6 +183,7 @@ display: flex;
 const Container = styled.div`
 text-align:left;
 display: flex;
+
 
 
 table{
@@ -211,7 +276,6 @@ margin:5px;
 
 
 @media(max-width:768px){
- 
 text-align:center;
 max-width: 100%;
 
@@ -243,10 +307,116 @@ text-align:left;
 
 const Ad = styled.div`
 width: 100%;
-height: 150px;
+height: 100px;
 color:#f5f5f5;
 text-align:center;
 
 `;
+
+
+const MoreContent = styled.div`
+width: 100%;
+height: 200px;
+text-align:center;
+
+label{
+color:red
+font-weight:900;
+font-size:15pt;
+color:#fff;
+font-family: "Poppins", sans-serif;
+}
+
+`;
+
+
+const RelatedContent = styled.div`
+margin-top:10px;
+width: 100%;
+height: 200px;
+padding: 5px;
+display: flex;
+flex-wrap:wrap;
+justify-content:center;
+overflow-y:scroll;
+overflow-x:hidden;
+
+
+::-webkit-scrollbar {
+display: none;
+}
+
+
+#im{
+border-radius:5px;
+width: 180px;
+height: 120px;
+clip-path: ellipse(78% 100% at 32.64% 0%);
+object-fit:cover;
+}
+
+@media(max-width:768px){
+padding: 0px;
+}
+
+
+`;
+
+
+const MiniContainer = styled.div`
+width: 180px;
+height: 170px;
+background: #fff;
+border-radius:10px;
+margin: 10px;
+
+
+#im{
+border-radius:5px;
+width: 180px;
+height: 120px;
+clip-path: ellipse(78% 100% at 32.64% 0%);
+object-fit:cover;
+}
+
+#up{
+text-align:left;
+padding: 5px;
+font-size:9pt;
+font-weight:600;
+
+}
+
+
+#down{
+text-align:left;
+padding-bottom: 10px;
+padding-left:3px;
+padding-right:3px;
+font-size:9pt;
+color: #000;
+}
+
+@media(max-width:768px){
+width: 90%;
+display: flex;
+height: 120px;
+border-radius: none;
+
+#im{
+width:150px;
+height:120px;
+clip-path:none;
+border-radius:10px 0px 0px 10px;
+min-width:150px;
+max-width:150px;
+}
+
+}
+
+`;
+
+
+
 
 export default WriteUp;

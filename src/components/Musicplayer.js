@@ -83,6 +83,8 @@ const Musicplayer = (props) => {
         
             <>
            
+           <ShareDialog showModel={showModel}  musicArtist={props.musicData.musicArtist} musicTitle={props.musicData.musicTitle}  musicThumb={props.musicData.musicThumb}  doc_id_b={props.musicData.doc_id_b} section="m"  redirectUser={redirectUser} mail={null}/> 
+              
                 {props.showPlayermodel === "open" &&(
                     <Container>
                         <WidgetButton>
@@ -153,12 +155,13 @@ const Musicplayer = (props) => {
                   
                     
                     )}
-                <ShareDialog showModel={showModel}  musicArtist={props.musicData.musicArtist} musicTitle={props.musicData.musicTitle}  musicThumb={props.musicData.musicThumb}  doc_id_b={props.musicData.doc_id_b} section="m"  redirectUser={redirectUser} mail={null}/> 
-      
+        
+               
             </>
             
         )
 }
+
 
 
 const Container = styled.div`
@@ -170,6 +173,7 @@ width: 100%;
 background-image: linear-gradient(to top right,#1f505f, #07091C);
 height:90px;
 z-index:100;
+
 
 @media(max-width:768px){
 display: flex;

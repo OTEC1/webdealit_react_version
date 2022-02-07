@@ -25,7 +25,7 @@ const ShareDialog = (props) => {
                                 </div>
                                     <FacebookShareButton
                                         url={"https://us-central1-grelots-ad690.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_BASE_URL+props.musicThumb+"&a="+props.musicArtist.toUpperCase()+"&t="+props.musicTitle+"&d="+props.doc_id_b+"&s="+props.section+"&m="+props.mail}
-                                        quote={props.musicArtist.toUpperCase()+":  "+ props.musicTitle+"  Download @ webfly.click"}
+                                        quote={ props.section === "m" ? props.musicArtist.toUpperCase()+": "+  props.musicTitle+" Download @ webfly.click" : props.musicTitle}
                                         onClick={(e) => reset(e)}>
                                     <FacebookIcon round size={35}/>
                                     </FacebookShareButton>
@@ -38,7 +38,7 @@ const ShareDialog = (props) => {
                             </div>
                             <WhatsappShareButton
                                  url={"https://us-central1-grelots-ad690.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_BASE_URL+props.musicThumb+"&a="+props.musicArtist.toUpperCase()+"&t="+props.musicTitle+"&d="+props.doc_id_b+"&s="+props.section+"&m="+props.mail}
-                                 quote={props.musicArtist.toUpperCase()+":  "+ props.musicTitle+"  Download @ webfly.click"}
+                                 quote={ props.section === "m"  ? props.musicArtist.toUpperCase()+": "+  props.musicTitle+" Download @ webfly.click" :  props.musicTitle}
                                  onClick={(e) => reset(e)}>
                             <WhatsappIcon round size={35}/>
                             </WhatsappShareButton>
@@ -52,7 +52,7 @@ const ShareDialog = (props) => {
                                 </div>
                                 <TwitterShareButton
                                     url={"https://us-central1-grelots-ad690.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_BASE_URL+props.musicThumb+"&a="+props.musicArtist.toUpperCase()+"&t="+props.musicTitle+"&d="+props.doc_id_b+"&s="+props.section+"&m="+props.mail}
-                                    quote={props.musicArtist.toUpperCase()+":  "+ props.musicTitle+"  Download @ webfly.click"}
+                                    quote={ props.section === "m"  ? props.musicArtist.toUpperCase()+": "+  props.musicTitle+" Download @ webfly.click" : props.musicTitle}
                                    onClick={(e) => reset(e)}>
                                 <TwitterIcon round size={35}/>
                                 </TwitterShareButton>
@@ -71,11 +71,11 @@ const ShareDialog = (props) => {
 const ShareDialogs = styled.div`
 position: absolute;
 width: 30%;
-height: auto;
+height: 200px;
 z-index:500;
 background: #fff;
 border-radius:10px;
-margin-top:20%;
+margin-top:3%;
 padding: 20px;
 margin-left:35%;
 z-index:999;

@@ -62,12 +62,8 @@ const Explore  =  (props) => {
 
 
     function permissoncheck(d){
-        d.map(v=>{    
-          
-
-        })
-
-       
+        // d.map(v=>{   
+        // })  
     }
 
   
@@ -115,7 +111,7 @@ const Explore  =  (props) => {
                                             </CloudinaryContext> 
                                         </BrowserView>
 
-                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup} User={props.useremail}  views={props.views}  doc_id_b={props.doc_id_b} media={props.media}  frame={props.frame} />
+                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup} User={props.useremail}  views={props.views}  doc_id_b={props.doc_id_b} media={props.media}  frame={props.frame}   doc_id_a={props.doc_id_a}/>
                                     </div>
                                 </div>  
                                 ):props.frame === "Videoframe" ? (
@@ -139,7 +135,7 @@ const Explore  =  (props) => {
                                         </div>
 
                                             <ReactPlayer  alt={props.title}   width="100%"  height="400px"  controls url={process.env.REACT_APP_APP_S3_VIDEO_BUCKET+props.media}  autoPlay />
-                                            <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup} User={props.useremail} views={props.views}  doc_id_b={props.doc_id_b}  media={props.media}  frame={props.frame} />
+                                            <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup} User={props.useremail} views={props.views}  doc_id_b={props.doc_id_b}  media={props.media}  frame={props.frame}  doc_id_a={props.doc_id_a}/>
                                      </div>
                                     </div>
                                   ):props.frame === "Playerframe" ? (
@@ -162,7 +158,7 @@ const Explore  =  (props) => {
                                          </div>
 
                                         <ReactPlayer  alt={props.title}   width="100%"  height="400px" controls url={props.media}  autoPlay/>
-                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup}  User={props.useremail}  views={props.views}   doc_id_b={props.doc_id_b}  media={props.media} frame={props.frame}/>
+                                        <WriteUp title={props.title}  date_time={props.date_time}  writeup={props.writeup}  User={props.useremail}  views={props.views}   doc_id_b={props.doc_id_b}  media={props.media} frame={props.frame} doc_id_a={props.doc_id_a} />
                                       </div>
                                     </div>
                                 ):(<p></p>)
@@ -191,7 +187,7 @@ box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 width:80%;
 margin:auto;
 margin-top:40px;
-
+padding-bottom:100px;
 
 img{
 height: 400px;

@@ -22,6 +22,9 @@ const Bottom = (props) => {
     },[])
 
 
+
+
+
     const navigates = (x) =>{
         let frame = x.frame;
         let useremail=x.useremail;
@@ -30,7 +33,6 @@ const Bottom = (props) => {
         
         updatePostlikes(1,0,1,useremail,x.doc_id_a,x.doc_id_b);
         sessionStorage.setItem("cloud",x.cloudinaryPub);
-        sessionStorage.setItem("date_time",x.date_time);
         sessionStorage.setItem("doc_id_a",x.doc_id_a);
         sessionStorage.setItem("doc_id_b",x.doc_id_b);
         sessionStorage.setItem("cloudinaryPub",x.cloudinaryPub);
@@ -40,7 +42,7 @@ const Bottom = (props) => {
         sessionStorage.setItem("date_time",x.date_time);
         sessionStorage.setItem("likes",x.likes);
         sessionStorage.setItem("title",x.title);
-        history('/explorecontent/'+frame+"/"+useremail+"/"+views+"/"+caller)
+        history('/explorecontent/'+frame+"/"+useremail+"/"+views+"/"+caller+"/"+x.doc_id_b)
         
       }
   

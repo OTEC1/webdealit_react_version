@@ -32,6 +32,9 @@ import {updatePostlikes} from '../actions'
 
         let frame = x.frame;
         let useremail=x.useremail;
+        let views = x.views
+        let caller = "o";
+        
         updatePostlikes(1,0,1,useremail,x.doc_id_a,x.doc_id_b);
         sessionStorage.setItem("cloud",x.cloud);
         sessionStorage.setItem("doc_id_a",x.doc_id_a);
@@ -43,7 +46,7 @@ import {updatePostlikes} from '../actions'
         sessionStorage.setItem("date_time",x.date_time);
         sessionStorage.setItem("likes",x.likes);
         sessionStorage.setItem("title",x.title);
-        history('/explorecontent/'+frame+"/"+useremail)
+        history('/explorecontent/'+frame+"/"+useremail+"/"+views+"/"+caller+"/"+x.doc_id_b)
     }
 
 
