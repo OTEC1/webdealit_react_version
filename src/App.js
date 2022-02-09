@@ -252,6 +252,6 @@ const mapStateToProps = (dispatch) => {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  getUserAuth: () => dispatch(getUserAuth(window.sessionStorage.getItem("fbuser"))),
+  getUserAuth: () => dispatch(getUserAuth(window.sessionStorage.getItem("fbuser"), window.sessionStorage.getItem("SignInUser"))),
 })
 export default connect(mapStateToProps,mapDispatchToProps)(App);

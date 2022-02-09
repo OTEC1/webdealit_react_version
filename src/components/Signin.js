@@ -98,7 +98,7 @@ const Signin = (props) => {
 
                                             <FacebookProvider appId={process.env.REACT_APP_APP_ID}>
                                                 <Login
-                                                scope="pages_manage_posts"
+                                                scope="email"
                                                 onResponse={handleResponse}
                                                 onError={handleError}>
                                                 <RiFacebookBoxLine size={20}  color='#fff'/>

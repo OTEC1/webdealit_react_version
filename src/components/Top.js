@@ -80,9 +80,6 @@ const Top = (props) => {
     };
   
 
-
-    console.log(L1,L2);
-
      return(
     <>
      <Container>

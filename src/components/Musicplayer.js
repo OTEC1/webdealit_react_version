@@ -58,9 +58,8 @@ const Musicplayer = (props) => {
 
     const redirectUser = (e) => {
         e.preventDefault();
-       // if(props.user){
-
-            switch(showModel){
+ 
+           switch(showModel){
             case "open":
                 setShowModel("close");
                 break;
@@ -73,8 +72,6 @@ const Musicplayer = (props) => {
                 setShowModel("close");
                 break;
         };
-//   }else
-//       swal.fire({text:'Pls sign in to add Post', icon:'warning'})
 
     }
 

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled  from "styled-components";
 import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,WhatsappIcon,TwitterIcon} from 'react-share'
-import  FacebookProvider,{ShareButton } from 'react-facebook-sdk';
 
 
 

@@ -6,12 +6,14 @@ import { useNavigate }  from 'react-router-dom'
 import { connect } from 'react-redux';
 import {signOutGoogleApi, signOutCustomApi,getUserAuth}  from  '../actions'
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 const  Header = (props) => {
 
     const [query, setQuery] = useState('');
     const [showdrawer, setshowdrawer] = useState(false);
+    const [authen, setAuthen]= useState('Login');
     const history = useNavigate();
 
 
@@ -27,7 +29,12 @@ const  Header = (props) => {
                sessionStorage.setItem("visitCount",null);
             });
             getUserAuth(window.sessionStorage.getItem("fbuser"));
-              
+
+            if(props.user){
+                sessionStorage.setItem("SignInUser",props.user.User ? JSON.stringify(props.user) : "")
+                setAuthen("Logout")
+            }
+
     },[])
 
 
@@ -68,9 +75,9 @@ const  Header = (props) => {
     }
 
     const userNav = () => {
-        history("/user");
-        window.scrollTo(0,0);
-        sessionStorage.setItem("View","user");
+            history("/user");
+            window.scrollTo(0,0);
+            sessionStorage.setItem("View","user");
     }
 
 
@@ -106,11 +113,11 @@ const  Header = (props) => {
         if(data === "Login")
             history("/auth");
         else{
-                history("/auth");
-                if(props.user)
-                    props.user.displayName ? props.logout(2) : props.logout(1)
-               
-                
+            setAuthen("Login") 
+            if(props.user)
+                props.user.displayName ? props.logout(2) : props.logout(1);
+            window.sessionStorage.setItem("SignInUser",null); 
+            history("/");
             }
          
     }
@@ -309,10 +316,11 @@ const  Header = (props) => {
                                 size={20}
                                 color="#fff"/>
                                 {props.user ?
-                                <span id='authstate'> {props.user ? "Logout": "Login"}</span>
+                                <span id='authstate'> {props.user ? authen: authen}</span>
                                 :props.fbuser ?
-                                <span id='authstate'>{props.fbuser ? "Logout": "Login"}</span>
-                                :  <span id='authstate'>Login</span> }
+                                <span id='authstate'>{props.fbuser ? authen: authen}</span>
+                                :<span id='authstate'>Login</span>
+                                 }
 
                             </a>
                         </Navchild>
@@ -714,7 +722,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    logout :(e) => e === 1 ?  dispatch(signOutCustomApi()) : dispatch(signOutGoogleApi()),
+    logout :(e) => { {e === 1 ?  dispatch(signOutCustomApi()) : dispatch(signOutGoogleApi())}   window.sessionStorage.setItem("SignInUser",null) },
 });
 
 

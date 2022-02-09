@@ -106,22 +106,22 @@ const WriteUp = (props) => {
                     <td> 
                      {length > 100 && props.User ===  process.env.REACT_APP_NOMAIL1 || props.User  === process.env.REACT_APP_NOMAIL2 || props.User === process.env.REACT_APP_NOMAIL3 ? 
                                 <div>
-                                    <pre>{ReactHtmlParser(props.writeup.substring(0, props.writeup.indexOf(">")))} </pre>  
+                                    <pre>{ReactHtmlParser(props.writeup.substring(0, props.writeup.indexOf("&%")))} </pre>  
                                     <Ad> 
                                     ADVERTISMENT
                                     </Ad>  
 
-                                    <pre>{ReactHtmlParser(props.writeup.substring(props.writeup.indexOf(">")+1, props.writeup.indexOf(">>")))} </pre>  
+                                    <pre>{ReactHtmlParser(props.writeup.substring(props.writeup.indexOf("&%")+2, props.writeup.indexOf("&%%")))} </pre>  
                                     <Ad>
                                       ADVERTISMENT
                                     </Ad> 
                                     
-                                    <pre>{ReactHtmlParser(props.writeup.substring(props.writeup.indexOf(">>")+2, props.writeup.indexOf(">>>")))} </pre>  
+                                    <pre>{ReactHtmlParser(props.writeup.substring(props.writeup.indexOf("&%%")+3, props.writeup.indexOf("&%%%")))} </pre>  
                                     <Ad>
                                         ADVERTISMENT 
                                     </Ad> 
 
-                                    <pre>{ReactHtmlParser(props.writeup.substring(props.writeup.indexOf(">>>")+3, props.writeup.length))} </pre>  
+                                    <pre>{ReactHtmlParser(props.writeup.substring(props.writeup.indexOf("&%%%")+4, props.writeup.length))} </pre>  
                                     <Ad>
                                         ADVERTISMENT 
                                     </Ad> 
@@ -257,6 +257,15 @@ font-family: Consolas,monospace;
 >a{
 text-decoration:none;
 color: #33ff00;
+}
+
+
+img{
+width: 100%;
+height: 350px;
+object-fit:cover;
+margin-top:50px;
+margin-bottom:50px;
 }
 
 

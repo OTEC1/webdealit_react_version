@@ -5,6 +5,7 @@ import { SET_USER ,SET_PROMISE,FB_USER} from './actionType';
 import axios from 'axios';
 import { async } from '@firebase/util';
 import swal from 'sweetalert2'
+var CryptoJS = require("crypto-js");
 
 
 
@@ -37,10 +38,10 @@ console.log(error)
 
 
 
-export function signInfacebookApi(member){
-    console.log("facebook");
+export function signInfacebookApi(m){
+    console.log("facebook",m);
     return (dispatch) => {
-            dispatch(setFBUSER(member))
+            dispatch(setFBUSER(m))
         }
 };
 
@@ -50,6 +51,7 @@ export function signInAPIGoogle(){
     return(dispatch) => {
         signInWithPopup(auth,provider)
         .then((paid) => {
+            console.log(paid.user)
             dispatch(setUser(paid.user))
         })
         .catch((err) => alert(err.message))
@@ -95,16 +97,24 @@ return  datas = datas.charAt(0).toUpperCase() + datas.slice(1);
 
 
 
-export function getUserAuth(data){
+export function getUserAuth(data,data2){
     return(dispatch)=> {
         
-        auth.onAuthStateChanged(async (use) => {
-            if(use)
-                dispatch(setUser(use))  
-         });
+            auth.onAuthStateChanged(async (use) => {
+                if(use)
+                    dispatch(setUser(use)) 
+            });
 
-        if(data)
-            dispatch(setFBUSER(app(data)))   
+            if(data)
+                dispatch(setFBUSER(app(data)))   
+
+            if(data2)
+                dispatch(setUser(data2))
+
+
+        
+
+               
     };
 };
 
@@ -114,7 +124,11 @@ export function app(es){
 }
 
 
-var CryptoJS = require("crypto-js");
+
+
+
+
+
 export function CustomSignIn(){
     return (dispatch)  => {    
       if(document.querySelector('#email').value.length <= 0 )
@@ -123,7 +137,7 @@ export function CustomSignIn(){
         swal.fire({text:"Pls fill out all fields ", icon:'warning'})
          else{ 
              dispatch(setPromise(true));
-            axios.post("https://us-central1-grelots-ad690.cloudfunctions.net/webdealitSignInUser",{User:{email:document.querySelector('#email').value,password:CryptoJS.AES.encrypt(document.querySelector('#password').value, process.env.REACT_APP_KEYS).toString()}})
+            axios.post(process.env.REACT_APP_CUSTOM_SIGN_IN_USER,{User:{email:document.querySelector('#email').value,password:CryptoJS.AES.encrypt(document.querySelector('#password').value, process.env.REACT_APP_KEYS).toString()}})
                 .then(res => {
                     
 

@@ -17,14 +17,14 @@ const Footer = (props) => {
             <LEFT> 
             <table>
                 <tr>
-                    <td>
+                    <td onClick={(e) => nav("contact",0,0)}>
                      Contact us &nbsp; <RiMessage2Line/>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                     <a  href="https://web.facebook.com/webflyblogger/?view_public_for=103951448871860&_rdc=1&_rdr">Like our Page on</a>  &nbsp;<RiFacebookBoxLine/> 
+                     <a  href={process.env.REACT_APP_FACE_PAGE_LINK}>Like our Page on</a>  &nbsp;<RiFacebookBoxLine/> 
                     </td>
                 </tr>
 

@@ -16,6 +16,7 @@ const User = (props) => {
 
     const [showModel, setShowModel] = useState("close");
     const [allUserPost, setAllUserPost] = useState(["one","two"]);
+    const [user, setUser] = useState({User:{email:""}})
 
     const redirectUser = (e) => {
         e.preventDefault();
@@ -40,95 +41,108 @@ const User = (props) => {
     }
 
 
-    var x = props.user ? props.user.email : '';
-    var e = {User:{useremail:x}};
+  
+  
 
     useEffect(() => {
-     window.scrollTo(0,0);
-     props.user ? (
-            axios.post(process.env.REACT_APP_GET_SINGLE_USE_POST,e)
-                    .then(res => {
-                        setAllUserPost(res.data.message);
-                    }).catch(err => {
-                        console.log(err);
-                    })
-     ):(<p></p>)
+
+   
+
+    if(props.user){
+        var e = {User:{useremail: props.user.User ?   props.user.User.email :  props.user.email}};
+        window.scrollTo(0,0);
+        if(e.User.useremail){
+            props.user ? (
+                    axios.post(process.env.REACT_APP_GET_SINGLE_USE_POST,e)
+                            .then(res => {
+                                setAllUserPost(res.data.message);
+                            }).catch(err => {
+                                console.log(err);
+                            })
+            ):(<p></p>)
+        }    
+    }
+
+ },[]);
 
 
-},[])
+
+
 
     return(
-        <Container>
-            <Section>
-                <Signinusersection>
-                    <User_Page>
-                    <CardBackground/>
-                           <UserInfo>
-                                <UserNameDisplay>
-                                Welcome {props.user ? props.user.displayName ?  props.user.displayName : props.user.User.email.substring(0,props.user.User.email.indexOf('@')) : "user" }  
-                                </UserNameDisplay>
-                            </UserInfo>
+        <>
+                <Container>
+                    <Section>
+                        <Signinusersection>
+                            <User_Page>
+                            <CardBackground/>
+                                <UserInfo>
+                                        <UserNameDisplay>
+                                        {/* Welcome {props.user ? props.user.displayName ?  props.user.displayName : props.user.User.email.substring(0,props.user.User.email.indexOf('@')) : "user" }   */}
+                                        </UserNameDisplay>
+                                    </UserInfo>
 
-                            <Sharebox  onClick={(e) => {redirectUser(e)}}>
-                                 What would you like to share?
-                            
-                                <div>
-                                {props.user ? 
-                                <>
-                                <img src={props.user.photoURL ? props.user.photoURL : "images/customSignInbackground.png" } alt=""/>
-                                <h5>{props.user.User !== undefined ? props.user.User.email.substring(0,1).toUpperCase(): ""}</h5>
-                                </>
-                                : <img src="/images/user.svg" alt=""/>
-                                }
-                                <button>Start a post</button>
-                                </div>
-                                
-                            </Sharebox>
-                    </User_Page>
-
-
-                    <User_Page2>
-                      <CardBackground/>
-                          
-                    </User_Page2>
-                </Signinusersection>
-                
-
-
-                <Signinuserrightsection>
-                   <CardBackground2/>
-
-                    {allUserPost.map((v,i) =>
-                        v.UserPost !== undefined  ? (
-                        <Postcards>
-                            {v.UserPost.image ?
-                             <img  src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.image}/>
-                            : v.UserPost.video ?
-                            <img  src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.video.replace("mp4","png")}/>
-                            : v.UserPost.youtubeLink ?
-                            <ReactPlayer />
-                            :<p></p>
-                            }
-                                <div>
-                                        <label>
-                                          {v.UserPost.writeup.length > 200 ? v.UserPost.writeup.substring(0,140)+"... read more" : v.UserPost.writeup}
-                                        </label>
+                                    <Sharebox  onClick={(e) => {redirectUser(e)}}>
+                                        What would you like to share?
+                                    
                                         <div>
-                                            <button><RiPencilLine/></button>
-                                            <button><RiDeleteBin3Line/> </button>
+                                        {props.user ? 
+                                        <>
+                                        <img src={props.user.photoURL ? props.user.photoURL : "images/customSignInbackground.png" } alt=""/>
+                                        <h5>{props.user.User !== undefined ? props.user.User.email.substring(0,1).toUpperCase(): ""}</h5>
+                                        </>
+                                        : <img src="/images/user.svg" alt=""/>
+                                        }
+                                        <button>Start a post</button>
                                         </div>
-                                </div>  
-                        </Postcards>
-                        ):<div  id='loaders'>
-                                Loading...
-                          </div>
-                    )}
-                
-                </Signinuserrightsection>
-                
-            </Section>
-            <Postmodel showModel={showModel} redirectUser={redirectUser}/>
-        </Container>
+                                        
+                                    </Sharebox>
+                            </User_Page>
+
+
+                            <User_Page2>
+                            <CardBackground/>
+                                
+                            </User_Page2>
+                        </Signinusersection>
+                        
+
+
+                        <Signinuserrightsection>
+                        <CardBackground2/>
+
+                            {allUserPost.map((v,i) =>
+                                v.UserPost !== undefined  ? (
+                                <Postcards>
+                                    {v.UserPost.image ?
+                                    <img  src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.image}/>
+                                    : v.UserPost.video ?
+                                    <img  src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.UserPost.video.replace("mp4","png")}/>
+                                    : v.UserPost.youtubeLink ?
+                                    <ReactPlayer />
+                                    :<p></p>
+                                    }
+                                        <div>
+                                                <label>
+                                                {v.UserPost.writeup.length > 200 ? v.UserPost.writeup.substring(0,140)+"... read more" : v.UserPost.writeup}
+                                                </label>
+                                                <div>
+                                                    <button><RiPencilLine/></button>
+                                                    <button><RiDeleteBin3Line/> </button>
+                                                </div>
+                                        </div>  
+                                </Postcards>
+                                ):<div  id='loaders'>
+                                        Loading...
+                                </div>
+                            )}
+                        
+                        </Signinuserrightsection>
+                        
+                    </Section>
+                    <Postmodel showModel={showModel} redirectUser={redirectUser}/>
+                </Container>
+        </>
     )
 }
 
