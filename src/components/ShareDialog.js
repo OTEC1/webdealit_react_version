@@ -23,10 +23,10 @@ const ShareDialog = (props) => {
                                     Share via
                                 </div>
                                     <FacebookShareButton
-                                        url={"https://us-central1-grelots-ad690.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_BASE_URL+props.musicThumb+"&a="+props.musicArtist.toUpperCase()+"&t="+props.musicTitle+"&d="+props.doc_id_b+"&s="+props.section+"&m="+props.mail}
-                                        quote={ props.section === "m" ? props.musicArtist.toUpperCase()+": "+  props.musicTitle+" Download @ webfly.click" : props.musicTitle}
-                                        onClick={(e) => reset(e)}>
-                                    <FacebookIcon round size={35}/>
+                                            url={"https://us-central1-grelots-ad690.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_BASE_URL+props.musicThumb+"&a="+props.musicArtist.toUpperCase()+"&t="+props.musicTitle+"&d="+props.doc_id_b+"&s="+props.section+"&m="+props.mail}
+                                            quote={ props.section === "m" ? props.musicArtist.toUpperCase()+": "+  props.musicTitle+" Download @ webfly.click" : props.musicTitle}
+                                            onClick={(e) => reset(e)}>
+                                        <FacebookIcon round size={35}/>
                                     </FacebookShareButton>
 
                         </div>
@@ -35,12 +35,12 @@ const ShareDialog = (props) => {
                             <div id="writeup">
                                 Share via
                             </div>
-                            <WhatsappShareButton
-                                 url={"https://us-central1-grelots-ad690.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_BASE_URL+props.musicThumb+"&a="+props.musicArtist.toUpperCase()+"&t="+props.musicTitle+"&d="+props.doc_id_b+"&s="+props.section+"&m="+props.mail}
-                                 quote={ props.section === "m"  ? props.musicArtist.toUpperCase()+": "+  props.musicTitle+" Download @ webfly.click" :  props.musicTitle}
-                                 onClick={(e) => reset(e)}>
-                            <WhatsappIcon round size={35}/>
-                            </WhatsappShareButton>
+                                <WhatsappShareButton
+                                    url={"https://us-central1-grelots-ad690.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_BASE_URL+props.musicThumb+"&a="+props.musicArtist.toUpperCase()+"&t="+props.musicTitle+"&d="+props.doc_id_b+"&s="+props.section+"&m="+props.mail}
+                                    quote={ props.section === "m"  ? props.musicArtist.toUpperCase()+": "+  props.musicTitle+" Download @ webfly.click" :  props.musicTitle}
+                                    onClick={(e) => reset(e)}>
+                                  <WhatsappIcon round size={35}/>
+                                </WhatsappShareButton>
                         </div>
 
 
@@ -49,12 +49,12 @@ const ShareDialog = (props) => {
                                 <div id="writeup">
                                     Share via
                                 </div>
-                                <TwitterShareButton
-                                    url={"https://us-central1-grelots-ad690.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_BASE_URL+props.musicThumb+"&a="+props.musicArtist.toUpperCase()+"&t="+props.musicTitle+"&d="+props.doc_id_b+"&s="+props.section+"&m="+props.mail}
-                                    quote={ props.section === "m"  ? props.musicArtist.toUpperCase()+": "+  props.musicTitle+" Download @ webfly.click" : props.musicTitle}
-                                   onClick={(e) => reset(e)}>
-                                <TwitterIcon round size={35}/>
-                                </TwitterShareButton>
+                                    <TwitterShareButton
+                                        url={"https://us-central1-grelots-ad690.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_BASE_URL+props.musicThumb+"&a="+props.musicArtist.toUpperCase()+"&t="+props.musicTitle+"&d="+props.doc_id_b+"&s="+props.section+"&m="+props.mail}
+                                        quote={ props.section === "m"  ? props.musicArtist.toUpperCase()+": "+  props.musicTitle+" Download @ webfly.click" : props.musicTitle}
+                                         onClick={(e) => reset(e)}>
+                                         <TwitterIcon round size={35}/>
+                                    </TwitterShareButton>
                         </div>
 
                         <button onClick={(e) => reset(e)}>Cancel</button>
@@ -74,7 +74,8 @@ height: 200px;
 z-index:500;
 background: #fff;
 border-radius:10px;
-margin-top:3%;
+margin-top:20%;
+top:0;
 padding: 20px;
 margin-left:35%;
 z-index:999;

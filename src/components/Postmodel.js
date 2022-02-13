@@ -225,7 +225,6 @@ const Postmodel = (props) => {
 
 
      const SEND_THUMBNAIL =  (args,data, section,cloud)  => {
-       
         if(args.length > 0){
          let file = args.toString().replace(".mp4",".png");
              const canvas = document.createElement("canvas");
@@ -272,7 +271,7 @@ const Postmodel = (props) => {
 
 
      const CLOUDINARY = (datas) => {
-            axios.post("https://us-central1-grelots-ad690.cloudfunctions.net/ImgResize",datas)
+            axios.post(process.env.REACT_APP_IMG_TRANSFOMATION,datas)
                    .then(res => {
                     console.log(res.data.message);
                     }).catch(err =>{
