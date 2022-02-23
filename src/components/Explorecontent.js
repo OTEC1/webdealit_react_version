@@ -12,14 +12,12 @@ import {formation} from '../actions'
 
 
 
+
+
  const Explorecontent = (props) => {
-
-
    
     let {frame,useremail,views,caller,doc_id_b} = useParams();
       
-
-
     const [doc_id_bs, setdoc_id_bs] = useState('');
     const [doc_id_a, setdoc_id_a] = useState('');
     const [title, settitle] = useState('');
@@ -49,11 +47,7 @@ import {formation} from '../actions'
                      setlikes(res.data.message.UserPost.likes);
                      setdate_time(res.data.message.UserPost.date_time);
                      setviewer(res.data.message.UserPost.views)
-                     sessionStorage.setItem("cloud",res.data.message.UserPost.cloudinaryPub)
-
-                     console.log(res.data.message.UserPost.cloudinaryPub,"HI")
-
-
+                     setcloud(res.data.message.UserPost.cloudinaryPub);
                     
                   })
                   .catch(err => {
@@ -81,19 +75,20 @@ import {formation} from '../actions'
                       cloud={sessionStorage.getItem("cloud")}
                       views={views}/> 
                     
-                :
-                <Explore frame={formation(frame.toLowerCase())} 
-                        useremail={useremail}
-                        doc_id_a={doc_id_a}
-                        doc_id_b={doc_id_bs}
-                        title={title}
-                        exifData={exifData}
-                        media={media}
-                        writeup={writeup}
-                        likes={likes}
-                        date_time={date_time}
-                        cloud={sessionStorage.getItem("cloud")}
-                        views={viewer}/>    
+                :(
+                      <Explore frame={formation(frame.toLowerCase())} 
+                              useremail={useremail}
+                              doc_id_a={doc_id_a}
+                              doc_id_b={doc_id_bs}
+                              title={title}
+                              exifData={exifData}
+                              media={media}
+                              writeup={writeup}
+                              likes={likes}
+                              date_time={date_time}
+                              cloud={cloud}
+                              views={viewer}/> 
+                )   
                 }
                 </>    
                  

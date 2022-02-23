@@ -61,10 +61,7 @@ const Explore  =  (props) => {
 
 
 
-    function permissoncheck(d){
-        // d.map(v=>{   
-        // })  
-    }
+    function permissoncheck(d){}
 
   
     return(
@@ -97,7 +94,7 @@ const Explore  =  (props) => {
                                         <MobileView>
                                             <CloudinaryContext cloudName="otecdealings">
                                                             <div>
-                                                            <Image alt={props.title}  publicId={sessionStorage.getItem("cloud")} width="100%"  height="100%">
+                                                            <Image alt={props.title}  publicId={ sessionStorage.getItem("cloud") ?  sessionStorage.getItem("cloud") : props.cloud } width="100%"  height="100%">
                                                                 <Transformation  angle={props.exifData} />
                                                             </Image>
                                                             </div>
@@ -107,7 +104,7 @@ const Explore  =  (props) => {
                                         
                                         <BrowserView>
                                             <CloudinaryContext cloudName="otecdealings">
-                                              <Image alt={props.title}  publicId={sessionStorage.getItem("cloud")} width="100%"  height="100%"/>
+                                              <Image alt={props.title}  publicId={sessionStorage.getItem("cloud") ?  sessionStorage.getItem("cloud") : props.cloud } width="100%"  height="100%"/>
                                             </CloudinaryContext> 
                                         </BrowserView>
 

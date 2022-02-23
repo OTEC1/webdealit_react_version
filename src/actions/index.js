@@ -39,7 +39,7 @@ console.log(error)
 
 
 export function signInfacebookApi(m){
-    console.log("facebook",m);
+    //console.log("facebook",m);
     return (dispatch) => {
             dispatch(setFBUSER(m))
         }
@@ -51,7 +51,6 @@ export function signInAPIGoogle(){
     return(dispatch) => {
         signInWithPopup(auth,provider)
         .then((paid) => {
-            console.log(paid.user)
             dispatch(setUser(paid.user))
         })
         .catch((err) => alert(err.message))
