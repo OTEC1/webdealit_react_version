@@ -85,7 +85,7 @@ import {formation} from '../actions'
                               media={media}
                               writeup={writeup}
                               likes={likes}
-                              date_time={date_time}
+                              date_time={date_time} 
                               cloud={cloud}
                               views={viewer}/> 
                 )   
