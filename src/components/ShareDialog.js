@@ -105,10 +105,11 @@ font-weight:700;
 position: fixed;
 overflow: hidden;
 width: 100%;
-height: auto;
+height: 250px;
 bottom: 0;
 margin-left:0px;
 margin-bottom:80px;
+margin-top:40vh;
 padding: 0px;
 
 #house{

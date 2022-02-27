@@ -102,6 +102,7 @@ import {formation} from '../actions'
 
  const Container = styled.div`
  position: relative;
+ background-image: linear-gradient(to top right,#1f505f, #07091C);
  
  `;
 
