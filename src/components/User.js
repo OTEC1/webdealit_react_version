@@ -20,9 +20,11 @@ const User = (props) => {
 
     const redirectUser = (e) => {
         e.preventDefault();
+
         if(props.user){
 
             switch(showModel){
+        
             case "open":
                 setShowModel("close");
                 break;
@@ -46,9 +48,8 @@ const User = (props) => {
 
     useEffect(() => {
 
-   
-
     if(props.user){
+
         var e = {User:{useremail: props.user.User ?   props.user.User.email :  props.user.email}};
         window.scrollTo(0,0);
         if(e.User.useremail){

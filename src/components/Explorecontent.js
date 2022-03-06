@@ -102,12 +102,11 @@ import {formation} from '../actions'
 
  const Container = styled.div`
  position: relative;
- background-image: linear-gradient(to top right,#1f505f, #07091C);
+ background:#f5f5f5;
  
  `;
 
 const Navs = styled.div`
-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 height:10vh;
 width:80%;
 margin:auto;

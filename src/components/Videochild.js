@@ -1,10 +1,10 @@
+import React,{useState , useEffect} from 'react';
 import styled from 'styled-components'
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 import { RiThumbUpLine, RiPlayCircleLine, RiGroup2Line, RiPlayLine, RiArrowLeftCircleLine,RiArrowRightCircleLine, RiShareBoxLine, RiShareLine, RiDownload2Line, RiThumbUpFill, RiRotateLockLine} from 'react-icons/ri'
 import { BiSlideshow, BiSortDown } from 'react-icons/bi';
 import {FaSearchengin, FaSearchPlus} from 'react-icons/fa'
-import { useState , useEffect} from 'react';
 import { format } from '../actions';
 import axios from 'axios';
 import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
@@ -12,44 +12,74 @@ import  {MobileView, BrowserView}  from 'react-device-detect';
 import {useNavigate} from 'react-router-dom';
 import swal from 'sweetalert2'
 import Loader from "react-loader-spinner"
+import Downloadmodel from './Downloadmodel'
 
 const Videochild = (props) => {
 
 
-    const [list1, setlist1] = useState([]);
-    const [list2, setlist2] = useState([]); 
+    const list0 =[];
+    const list1 = [];
+    const [list2, setlist2] = useState([]);
     const [update, setUpdate] = useState(false);
-    const list4 = ["2000", "2001","2002","2003"]
     const [progress1, setProgress1] = useState(false);
     const [progress2, setProgress2] = useState(false);
     const [returner, setReturner] = useState(10001);
+    const [showmodel, setshowmodel] = useState("close");
+    const [downloadlink, setdownloadlink] = useState('');
+    const [moviename, setmoviename] = useState('');
+    const list4 = ["2000", "2001","2002","2003"]
 
 
     useEffect(()=>{
-      Slideshow();
-      Recomendation();
-    },[]);
+      MovieCall(process.env.REACT_APP_GETMOVIES,1) 
+    },[window.addEventListener('beforeunload', () => {
+      MovieCall(process.env.REACT_APP_GETMOVIES,1)
+    })]);
 
 
-    const Slideshow =() => {
-        axios.get(process.env.REACT_APP_GETMOVIES)
-        .then(res => {
-            setlist1(res.data.message);
-        }).catch(err => {
-            console.log(err);
-        })
-        
+    const MovieCall = (url, n) => {
+
+      if(n == 1){
+              axios.get(url)
+              .then(res => {
+                  list0.push(res.data.message);
+                  MovieCall(process.env.REACT_APP_MORECLIPS,2);
+              }).catch(err => {
+                  console.log(err);
+              })
+         }
+         else if (n == 2){ 
+            var options = {
+
+              method: 'GET',
+              url: url,
+              params: {name: 'action', limit: '50', page: '1'},
+
+              headers: {
+                'x-rapidapi-host': process.env.REACT_APP_HOST_KEY,
+                'x-rapidapi-key': process.env.REACT_APP_MOVIEKEY
+              }
+            };
+            
+            axios.request(options).then(function (response) {
+              list1.push(response.data.results);
+              MovieCall("",3);
+            }).catch(function (error) {
+              console.error(error);
+            });
+      }else 
+         if(list0.length > 0 && list1.length > 0) 
+             setlist2(mashup(list0.concat(list1)))
+         
+  
     }
 
-    const Recomendation =() => {
-        axios.get(process.env.REACT_APP_GETRECOMENDED_MOVIES)
-        .then(res => {
-            setlist2(res.data.message);
-        }).catch(err => {
-            console.log(err);
-        })
-        
+ 
+
+    const mashup = (args) => {
+      return [...new Set([].concat(...args))];
     }
+
 
    const thanks = ()  => {
      if(!update)
@@ -58,56 +88,49 @@ const Videochild = (props) => {
          setUpdate(false);
    }
 
-
-   const reset = (e) => {
-     setUpdate(false);
-     //console.log(e.slideIndex)
-   }
-
-
-
  
-   const startDowload = (url,title,index,ins) => {
-    
-    setReturner(ins);
-    
 
-  
+
+
+   const startDownload = (index,ins,dlk,name) => {
+
+        console.log(dlk);
+        
+         setReturner(ins);
+         setdownloadlink(dlk);
+         setmoviename(name);
+   
         if(index === 1)
            setProgress1(true);
         else
            setProgress2(true)
 
-
-    axios({ url: url,
-      method: 'GET', responseType: 'blob',})
-      .then((response) => {   
-       
-         const url = window.URL.createObjectURL(new Blob([response.data])); 
-         const link = document.createElement('a');
-         link.href = url; link.setAttribute('download', title);
-         document.body.appendChild(link); link.click(); 
-
-          if(index === 1)
-             setProgress1(false);
-          else
-            setProgress2(false);
-
-      }).catch(err => {
-          alert(err);
-          if(index === 1)
-              setProgress1(false);
-          else
-            setProgress2(false);
-      })
+        switch(showmodel){
+          case "open":
+                setshowmodel("close");
+                break;
+          case "close":
+                setshowmodel("open");
+                break;
+          default:
+                setshowmodel("close");
+                break;
+        }
+ 
    }
 
 
+
+   const reset = (e) => {
+    setUpdate(false);
+    //console.log(e.slideIndex)
+  }
 
 
 
 
 return(
+
     <>
     <Container>
         <SortDivs>
@@ -127,12 +150,12 @@ return(
                       </div>
 
                       <div>
-                        <span>Year released</span> 
+                        {/* <span>Year released</span> 
                         <select>
                           {list4.map((v,i) =>
                             <option  key={i}>{v}</option>
                           )}
-                        </select>
+                        </select> */}
                       </div>
 
                     <BottomQuery>
@@ -147,22 +170,42 @@ return(
 
         <MovieSection>
             <TopSection>   
-                <Slider  id="slider" duration={3500} autoplay={1} previousButton={<RiArrowLeftCircleLine color="#f5f5f5"/>} nextButton={<RiArrowRightCircleLine  color="#f5f5f5"/>}  onSlideChange={(e) => reset(e)}>
-                    {list1.map((v,i) =>
+                 <Slider  id="slider" duration={3500} autoplay={1} previousButton={<RiArrowLeftCircleLine color="#f5f5f5"/>} nextButton={<RiArrowRightCircleLine  color="#f5f5f5"/>}  onSlideChange={(e) => reset(e)}>
+                    {list2.map((v,i) =>
                        <div>
+                            
                             <Readmore>
-                             {v.writeUp}
-                            </Readmore>
-                              <img  style={{transform: [{rotate: `${v.spin}deg`}]}} src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"}/>
+                             {i === 0 || i === 1 ?
+                                v.writeUp.length >= 140 ? v.writeUp.substring(0,140) : v.writeUp
+                                : 
+                                v.overview.length >= 140 ? v.overview.substring(0,140) + " ..." : v.overview
+                                }
+                             </Readmore>
+
+                              <img  style={{transform: [{rotate: `${v.spin}deg`}]}} 
+                               src={
+                                i === 0 || i === 1 ?
+                                process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"
+                                : 
+                                process.env.REACT_APP_MOVIE_THUMBNAIL+v.poster_path
+                                 }
+                               />
                          
 
                                <div id='contain'>
+                                    
                                     <div  id='Top_teaser' onClick={() => thanks()}>
                                      {update ? <RiThumbUpFill  id="icons"  color='#4180FF'  />  : <RiThumbUpLine  id="icons"  color='#f5f5f5'  /> }{update ?  parseInt(v.likes)+1 : format(v.likes)}
                                     </div>
 
                                     <pre  id='WriteUp'>
-                                        {v.writeUp}
+
+                                        { i === 0 || i === 1 ?
+                                           v.writeUp.length >= 225 ? v.writeUp.substring(0,225) : v.writeUp
+                                           : 
+                                           v.overview.length >= 225 ? v.overview.substring(0,225) + " ..." : v.overview
+                                        }
+
                                     </pre>
 
                                     <div  id='Bottom_teaser'>
@@ -175,23 +218,39 @@ return(
                                  <table>
                                      <tr>
                                          <td>
-                                         <label  id='Upcaving'>Title: {v.Mtitle}</label> 
-                                           {!progress1? 
+                                         <label  id='Upcaving'>
+                                           Title: 
+                                           { i === 0 || i === 1 ?
+                                            v.Mtitle
+                                            : 
+                                            v.title
+                                            }
+                                         </label> 
+                                           {!progress1 ? 
+
                                             <label  id='Upcaving' 
-                                                onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4", v.Mtitle+".mp4",1,i)}>
-                                              Download  &nbsp;&nbsp;<RiDownload2Line id='Slider_icons'/>
+                                                onClick={(e) => startDownload(1,i, i <= 1 ?  process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4" : v.download_links , i <= 1  ? v.Mtitle+".mp4" : v.title+".mp4") }>
+                                                Download  &nbsp;&nbsp;<RiDownload2Line id='Slider_icons'/>
                                             </label> 
+
                                              : returner === i ?
-                                             <label id='Upcaving'> <Loader  type="Oval" color="#f5f5f5" height={20}width={20}/></label>
+                                               <label id='Upcaving'> <Loader  type="Oval" color="#f5f5f5" height={20}width={20}/></label>
                                              :
                                              <label  id='Upcaving' 
-                                               onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4", v.Mtitle+".mp4",1,i)}>
-                                              Download  &nbsp;&nbsp;<RiDownload2Line id='Slider_icons'/>
+                                               onClick={(e) => startDownload(1,i, i <= 1 ?  process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4" : v.download_links , i <= 1  ? v.Mtitle+".mp4" : v.title+".mp4") }>
+                                               Download  &nbsp;&nbsp;  <RiDownload2Line id='Slider_icons'/>
                                              </label> 
 
                                             }
                                          
-                                          <label  id='Upcaving'>Year release: {v.year}</label>
+                                          <label  id='Upcaving'>
+                                            Year release: 
+                                            { i === 0 || i === 1 ?
+                                              v.year
+                                              :
+                                               " "
+                                            }
+                                          </label>
                                          </td>
                                      </tr>
 
@@ -201,7 +260,7 @@ return(
 
                        </div>
                          )}
-                    </Slider>
+                    </Slider> 
             </TopSection>
 
             
@@ -216,38 +275,64 @@ return(
                           <MobileView>
                            <img 
                               style={{ transform: `rotate(${v.spin}deg)`}}
-                              src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
+                              src={ 
+                                i === 0 || i === 1 ?
+                                process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"
+                                : 
+                                process.env.REACT_APP_MOVIE_THUMBNAIL+v.poster_path
+                                } />
                           </MobileView>
 
                            <BrowserView> 
                             <img 
-                            src={process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"} />
+                             src={ 
+                              i === 0 || i === 1 ?
+                               process.env.REACT_APP_APP_S3_STREAM_THUMB_NAIL_BUCKET+v.fileName+".png"
+                              : 
+                               process.env.REACT_APP_MOVIE_THUMBNAIL+v.poster_path
+                              }
+                              />
                           </BrowserView>
 
 
                            <div  id='downComponent'>
-                            {!progress2?
+                            {!progress2 ?
                             <label  id='caving'>
-                              <RiDownload2Line onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4",v.Mtitle+".mp4",2,i)} />
+                              <RiDownload2Line onClick={(e) => startDownload(2,i, i <= 1 ?  process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4" : v.download_links , i <= 1  ?  v.Mtitle+".mp4" :  v.title+".mp4") } />
                             </label> 
                             : returner === i ?
-                            <label  id='caving'><Loader  type="Oval" color="#f5f5f5" height={20}width={20}/></label>
+                            <label  id='caving'><Loader  type="Oval" color="#f5f5f5" height={20} width={20}/></label>
                             :
                             <label  id='caving'>
-                              <RiDownload2Line onClick={(e) => startDowload(process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4",v.Mtitle+".mp4",2,i)} />
+                              <RiDownload2Line onClick={(e) => startDownload(2,i , i <= 1 ?  process.env.REACT_APP_APP_S3_STREAM_VIDEO_BUCKET+v.fileName+".mp4" : v.download_links , i <= 1  ? v.Mtitle+".mp4" : v.title+".mp4") } />
                             </label> 
-                           
                            }
-                            <label  id='cavingName'>{v.Mtitle}</label>
+
+                            <label  id='cavingName'>
+                               Title: 
+                              { i === 0 || i === 1 ?
+                               v.Mtitle
+                              : 
+                              v.title.length > 20 ? v.title.substring(0,17) +"...": v.title
+                              }
+                            </label>
+
                            </div>
- 
                     </div>
+                    
                     )}
                 </BottomSection>
-                
         </MovieSection>
         <br/><br/><br/>
     </Container>
+
+                   { downloadlink ?
+                      <Downloadmodel showModel={showmodel}  closemodel={startDownload}  link={downloadlink} moviename={moviename}/>
+                    :
+                     console.log("None")
+                   }
+  
+   
     </>
 )
 }

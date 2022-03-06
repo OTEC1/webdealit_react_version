@@ -23,25 +23,30 @@ import TwoTone from './TwoTone';
 
 
     useEffect(() => {
-      axios.get(process.env.REACT_APP_MOVIES_CATEGORY)
-      .then(res => {
-        setList3(res.data.message)
-      })
-      .catch(err => {
-        console.log(err);
-      })
-
+      Movie1(process.env.REACT_APP_MOVIES_CATEGORY,1);
     },[])
    
 
 
+
+    function Movie1 (url, index) {
+      if(index === 1)
+          axios.get(url)
+          .then(res => {
+            setList3(res.data.message)
+          })
+          .catch(err => {
+            console.log(err);
+          })
+    } 
   
     return (
       <>
      <TwoTone/>
      <Container>
             {list3.length > 0 ? (
-              <Videochild  post={list3.length > 0 ? list3 : []}/>
+
+               <Videochild  post={list3.length > 0 ? list3 : []}/>
                 ):
                 (
                   <div  id="loader">

@@ -93,11 +93,11 @@ const Explore  =  (props) => {
 
                                         <MobileView>
                                             <CloudinaryContext cloudName="otecdealings">
-                                                            <div>
-                                                            <Image alt={props.title}  publicId={ sessionStorage.getItem("cloud") ?  sessionStorage.getItem("cloud") : props.cloud } width="100%"  height="100%">
-                                                                <Transformation  angle={props.exifData} />
-                                                            </Image>
-                                                            </div>
+                                               <div>
+                                                <Image alt={props.title}  publicId={ sessionStorage.getItem("cloud") ?  sessionStorage.getItem("cloud") : props.cloud } width="100%"  height="100%">
+                                                    <Transformation  angle={props.exifData} />
+                                                </Image>
+                                               </div>
                                             </CloudinaryContext> 
                                         </MobileView>
 
@@ -180,7 +180,7 @@ margin-bottom:100px;
 
 
 const Content = styled.div`
-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 width:80%;
 margin:auto;
 margin-top:40px;

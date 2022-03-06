@@ -96,8 +96,7 @@ const Top = (props) => {
                           nextButton={<RiArrowRightCircleLine color="red"/>}>
                           {L1.length <= 0 ?<p></p>
                             : 
-                          L1.map((value, index) => 
-                            value.UserPost.image ?
+                          L1.map((value, index) => value.UserPost.image ?
                             <div>
                               <PosterDetails>
                                  <img id="userImg" src={value.User.user_img !== "icons" ?  
@@ -249,7 +248,7 @@ const Top = (props) => {
 
                  <TopOuterDiv onScroll={onScrollRecoder} ref={myref}>      
                     <SectionTab>
-                      <RiTv2Line   size={20}  color="red"/> <h4>Gist feed</h4>
+                      <RiTv2Line   size={20}  color="red"/> <h4>Sidebar feeds</h4>
                     </SectionTab>
                     <TopRightinnerDiv>
                       {L2.length <= 0 ? <p></p>
@@ -410,6 +409,12 @@ height: 50vh;
 const TopLeftinnerDiv = styled.div`
 height: 100%;
 width: 50%;
+
+div{
+border-radius:15px;
+}
+
+
 @media(max-width:768px){
 width: 100%;
 height: 90%;

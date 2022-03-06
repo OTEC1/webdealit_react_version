@@ -218,6 +218,7 @@ font-weight:500;
 max-width:100%;
 width:100%;
 margin-left:10px;
+color: #636360;
 
 
 #sharebtn{
@@ -253,7 +254,10 @@ pre{
 word-wrap: break-word;
 height: auto;
 white-space: pre-wrap;
-font-family: Consolas,monospace;
+font-family: san-serif;
+font-size:16pt;
+color: #636360;
+
 
 >a{
 text-decoration:none;
@@ -318,7 +322,7 @@ text-align:left;
 const Ad = styled.div`
 width: 100%;
 height: 100px;
-color:#f5f5f5;
+color: #636360;
 text-align:center;
 
 `;
@@ -333,7 +337,7 @@ label{
 color:red
 font-weight:900;
 font-size:15pt;
-color:#fff;
+color: #636360;
 font-family: "Poppins", sans-serif;
 }
 
@@ -379,7 +383,7 @@ height: 170px;
 background: #fff;
 border-radius:10px;
 margin: 10px;
-
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
 #im{
 border-radius:5px;
