@@ -254,7 +254,7 @@ pre{
 word-wrap: break-word;
 height: auto;
 white-space: pre-wrap;
-font-family: san-serif;
+font-family: "Poppins", sans-serif;
 font-size:16pt;
 color: #636360;
 

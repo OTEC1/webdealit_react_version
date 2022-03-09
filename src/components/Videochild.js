@@ -365,6 +365,7 @@ text-align:center;
 cursor: pointer;
 }
 
+
 tr td{
 display: flex;
 }
