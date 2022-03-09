@@ -315,6 +315,11 @@ float: none;
 text-align:left;
 }
 }
+
+
+pre{
+font-size:12pt;
+}
 `;
 
 

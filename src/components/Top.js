@@ -85,6 +85,7 @@ const Top = (props) => {
      <Container>
              <TopSection>
                 <TopLeftinnerDiv>
+
                   <SectionTab>
                     <RiLiveFill   size={20}  color="red"/> <h4>Explore feeds</h4>
                   </SectionTab>
@@ -96,20 +97,22 @@ const Top = (props) => {
                           nextButton={<RiArrowRightCircleLine color="red"/>}>
                           {L1.length <= 0 ?<p></p>
                             : 
-                          L1.map((value, index) => value.UserPost.image ?
+                           L1.map((value, index) => value.UserPost.image ?
+                            
                             <div>
-                              <PosterDetails>
-                                 <img id="userImg" src={value.User.user_img !== "icons" ?  
-                                    value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
-                                &nbsp;&nbsp;
-                                {value.User.useremail}
-                              </PosterDetails>
+
+                                <PosterDetails>
+                                  <img id="userImg" src={value.User.user_img !== "icons" ?  
+                                      value.User.user_img : "images/customSignInbackground.png"} onClick={UserPage}/>
+                                       &nbsp;&nbsp;
+                                  {value.User.useremail}
+                                </PosterDetails>
 
 
                                     <BrowserView>
                                         <CloudinaryContext cloudName="otecdealings">
                                               <div>
-                                                <Image  alt={value.UserPost.title} height="500"  width="500" publicId={value.UserPost.cloudinaryPub}/>
+                                                <Image  alt={value.UserPost.title} height="500"  width="100%" publicId={value.UserPost.cloudinaryPub}/>
                                               </div>
                                         </CloudinaryContext>
                                     </BrowserView>
@@ -120,9 +123,7 @@ const Top = (props) => {
                                                    <Transformation  angle={value.UserPost.exifData} />
                                                  </Image>
                                         </CloudinaryContext>
-                                    </MobileView>
-                                     
-                                 
+                                    </MobileView>   
 
                                     <WriteUp 
                                           onClick={(e) => navigates({frame:"Pictureframe",useremail:value.User.useremail, doc_id_a:value.UserPost.doc_id_a,doc_id_b:value.UserPost.doc_id_b, title:value.UserPost.title, cloudinaryPub: value.UserPost.cloudinaryPub, exifData: value.UserPost.exifData, media: value.UserPost.image, writeup: value.UserPost.writeup, date_time:value.UserPost.date_time, likes:value.UserPost.likes,views:value.UserPost.views})}>
@@ -243,8 +244,6 @@ const Top = (props) => {
                 <AdRunner>
 
                 </AdRunner>
-
-
 
                  <TopOuterDiv onScroll={onScrollRecoder} ref={myref}>      
                     <SectionTab>
@@ -411,9 +410,10 @@ height: 100%;
 width: 50%;
 
 div{
+img{
 border-radius:15px;
 }
-
+}
 
 @media(max-width:768px){
 width: 100%;
