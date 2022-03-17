@@ -9,14 +9,14 @@ import Header from './Header'
 import Ad from './Ad'
 import Load from './Load';
 import TwoTone from './TwoTone';
-
+import Helmet from 'react-helmet'
 
 
 
 
  const Videoui = (props) => {
 
-  document.title = "Webfly Video Gallery"
+
 
     const [list3, setList3] = useState([]); 
     const myref = useRef();
@@ -42,6 +42,12 @@ import TwoTone from './TwoTone';
   
     return (
       <>
+     <Helmet>
+            <title>Webfly Video Gallery</title>
+            <meta name='description'  content='Movie Downloads'/>
+            <meta name='robots'  content='INDEX, FOLLOW'/>
+     </Helmet>
+      
      <TwoTone/>
      <Container>
             {list3.length > 0 ? (

@@ -11,6 +11,7 @@ import {BiCreditCard} from 'react-icons/bi'
 import {FaSyncAlt} from 'react-icons/fa'
 import TwoTone from "./TwoTone";
 import { useNavigate } from "react-router-dom";
+import Helmet from 'react-helmet';
 
 
 const Home = (props) => {
@@ -60,6 +61,12 @@ const runner = (e) => {
 
         return(
           <>
+             <Helmet>
+              <title>Home page</title>
+              <meta name="description" content="Home page" />
+              <meta name="robots" content="INDEX,FOLLOW" />
+           </Helmet>
+
           <TwoTone/>  
           <Container>
             <TopHouseContainer>

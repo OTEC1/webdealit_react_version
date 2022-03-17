@@ -13,6 +13,10 @@ import {useNavigate} from 'react-router-dom';
 import swal from 'sweetalert2'
 import Loader from "react-loader-spinner"
 import Downloadmodel from './Downloadmodel'
+import Helmet from 'react-helmet'
+
+
+
 
 const Videochild = (props) => {
 
@@ -132,6 +136,13 @@ const Videochild = (props) => {
 return(
 
     <>
+
+      <Helmet>
+            <title>Webfly Video Gallery</title>
+            <meta name='description'  content='Movie Downloads'/>
+            <meta name='robots'  content='INDEX, FOLLOW'/>
+     </Helmet>
+
     <Container>
         <SortDivs>
            <Sort>

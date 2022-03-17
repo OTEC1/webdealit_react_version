@@ -255,7 +255,7 @@ word-wrap: break-word;
 height: auto;
 white-space: pre-wrap;
 font-family: "Poppins", sans-serif;
-font-size:16pt;
+font-size:12pt;
 color: #636360;
 
 
@@ -316,10 +316,6 @@ text-align:left;
 }
 }
 
-
-pre{
-font-size:12pt;
-}
 `;
 
 
@@ -331,6 +327,8 @@ color: #636360;
 text-align:center;
 
 `;
+
+
 
 
 const MoreContent = styled.div`

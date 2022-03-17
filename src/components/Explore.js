@@ -11,13 +11,13 @@ import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
 import  {MobileView, BrowserView}  from 'react-device-detect';
 import { connect } from 'react-redux';
 import axios from 'axios';
-
+import Helmet from 'react-helmet'
 
 
 
 const Explore  =  (props) => {
 
-    document.title = props.title
+   
 
     useEffect(()=>{
         window.scrollTo(0,0);
@@ -65,10 +65,16 @@ const Explore  =  (props) => {
 
   
     return(
-      <Container>
+     <>
+        <Helmet>
+            <title>{props.title}</title>
+            <meta name='description'  content='Article Read'/>
+            <meta name='robots'  content='INDEX, FOLLOW'/>
+        </Helmet>
 
-       <Content>
-                           {props.frame === "Pictureframe" ? (
+      <Container>
+          <Content>
+            {props.frame === "Pictureframe" ? (
                                 <div className='frame'>  
                                    <div>  
 
@@ -163,7 +169,7 @@ const Explore  =  (props) => {
                            }
         </Content>
         </Container>
-      
+     </>
     
     )
 

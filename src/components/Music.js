@@ -9,6 +9,7 @@ import  {MobileView, BrowserView}  from 'react-device-detect';
 import Load from './Load'
 import TwoTone from './TwoTone'
 import { formation } from '../actions'
+import Helmet from 'react-helmet'
 
 
 
@@ -87,6 +88,11 @@ import { formation } from '../actions'
 
     return (
         <>
+        <Helmet>
+            <title>Music</title>
+            <meta name='description'  content='Latest Music'/>
+            <meta name='robots'  content='INDEX, FOLLOW'/>
+        </Helmet>
                 <TwoTone/>
                 <Container>
                     <SideNav>
