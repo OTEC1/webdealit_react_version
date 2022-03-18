@@ -133,7 +133,7 @@ overflow-y:scroll;
 display: none;
 }
 
-@media(max-width:768px){
+@media(max-width:968px){
 margin-top:200px;
 }
 `;
@@ -161,7 +161,7 @@ padding: 5px;
 }
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 margin: 2px;
 width: 90%;
 height: 350px;

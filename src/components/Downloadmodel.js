@@ -178,7 +178,7 @@ margin: 0 auto;
 margin-top:100px;
 
 
-@media(max-width: 768px){
+@media(max-width: 968px){
 max-width:100%;
 }
 

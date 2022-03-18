@@ -256,7 +256,7 @@ margin-right:auto;
 }
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 #loader{    
 margin-top:45%;
 height:100px;
@@ -273,7 +273,7 @@ background:#f2f5fc;
 margin-top:137px;
 padding-left:18px;
 
-@media(max-width:768px){
+@media(max-width:968px){
 display: none;
 }
 `;
@@ -335,7 +335,7 @@ margin-top:137px;
 
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 width: 100%;
 margin-top:150px;
 }
@@ -355,7 +355,7 @@ font-family: "Poppins", sans-serif;
 }
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 h1{
 font-size:15pt;  
 } 
@@ -392,7 +392,7 @@ overflow-x:scroll;
 }
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 height: 100%;
 text-align:center;
 }
@@ -426,7 +426,7 @@ color:#b8b9be;
 margin: 0px;
 }
 
-@media(max-width:768px){  
+@media(max-width:968px){  
 width: 100px;
 height: 100px;
 margin:5px;

@@ -394,7 +394,7 @@ margin-right:auto;
 }
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 #loader{    
 margin-top:45%;
 height:100px;
@@ -411,7 +411,7 @@ background:#f2f5fc;
 margin-top:137px;
 padding-left:18px;
 
-@media(max-width:768px){
+@media(max-width:968px){
 display: none;
 }
 `;
@@ -471,7 +471,7 @@ width:80%;
 margin-top:137px;
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 width: 100%;
 margin-top:150px;
 }
@@ -491,7 +491,7 @@ font-family: "Poppins", sans-serif;
 }
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 h1{
 font-size:15pt;  
 } 
@@ -544,7 +544,7 @@ cursor: pointer;
 }
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 flex-wrap:wrap;
 height: 500px;
 
@@ -568,7 +568,7 @@ height: 100%;
 object-fit:cover;
 }
 
-@media(max-width:768px){
+@media(max-width:968px){
 width: 100%;
 height: 60%;
 img{
@@ -582,7 +582,7 @@ height: 300px;
 const RIGHTWING = styled.div`
 height: 100%;
 width: 47.5%;
-@media(max-width:768px){
+@media(max-width:968px){
 width: 100%;
 }
 
@@ -601,7 +601,7 @@ overflow-x:scroll;
 }
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 height: 50%;
 text-align:center;
 }
@@ -635,7 +635,7 @@ color:#b8b9be;
 margin: 0px;
 }
 
-@media(max-width:768px){  
+@media(max-width:968px){  
 width: 100px;
 height: 100px;
 margin:5px;
@@ -687,7 +687,7 @@ font-weight:700;
 
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 position: absolute;
 overflow: hidden;
 width: 100%;

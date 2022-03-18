@@ -409,7 +409,7 @@ width: 50px;
 height: 50px;
 }
 
-@media(max-width:768px){
+@media(max-width:968px){
 font-size:15pt;
 margin: 0px;
 margin-top:-20px;
@@ -449,7 +449,7 @@ width: 178px;
 }
 }
 
-@media(max-width:768px){
+@media(max-width:968px){
 input{
 display: none;
 }
@@ -507,7 +507,7 @@ const NavBar = styled.div`
 #menu{
 display: none;
 }
-@media(max-width:768px){
+@media(max-width:968px){
 position: absolute;
 top:0;
 right: 0;
@@ -537,13 +537,13 @@ cursor:pointer;
 display: flex;
 justify-content: center;
 
-@media(max-width:768px){
+@media(max-width:968px){
 display: none;
 }
 `;
 
 const SearchIcons = styled(SearchIcon)`
-@media(max-width:768px){
+@media(max-width:968px){
 display:block;
 margin-left:15px;
 }
@@ -557,7 +557,7 @@ display: block;
 
 
 
-@media(max-width: 768px){
+@media(max-width: 968px){
 position: fixed;
 left: 0;
 bottom: 0;
@@ -575,7 +575,7 @@ list-style-type:none;
 margin-right: 40px;
 } 
 
-@media(max-width:768px){
+@media(max-width:968px){
 width: 100%;
 height: 60px;
 display: flex;
@@ -644,7 +644,7 @@ color:rgba(0,0,0,0.9);
 
 
 const SideNav = styled.div`
-@media(max-width:768px){
+@media(max-width:968px){
 width:90%;
 height: 100vh;
 margin-top:10px;

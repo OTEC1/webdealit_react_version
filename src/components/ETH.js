@@ -148,7 +148,7 @@ margin-right:auto;
 }
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 overflow-x:hidden;
 #loader{    
 margin-top:45%;
@@ -168,7 +168,7 @@ margin-top:137px;
 
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 width: 100%;
 margin-top:150px;
 }
@@ -188,7 +188,7 @@ font-family: "Poppins", sans-serif;
 }
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 h1{
 font-size:15pt;  
 } 
@@ -243,7 +243,7 @@ border-radius:7px;
 
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 height: 90%;
 text-align:center;
 
@@ -283,7 +283,7 @@ text-align:left;
 }
 
 
-@media(max-width:768px){  
+@media(max-width:968px){  
 width: 45%;
 height: 250px;
 margin:7px;

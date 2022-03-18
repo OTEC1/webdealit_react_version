@@ -105,8 +105,7 @@ table{
 padding-top:50px;
 padding-bottom:50px;
 }
-@media(max-width:768px){
-}
+
 `;
 
 
@@ -133,7 +132,7 @@ font-family: "Poppins", sans-serif;
 color: #f5f5f5;
 }
 }
-@media(max-width:768px){
+@media(max-width:968px){
 border-top:1px solid #fff;
 margin-top:35px;
 width: 90%;
@@ -158,7 +157,7 @@ align-items:center;
 text-align:left;
 }
 
-@media(max-width:768px){
+@media(max-width:968px){
 margin-top:35px;
 width: 90%;
 border-top:1px solid #fff;
@@ -169,7 +168,7 @@ border-top:1px solid #fff;
 const RIGHT = styled.div`
 width: 35%;
 height: 100%;
-@media(max-width:768px){
+@media(max-width:968px){
 width: 100%;
 }
 `;

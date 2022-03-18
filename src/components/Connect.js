@@ -218,7 +218,7 @@ margin-top:10%;
 
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 overflow-x:hidden;
 
 #spinner{

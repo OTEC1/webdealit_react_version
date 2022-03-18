@@ -171,7 +171,7 @@ height:90px;
 z-index:100;
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 display: flex;
 flex-flow: column nowrap;
 margin-bottom:55px;
@@ -206,7 +206,7 @@ color: #ffffff;
 }
 
 
-@media(max-width:768px){  
+@media(max-width:968px){  
 height: 50%;
 width:100%;
 .rhap_container svg{
@@ -223,7 +223,7 @@ display: flex;
 width:25%;
 height: 100%;
 
-@media(max-width:768px){
+@media(max-width:968px){
 width:100%;
 height: 70%;
 text-align:left;
@@ -239,7 +239,7 @@ padding-top: 35px;
 cursor: pointer;
 justify-content:center;
 
-@media(max-width:768px){
+@media(max-width:968px){
 padding-top: 0px;
 width: 0%;
 }
@@ -277,7 +277,7 @@ color: #b8b9be;
 }
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 width:100%;
 flex-direction:row;
 img{
@@ -306,7 +306,7 @@ height: 100%;
 color:#ffffff;
 display: flex;
 
-@media(max-width:768px){
+@media(max-width:968px){
 flex-direction:row;
 height: 50%;   
 width:100%;
@@ -344,7 +344,7 @@ margin-top:-25px;
 
 
 
-@media(max-width:768px){
+@media(max-width:968px){
 width: 50%;
 margin-left:0px;
 div{    
@@ -380,7 +380,7 @@ div>h5{
 font-size:8pt;    
 }
 
-@media(max-width:768px){
+@media(max-width:968px){
 div{
 height: 100%;
 }
