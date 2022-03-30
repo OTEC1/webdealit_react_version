@@ -201,18 +201,9 @@ props.getUserAuth();
             <Route   path="/explorecontent/:frame/:useremail/:views/:caller/:doc_id_b"  element={<Explorecontent/>}/>
           </Routes>
 
-   
           <Routes>
             <Route   path="/explorecontent/:frame/:useremail/:views/:caller/:doc_id_b"  element={<Footer/>}/>
           </Routes>
-
-
-
-
-
-
-
-
 
 
           <Routes>
